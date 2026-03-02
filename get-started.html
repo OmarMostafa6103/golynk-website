@@ -2441,16 +2441,31 @@
             try {
               // Submit to Apps Script endpoint
               console.log(`[INTAKE FORM] Posting to ${INTAKE_WEBAPP_URL}`);
+              console.log(
+                "[INTAKE FORM] Request body:",
+                JSON.stringify(payload),
+              );
+
               const response = await fetch(INTAKE_WEBAPP_URL, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify(payload),
-                mode: "no-cors",
               });
 
-              console.log("[INTAKE FORM] Fetch completed, response:", response);
+              console.log("[INTAKE FORM] Fetch completed");
+              console.log("[INTAKE FORM] Response status:", response.status);
+              console.log("[INTAKE FORM] Response ok:", response.ok);
+
+              // Try to read response
+              let responseText = "";
+              try {
+                responseText = await response.text();
+                console.log("[INTAKE FORM] Response text:", responseText);
+              } catch (readErr) {
+                console.log("[INTAKE FORM] Could not read response:", readErr);
+              }
 
               // Hide form content, show success message
               Array.from(form.children).forEach((child) => {
