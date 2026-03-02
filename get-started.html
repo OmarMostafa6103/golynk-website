@@ -2308,6 +2308,11 @@
         });
 
         function openModal(card) {
+          if (!card) {
+            console.error("Card is null/undefined in openModal");
+            return;
+          }
+
           if (activeCard) closeModal();
 
           activeCard = card;
