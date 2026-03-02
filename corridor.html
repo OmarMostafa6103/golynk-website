@@ -1,0 +1,1717 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/golynk-website/assets/Logo-Cabx5owX.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Corridor Activation Proposal - GoLynk</title>
+    <meta
+      name="description"
+      content="Submit a corridor activation proposal to GoLynk. We activate corridors where routes repeat and density compounds."
+    />
+    <!-- amCharts for corridor map -->
+    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/germanyLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/region/world/europeLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+    <style>
+      /* Chip styles for multi-select */
+      .chip-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .chip-input {
+        display: none;
+      }
+      .chip-label {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 9999px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: #f9fafb;
+        color: #535862;
+      }
+      .chip-label:hover {
+        border-color: #d1d5db;
+        background: #f3f4f6;
+      }
+      .chip-input:checked + .chip-label {
+        background: #f0fdf4;
+        border-color: #22c55e;
+        color: #15803d;
+      }
+
+      /* Toggle button styles */
+      .toggle-group {
+        display: inline-flex;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        background: #f9fafb;
+      }
+      .toggle-input {
+        display: none;
+      }
+      .toggle-label {
+        padding: 0.625rem 1.25rem;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-right: 1px solid #e5e7eb;
+        color: #535862;
+      }
+      .toggle-label:last-of-type {
+        border-right: none;
+      }
+      .toggle-input:checked + .toggle-label {
+        background: white;
+        color: #181d27;
+        font-weight: 500;
+      }
+
+      /* Sticky sidebar on desktop */
+      @media (min-width: 1024px) {
+        .sticky-sidebar {
+          position: sticky;
+          top: 100px;
+        }
+      }
+
+      /* Radio card styles */
+      .radio-card-input {
+        display: none;
+      }
+      .radio-card-label {
+        display: block;
+        padding: 0.75rem 1rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: #f9fafb;
+      }
+      .radio-card-label:hover {
+        border-color: #d1d5db;
+        background: #f3f4f6;
+      }
+      .radio-card-input:checked + .radio-card-label {
+        background: white;
+        border-color: #22c55e;
+        box-shadow: 0 0 0 1px #22c55e;
+      }
+
+      /* Error state */
+      .field-error {
+        border-color: #ef4444 !important;
+      }
+      .error-message {
+        color: #ef4444;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        display: none;
+      }
+      .error-message.visible {
+        display: block;
+      }
+    </style>
+    <!-- Inline SVG Icon Sprite -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+      <symbol id="icon-check" viewBox="0 0 14 13">
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M12.5375 0.320176L4.18414 8.38184L1.96747 6.01351C1.55914 5.62851 0.917473 5.60518 0.450807 5.93184C-0.00419315 6.27018 -0.132527 6.86518 0.147473 7.34351L2.77247 11.6135C3.02914 12.0102 3.47247 12.2552 3.97414 12.2552C4.45247 12.2552 4.90747 12.0102 5.16414 11.6135C5.58414 11.0652 13.5991 1.51018 13.5991 1.51018C14.6491 0.436843 13.3775 -0.508157 12.5375 0.30851V0.320176Z"
+          fill="currentColor"
+        />
+      </symbol>
+      <symbol id="icon-x" viewBox="0 0 24 24">
+        <path
+          d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+          fill="currentColor"
+        />
+      </symbol>
+      <symbol id="icon-linkedin" viewBox="0 0 24 24">
+        <path
+          d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+          fill="currentColor"
+        />
+      </symbol>
+    </svg>
+    <script type="module" crossorigin src="/golynk-website/assets/main-BNmtawfm.js"></script>
+    <link rel="stylesheet" crossorigin href="/golynk-website/assets/main-Dqf_vGYg.css">
+  </head>
+  <body class="bg-gray-50 text-text-primary antialiased">
+    <main class="min-h-screen">
+      <!-- Navigation -->
+      <nav
+        class="sticky top-0 left-0 right-0 z-50 bg-white border-b border-gray-200"
+      >
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+          <div class="flex items-center justify-between">
+            <!-- Logo -->
+            <a href="./">
+              <img src="/golynk-website/assets/Logo-Cabx5owX.svg" alt="GoLynk" class="h-8" />
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden lg:flex items-center space-x-8">
+              <a
+                href="./shipper.html"
+                class="text-sm font-medium text-text-secondary hover:text-primary transition-colors"
+                data-i18n="common.navigation.shippers"
+              >
+                Shippers
+              </a>
+              <a
+                href="./carrier.html"
+                class="text-sm font-medium text-text-secondary hover:text-primary transition-colors"
+                data-i18n="common.navigation.carriers"
+              >
+                Carriers
+              </a>
+              <a
+                href="./#technology"
+                class="text-sm font-medium text-text-secondary hover:text-primary transition-colors"
+                data-i18n="common.navigation.glTech"
+              >
+                GL Tech
+              </a>
+              <a
+                href="./#environment"
+                class="text-sm font-medium text-text-secondary hover:text-primary transition-colors"
+                data-i18n="common.navigation.environment"
+              >
+                Environment
+              </a>
+              <a
+                href="./about.html"
+                class="text-sm font-medium text-text-secondary hover:text-primary transition-colors"
+                data-i18n="common.navigation.about"
+              >
+                About
+              </a>
+            </div>
+
+            <!-- CTA & Language Selector (Desktop) -->
+            <div class="hidden lg:flex flex-row items-center gap-3">
+              <a
+                href="./"
+                class="px-4 py-2 text-sm font-medium text-text-secondary hover:text-primary transition-colors"
+                data-i18n="corridor.nav.backToHome"
+              >
+                ← Back to Home
+              </a>
+
+              <!-- Language Selector -->
+              <select
+                class="language-selector px-3 py-2 text-sm font-medium text-text-primary bg-gray-50 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+              >
+                <option value="en">EN</option>
+                <option value="de">DE</option>
+              </select>
+            </div>
+
+            <!-- Mobile: Language Selector + Menu Button -->
+            <div class="lg:hidden flex items-center gap-3">
+              <!-- Language Selector (Mobile) -->
+              <select
+                class="language-selector px-2 py-1.5 text-xs font-medium text-text-primary bg-gray-50 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+              >
+                <option value="en">EN</option>
+                <option value="de">DE</option>
+              </select>
+
+              <!-- Mobile Menu Button -->
+              <button
+                id="mobile-menu-btn"
+                class="p-2 text-text-primary hover:text-primary transition-colors"
+                aria-label="Open menu"
+              >
+                <svg
+                  class="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Mobile Menu Overlay -->
+      <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+        <div class="mobile-menu-content">
+          <!-- Close Button -->
+          <button id="mobile-menu-close" class="mobile-menu-close">
+            <svg
+              class="w-6 h-6 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+
+          <!-- Mobile Navigation Links -->
+          <nav class="mobile-nav-links">
+            <a
+              href="./"
+              class="mobile-nav-link"
+              data-i18n="corridor.nav.backToHome"
+            >
+              ← Back to Home
+            </a>
+            <a
+              href="./shipper.html"
+              class="mobile-nav-link"
+              data-i18n="common.navigation.shippers"
+            >
+              Shippers
+            </a>
+            <a
+              href="./carrier.html"
+              class="mobile-nav-link"
+              data-i18n="common.navigation.carriers"
+            >
+              Carriers
+            </a>
+            <a
+              href="./#technology"
+              class="mobile-nav-link"
+              data-i18n="common.navigation.glTech"
+            >
+              GL Tech
+            </a>
+            <a
+              href="./#environment"
+              class="mobile-nav-link"
+              data-i18n="common.navigation.environment"
+            >
+              Environment
+            </a>
+            <a
+              href="./about.html"
+              class="mobile-nav-link"
+              data-i18n="common.navigation.about"
+            >
+              About
+            </a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Hero Section -->
+      <section class="py-12 md:py-16 bg-white border-b border-gray-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <h1
+            class="text-3xl sm:text-4xl md:text-5xl font-semibold text-text-primary mb-4"
+            data-i18n="corridor.hero.heading"
+          >
+            Corridor Activation Proposal
+          </h1>
+          <p
+            class="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10"
+            data-i18n="corridor.hero.description"
+          >
+            We activate corridors where routes repeat. Submit a corridor
+            proposal for evaluation.
+          </p>
+
+          <!-- What happens next steps -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-3"
+              >
+                <span class="text-primary font-semibold text-sm">1</span>
+              </div>
+              <p
+                class="text-sm text-text-secondary"
+                data-i18n="corridor.hero.step1"
+              >
+                We review density potential
+              </p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-3"
+              >
+                <span class="text-primary font-semibold text-sm">2</span>
+              </div>
+              <p
+                class="text-sm text-text-secondary"
+                data-i18n="corridor.hero.step2"
+              >
+                We confirm handoff feasibility
+              </p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <div
+                class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center mb-3"
+              >
+                <span class="text-primary font-semibold text-sm">3</span>
+              </div>
+              <p
+                class="text-sm text-text-secondary"
+                data-i18n="corridor.hero.step3"
+              >
+                We schedule a 20-minute corridor call
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Network Spread Map Section -->
+      <section class="py-12 md:py-16 bg-gray-50 overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+          <div class="text-center mb-8">
+            <h2
+              class="text-xl sm:text-2xl font-semibold text-text-primary mb-2"
+              data-i18n="corridor.map.heading"
+            >
+              Network Expansion from Aachen
+            </h2>
+            <p
+              class="text-sm text-text-secondary max-w-xl mx-auto"
+              data-i18n="corridor.map.description"
+            >
+              Watch our logistics network spread: Aachen → NRW → Germany →
+              Benelux
+            </p>
+          </div>
+          <div
+            class="relative bg-slate-50 rounded-2xl border border-gray-200 shadow-lg overflow-hidden"
+          >
+            <!-- Map container -->
+            <div id="corridor-map" class="w-full h-[450px] sm:h-[550px]"></div>
+            <!-- Tech Legend -->
+            <div
+              class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg p-4 border border-gray-200 shadow-md"
+            >
+              <div
+                class="text-[10px] uppercase tracking-wider text-gray-500 mb-3 font-medium"
+                data-i18n="corridor.map.legend.title"
+              >
+                Network Layers
+              </div>
+              <div class="flex flex-col gap-2.5 text-xs">
+                <div class="flex items-center gap-2">
+                  <span
+                    class="w-3 h-3 rounded-full bg-[#22c55e] ring-2 ring-[#22c55e]/30"
+                  ></span>
+                  <span
+                    class="text-gray-600"
+                    data-i18n="corridor.map.legend.hub"
+                    >Main Hub</span
+                  >
+                </div>
+                <div class="flex items-center gap-2">
+                  <span
+                    class="w-6 h-[3px] bg-[#22c55e] rounded shadow-[0_0_6px_#22c55e]"
+                  ></span>
+                  <span
+                    class="text-gray-600"
+                    data-i18n="corridor.map.legend.major"
+                    >Major Corridor</span
+                  >
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-6 h-[2px] bg-[#4ade80] rounded"></span>
+                  <span
+                    class="text-gray-600"
+                    data-i18n="corridor.map.legend.regional"
+                    >Regional Route</span
+                  >
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-6 h-[1.5px] bg-[#86efac] rounded"></span>
+                  <span
+                    class="text-gray-600"
+                    data-i18n="corridor.map.legend.micro"
+                    >Local Network</span
+                  >
+                </div>
+                <div
+                  class="flex items-center gap-2 pt-1 border-t border-gray-200 mt-1"
+                >
+                  <span
+                    class="w-3 h-3 rounded-full bg-[#15803d] animate-pulse"
+                  ></span>
+                  <span
+                    class="text-gray-600"
+                    data-i18n="corridor.map.legend.package"
+                    >Package Flow</span
+                  >
+                </div>
+              </div>
+            </div>
+            <!-- Phase indicator -->
+            <div
+              class="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg px-3 py-2 border border-gray-200 shadow-sm"
+            >
+              <div
+                class="text-[10px] uppercase tracking-wider text-[#15803d] font-medium"
+                data-i18n="corridor.map.live"
+              >
+                Live Network
+              </div>
+            </div>
+            <!-- Interaction hint -->
+            <div
+              class="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg px-2 py-1 border border-gray-200"
+            >
+              <div
+                class="text-[9px] text-gray-500"
+                data-i18n="corridor.map.hint"
+              >
+                Scroll to zoom • Drag to pan • Click cities for details
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Main Content: Two Column Layout -->
+      <section class="py-12 md:py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            <!-- Left Column: Evaluation Criteria (Sticky) -->
+            <div class="lg:col-span-4">
+              <div class="sticky-sidebar">
+                <div class="bg-white rounded-xl border border-gray-200 p-6">
+                  <h2
+                    class="text-lg font-semibold text-text-primary mb-4"
+                    data-i18n="corridor.criteria.heading"
+                  >
+                    Evaluation Criteria
+                  </h2>
+                  <ul class="space-y-3">
+                    <li class="flex items-start gap-3">
+                      <svg class="w-4 h-4 text-primary mt-0.5 shrink-0">
+                        <use href="#icon-check"></use>
+                      </svg>
+                      <span
+                        class="text-sm text-text-secondary"
+                        data-i18n="corridor.criteria.item1"
+                      >
+                        Repeatable demand (weekly volume)
+                      </span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-4 h-4 text-primary mt-0.5 shrink-0">
+                        <use href="#icon-check"></use>
+                      </svg>
+                      <span
+                        class="text-sm text-text-secondary"
+                        data-i18n="corridor.criteria.item2"
+                      >
+                        Geographic density potential
+                      </span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-4 h-4 text-primary mt-0.5 shrink-0">
+                        <use href="#icon-check"></use>
+                      </svg>
+                      <span
+                        class="text-sm text-text-secondary"
+                        data-i18n="corridor.criteria.item3"
+                      >
+                        Time-window feasibility
+                      </span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-4 h-4 text-primary mt-0.5 shrink-0">
+                        <use href="#icon-check"></use>
+                      </svg>
+                      <span
+                        class="text-sm text-text-secondary"
+                        data-i18n="corridor.criteria.item4"
+                      >
+                        Handoff points / microhub suitability
+                      </span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-4 h-4 text-primary mt-0.5 shrink-0">
+                        <use href="#icon-check"></use>
+                      </svg>
+                      <span
+                        class="text-sm text-text-secondary"
+                        data-i18n="corridor.criteria.item5"
+                      >
+                        Fleet / carrier availability
+                      </span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                      <svg class="w-4 h-4 text-primary mt-0.5 shrink-0">
+                        <use href="#icon-check"></use>
+                      </svg>
+                      <span
+                        class="text-sm text-text-secondary"
+                        data-i18n="corridor.criteria.item6"
+                      >
+                        Data readiness (basic shipment metadata)
+                      </span>
+                    </li>
+                  </ul>
+                  <div class="mt-6 pt-5 border-t border-gray-100">
+                    <p
+                      class="text-xs text-text-secondary/70"
+                      data-i18n="corridor.criteria.note"
+                    >
+                      Not every corridor is activated immediately — we
+                      prioritize compounding density.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Column: Form -->
+            <div class="lg:col-span-8">
+              <div
+                class="bg-white rounded-xl border border-gray-200 overflow-hidden"
+              >
+                <!-- Form Header -->
+                <div class="p-6 border-b border-gray-100">
+                  <h2
+                    class="text-xl font-semibold text-text-primary"
+                    data-i18n="corridor.form.heading"
+                  >
+                    Submit your corridor
+                  </h2>
+                  <p
+                    class="text-sm text-text-secondary mt-1"
+                    data-i18n="corridor.form.subheading"
+                  >
+                    Takes ~2 minutes.
+                  </p>
+                </div>
+
+                <!-- Form Content -->
+                <form id="corridor-form" class="p-6 space-y-8">
+                  <!-- Section: Corridor Definition -->
+                  <div class="space-y-5">
+                    <h3
+                      class="text-sm font-semibold text-text-primary uppercase tracking-wide"
+                      data-i18n="corridor.form.section.corridorDefinition"
+                    >
+                      Corridor Definition
+                    </h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="origin_city"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="corridor.form.labels.originCity"
+                            >Origin City</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="origin_city"
+                          name="origin_city"
+                          required
+                          placeholder="e.g. Munich"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                        <p class="error-message" data-error="origin_city">
+                          This field is required
+                        </p>
+                      </div>
+                      <div>
+                        <label
+                          for="destination_city"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="corridor.form.labels.destinationCity"
+                            >Destination City</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="destination_city"
+                          name="destination_city"
+                          required
+                          placeholder="e.g. Berlin"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                        <p class="error-message" data-error="destination_city">
+                          This field is required
+                        </p>
+                      </div>
+                    </div>
+
+                    <!-- Corridor Type Toggle -->
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-text-primary mb-2"
+                        data-i18n="corridor.form.labels.corridorType"
+                      >
+                        Corridor Type
+                      </label>
+                      <div class="toggle-group">
+                        <input
+                          type="radio"
+                          id="type_urban"
+                          name="corridor_type"
+                          value="urban"
+                          class="toggle-input"
+                          checked
+                        />
+                        <label
+                          for="type_urban"
+                          class="toggle-label"
+                          data-i18n="corridor.form.options.urbanZone"
+                          >Urban zone</label
+                        >
+                        <input
+                          type="radio"
+                          id="type_city"
+                          name="corridor_type"
+                          value="city-to-city"
+                          class="toggle-input"
+                        />
+                        <label
+                          for="type_city"
+                          class="toggle-label"
+                          data-i18n="corridor.form.options.cityToCity"
+                          >City-to-city</label
+                        >
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        for="service_radius"
+                        class="block text-sm font-medium text-text-primary mb-1.5"
+                      >
+                        <span data-i18n="corridor.form.labels.serviceRadius"
+                          >Service Radius / Distance Range</span
+                        >
+                        <span
+                          class="text-text-secondary/60 text-xs font-normal ml-1"
+                          data-i18n="corridor.form.labels.optional"
+                          >(optional)</span
+                        >
+                      </label>
+                      <input
+                        type="text"
+                        id="service_radius"
+                        name="service_radius"
+                        placeholder="e.g. 15km radius, or 200km route"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        for="weekly_volume"
+                        class="block text-sm font-medium text-text-primary mb-1.5"
+                      >
+                        <span data-i18n="corridor.form.labels.weeklyVolume"
+                          >Expected Weekly Volume</span
+                        >
+                        <span class="text-red-500">*</span>
+                      </label>
+                      <select
+                        id="weekly_volume"
+                        name="weekly_volume"
+                        required
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
+                        style="
+                          background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23717680' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e&quot;);
+                          background-repeat: no-repeat;
+                          background-position: right 1rem center;
+                          background-size: 1rem;
+                        "
+                      >
+                        <option value="" disabled selected>
+                          Select volume range
+                        </option>
+                        <option value="1-20">1–20 shipments</option>
+                        <option value="21-100">21–100 shipments</option>
+                        <option value="101-500">101–500 shipments</option>
+                        <option value="500+">500+ shipments</option>
+                      </select>
+                      <p class="error-message" data-error="weekly_volume">
+                        Please select a volume range
+                      </p>
+                    </div>
+
+                    <!-- Shipment Types (Multi-select chips) -->
+                    <div>
+                      <label
+                        class="block text-sm font-medium text-text-primary mb-2"
+                        data-i18n="corridor.form.labels.shipmentTypes"
+                      >
+                        Shipment Types
+                      </label>
+                      <div class="chip-container">
+                        <input
+                          type="checkbox"
+                          id="type_parcels"
+                          name="shipment_types"
+                          value="parcels"
+                          class="chip-input"
+                        />
+                        <label for="type_parcels" class="chip-label"
+                          >Parcels</label
+                        >
+
+                        <input
+                          type="checkbox"
+                          id="type_food"
+                          name="shipment_types"
+                          value="food"
+                          class="chip-input"
+                        />
+                        <label for="type_food" class="chip-label">Food</label>
+
+                        <input
+                          type="checkbox"
+                          id="type_floral"
+                          name="shipment_types"
+                          value="floral"
+                          class="chip-input"
+                        />
+                        <label for="type_floral" class="chip-label"
+                          >Floral</label
+                        >
+
+                        <input
+                          type="checkbox"
+                          id="type_bakery"
+                          name="shipment_types"
+                          value="bakery"
+                          class="chip-input"
+                        />
+                        <label for="type_bakery" class="chip-label"
+                          >Bakery</label
+                        >
+
+                        <input
+                          type="checkbox"
+                          id="type_pharmacy"
+                          name="shipment_types"
+                          value="pharmacy"
+                          class="chip-input"
+                        />
+                        <label for="type_pharmacy" class="chip-label"
+                          >Pharmacy</label
+                        >
+
+                        <input
+                          type="checkbox"
+                          id="type_retail"
+                          name="shipment_types"
+                          value="retail"
+                          class="chip-input"
+                        />
+                        <label for="type_retail" class="chip-label"
+                          >Retail</label
+                        >
+
+                        <input
+                          type="checkbox"
+                          id="type_other"
+                          name="shipment_types"
+                          value="other"
+                          class="chip-input"
+                        />
+                        <label for="type_other" class="chip-label">Other</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Section: Your Role -->
+                  <div class="space-y-5 pt-4 border-t border-gray-100">
+                    <h3
+                      class="text-sm font-semibold text-text-primary uppercase tracking-wide"
+                      data-i18n="corridor.form.section.yourRole"
+                    >
+                      Your Role
+                    </h3>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                      <div>
+                        <input
+                          type="radio"
+                          id="role_shipper"
+                          name="role"
+                          value="shipper"
+                          class="radio-card-input"
+                          checked
+                        />
+                        <label
+                          for="role_shipper"
+                          class="radio-card-label text-sm text-text-primary"
+                          >Shipper</label
+                        >
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="role_fleet"
+                          name="role"
+                          value="fleet"
+                          class="radio-card-input"
+                        />
+                        <label
+                          for="role_fleet"
+                          class="radio-card-label text-sm text-text-primary"
+                          >Fleet operator</label
+                        >
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="role_logistics"
+                          name="role"
+                          value="logistics"
+                          class="radio-card-input"
+                        />
+                        <label
+                          for="role_logistics"
+                          class="radio-card-label text-sm text-text-primary"
+                          >Logistics operator</label
+                        >
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="role_microhub"
+                          name="role"
+                          value="microhub"
+                          class="radio-card-input"
+                        />
+                        <label
+                          for="role_microhub"
+                          class="radio-card-label text-sm text-text-primary"
+                          >Microhub owner</label
+                        >
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="role_municipality"
+                          name="role"
+                          value="municipality"
+                          class="radio-card-input"
+                        />
+                        <label
+                          for="role_municipality"
+                          class="radio-card-label text-sm text-text-primary"
+                          >Municipality</label
+                        >
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="role_other"
+                          name="role"
+                          value="other"
+                          class="radio-card-input"
+                        />
+                        <label
+                          for="role_other"
+                          class="radio-card-label text-sm text-text-primary"
+                          >Other</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Section: Operational Constraints -->
+                  <div class="space-y-5 pt-4 border-t border-gray-100">
+                    <h3
+                      class="text-sm font-semibold text-text-primary uppercase tracking-wide"
+                      data-i18n="corridor.form.section.operations"
+                    >
+                      Operational Constraints
+                    </h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="pickup_windows"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="corridor.form.labels.pickupWindows"
+                            >Typical Pickup Time Windows</span
+                          >
+                          <span
+                            class="text-text-secondary/60 text-xs font-normal ml-1"
+                            data-i18n="corridor.form.labels.optional"
+                            >(optional)</span
+                          >
+                        </label>
+                        <input
+                          type="text"
+                          id="pickup_windows"
+                          name="pickup_windows"
+                          placeholder="e.g. 8–10am, 2–4pm"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          for="delivery_windows"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="corridor.form.labels.deliveryWindows"
+                            >Typical Delivery Time Windows</span
+                          >
+                          <span
+                            class="text-text-secondary/60 text-xs font-normal ml-1"
+                            data-i18n="corridor.form.labels.optional"
+                            >(optional)</span
+                          >
+                        </label>
+                        <input
+                          type="text"
+                          id="delivery_windows"
+                          name="delivery_windows"
+                          placeholder="e.g. 10am–12pm, 4–6pm"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                      <input
+                        type="checkbox"
+                        id="zero_detour"
+                        name="zero_detour"
+                        checked
+                        class="mt-1 w-4 h-4 text-primary bg-gray-50 border-gray-300 rounded focus:ring-primary/20 cursor-pointer"
+                      />
+                      <label
+                        for="zero_detour"
+                        class="text-sm text-text-secondary cursor-pointer"
+                      >
+                        <span
+                          class="font-medium text-text-primary"
+                          data-i18n="corridor.form.labels.zeroDetour"
+                          >Zero-detour requirement</span
+                        >
+                        <span
+                          class="block text-xs mt-0.5"
+                          data-i18n="corridor.form.labels.zeroDetourHint"
+                          >Prefer on-route, minimal deviation matching</span
+                        >
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Section: Contact -->
+                  <div class="space-y-5 pt-4 border-t border-gray-100">
+                    <h3
+                      class="text-sm font-semibold text-text-primary uppercase tracking-wide"
+                      data-i18n="corridor.form.section.contact"
+                    >
+                      Contact
+                    </h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="company_name"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="corridor.form.labels.companyName"
+                            >Company / Organization Name</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="company_name"
+                          name="company_name"
+                          required
+                          placeholder="Your company or organization"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                        <p class="error-message" data-error="company_name">
+                          This field is required
+                        </p>
+                      </div>
+                      <div>
+                        <label
+                          for="full_name"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="corridor.form.labels.fullName"
+                            >Full Name</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="full_name"
+                          name="full_name"
+                          required
+                          placeholder="Your full name"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                        <p class="error-message" data-error="full_name">
+                          This field is required
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="email"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="corridor.form.labels.email"
+                            >Email</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          required
+                          placeholder="you@company.com"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                        <p class="error-message" data-error="email">
+                          Please enter a valid email address
+                        </p>
+                      </div>
+                      <div>
+                        <label
+                          for="phone"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="corridor.form.labels.phone"
+                            >Phone</span
+                          >
+                          <span
+                            class="text-text-secondary/60 text-xs font-normal ml-1"
+                            data-i18n="corridor.form.labels.optional"
+                            >(optional)</span
+                          >
+                        </label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          placeholder="+49 123 456 7890"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        for="website"
+                        class="block text-sm font-medium text-text-primary mb-1.5"
+                      >
+                        <span data-i18n="corridor.form.labels.website"
+                          >Website</span
+                        >
+                        <span
+                          class="text-text-secondary/60 text-xs font-normal ml-1"
+                          data-i18n="corridor.form.labels.optional"
+                          >(optional)</span
+                        >
+                      </label>
+                      <input
+                        type="url"
+                        id="website"
+                        name="website"
+                        placeholder="https://example.com"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Section: Notes -->
+                  <div class="space-y-5 pt-4 border-t border-gray-100">
+                    <h3
+                      class="text-sm font-semibold text-text-primary uppercase tracking-wide"
+                      data-i18n="corridor.form.section.notes"
+                    >
+                      Notes
+                    </h3>
+
+                    <div>
+                      <label
+                        for="notes"
+                        class="block text-sm font-medium text-text-primary mb-1.5"
+                      >
+                        <span data-i18n="corridor.form.labels.notes"
+                          >Anything we should know?</span
+                        >
+                        <span
+                          class="text-text-secondary/60 text-xs font-normal ml-1"
+                          data-i18n="corridor.form.labels.optional"
+                          >(optional)</span
+                        >
+                      </label>
+                      <textarea
+                        id="notes"
+                        name="notes"
+                        rows="3"
+                        placeholder="Special requirements, context, or questions..."
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-none"
+                      ></textarea>
+                    </div>
+                  </div>
+
+                  <!-- Submit Section -->
+                  <div class="pt-6 border-t border-gray-100">
+                    <button
+                      type="submit"
+                      class="w-full py-3.5 bg-primary hover:bg-primary/90 text-white font-semibold rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2"
+                      data-i18n="corridor.form.submit"
+                    >
+                      Submit for Evaluation
+                    </button>
+
+                    <p class="text-center mt-4">
+                      <a
+                        href="mailto:partnerships@golynk.com?subject=Corridor%20Activation%20Proposal"
+                        class="text-sm text-text-secondary hover:text-primary transition-colors"
+                        data-i18n="corridor.form.emailAlternative"
+                      >
+                        Prefer email instead?
+                      </a>
+                    </p>
+
+                    <p
+                      class="text-xs text-text-secondary/70 text-center mt-4"
+                      data-i18n="corridor.form.disclaimer"
+                    >
+                      We'll respond after review.
+                    </p>
+                  </div>
+                </form>
+
+                <!-- Success Message (hidden by default) -->
+                <div id="form-success" class="hidden p-8 text-center">
+                  <div
+                    class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
+                  >
+                    <svg class="w-8 h-8 text-green-600">
+                      <use href="#icon-check"></use>
+                    </svg>
+                  </div>
+                  <h3
+                    class="text-xl font-semibold text-text-primary mb-2"
+                    data-i18n="corridor.success.heading"
+                  >
+                    Proposal Submitted
+                  </h3>
+                  <p
+                    class="text-text-secondary mb-6"
+                    data-i18n="corridor.success.message"
+                  >
+                    Thanks — we'll review your corridor proposal and respond
+                    within 2 business days.
+                  </p>
+                  <a
+                    href="./"
+                    class="px-6 py-2.5 bg-gray-100 hover:bg-gray-200 text-text-primary font-medium rounded-lg transition-colors inline-block"
+                    data-i18n="corridor.success.backHome"
+                  >
+                    Back to Home
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Trust / Reassurance Strip -->
+      <section class="py-12 md:py-16 bg-white border-t border-gray-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+          <h3
+            class="text-lg font-semibold text-text-primary mb-6"
+            data-i18n="corridor.trust.heading"
+          >
+            What you get if accepted
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="flex flex-col items-center">
+              <svg class="w-5 h-5 text-primary mb-2">
+                <use href="#icon-check"></use>
+              </svg>
+              <p
+                class="text-sm text-text-secondary"
+                data-i18n="corridor.trust.item1"
+              >
+                Priority corridor activation planning
+              </p>
+            </div>
+            <div class="flex flex-col items-center">
+              <svg class="w-5 h-5 text-primary mb-2">
+                <use href="#icon-check"></use>
+              </svg>
+              <p
+                class="text-sm text-text-secondary"
+                data-i18n="corridor.trust.item2"
+              >
+                Verification & handoff workflow
+              </p>
+            </div>
+            <div class="flex flex-col items-center">
+              <svg class="w-5 h-5 text-primary mb-2">
+                <use href="#icon-check"></use>
+              </svg>
+              <p
+                class="text-sm text-text-secondary"
+                data-i18n="corridor.trust.item3"
+              >
+                Shared capacity onboarding (fleets + individuals)
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="bg-white border-t border-gray-200 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+          <!-- Navigation Links -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+            <!-- Company -->
+            <div>
+              <h4
+                class="text-sm font-semibold text-text-primary mb-4"
+                data-i18n="common.footer.sections.company.title"
+              >
+                Company
+              </h4>
+              <ul class="space-y-3">
+                <li>
+                  <a
+                    href="./about.html"
+                    class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    data-i18n="common.footer.sections.company.links.about"
+                  >
+                    About GoLynk
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./index.html#how-it-works"
+                    class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    data-i18n="common.footer.sections.company.links.howItWorks"
+                  >
+                    How It Works
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./index.html#industries"
+                    class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    data-i18n="common.footer.sections.company.links.industries"
+                  >
+                    Industries
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./index.html#sustainability"
+                    class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    data-i18n="common.footer.sections.company.links.sustainability"
+                  >
+                    Sustainability
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- For Shippers -->
+            <div>
+              <h4
+                class="text-sm font-semibold text-text-primary mb-4"
+                data-i18n="common.footer.sections.shippers.title"
+              >
+                For Shippers
+              </h4>
+              <ul class="space-y-3">
+                <li>
+                  <a
+                    href="./shipper.html#early-access"
+                    class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    data-i18n="common.footer.sections.shippers.links.getStarted"
+                  >
+                    Get Started
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./pricing.html"
+                    class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    data-i18n="common.footer.sections.shippers.links.pricing"
+                  >
+                    Pricing
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./api-docs.html"
+                    class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    data-i18n="common.footer.sections.shippers.links.api"
+                  >
+                    API Docs
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- For Carriers -->
+            <div>
+              <h4
+                class="text-sm font-semibold text-text-primary mb-4"
+                data-i18n="common.footer.sections.carriers.title"
+              >
+                For Carriers
+              </h4>
+              <ul class="space-y-3">
+                <li>
+                  <a
+                    href="./carrier.html#individual-form"
+                    class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    data-i18n="common.footer.sections.carriers.links.joinIndividual"
+                  >
+                    Join as Mover
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./faq.html"
+                    class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    data-i18n="common.footer.sections.resources.links.faq"
+                  >
+                    FAQ
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./investor.html"
+                    class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    data-i18n="common.footer.sections.resources.links.investors"
+                  >
+                    Investors
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Legal -->
+            <div>
+              <h4
+                class="text-sm font-semibold text-text-primary mb-4"
+                data-i18n="common.footer.sections.legal.title"
+              >
+                Legal
+              </h4>
+              <ul class="space-y-3">
+                <li>
+                  <a
+                    href="./privacy.html"
+                    class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    data-i18n="common.footer.sections.legal.links.privacy"
+                  >
+                    Privacy Policy
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./terms.html"
+                    class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    data-i18n="common.footer.sections.legal.links.terms"
+                  >
+                    Terms of Service
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="./imprint.html"
+                    class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    data-i18n="common.footer.sections.legal.links.imprint"
+                  >
+                    Imprint
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="border-t border-gray-200 pt-8">
+            <div
+              class="flex flex-col md:flex-row items-center justify-between gap-4"
+            >
+              <!-- Logo and Tagline -->
+              <div class="flex items-center gap-4">
+                <a href="./">
+                  <img src="/golynk-website/assets/Logo-Cabx5owX.svg" alt="GoLynk" class="h-8" />
+                </a>
+                <span
+                  class="text-sm text-text-secondary"
+                  data-i18n="corridor.footer.tagline"
+                >
+                  Smarter Logistics for Everyone
+                </span>
+              </div>
+
+              <!-- Social Links -->
+              <div class="flex items-center gap-4">
+                <a
+                  href="#"
+                  class="text-text-secondary hover:text-primary transition-colors"
+                  aria-label="X (Twitter)"
+                >
+                  <svg class="w-5 h-5">
+                    <use href="#icon-x"></use>
+                  </svg>
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/golynk/?lipi=urn%3Ali%3Apage%3Ad_flagship3_company_posts%3BP7YMvJ2vTLOMn4fzxonJjA%3D%3D"
+                  class="text-text-secondary hover:text-primary transition-colors"
+                  aria-label="LinkedIn"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <svg class="w-5 h-5">
+                    <use href="#icon-linkedin"></use>
+                  </svg>
+                </a>
+              </div>
+
+              <!-- Copyright -->
+              <p
+                class="text-sm text-text-secondary"
+                data-i18n="corridor.footer.copyright"
+              >
+                © GoLynk 2026. All rights reserved.
+              </p>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Load Tailwind/CSS -->
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("corridor-form");
+        const formSuccess = document.getElementById("form-success");
+
+        // Mobile menu handling
+        const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+        const mobileMenuOverlay = document.getElementById(
+          "mobile-menu-overlay",
+        );
+        const mobileMenuClose = document.getElementById("mobile-menu-close");
+
+        if (mobileMenuBtn && mobileMenuOverlay && mobileMenuClose) {
+          mobileMenuBtn.addEventListener("click", () => {
+            mobileMenuOverlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+          });
+
+          mobileMenuClose.addEventListener("click", () => {
+            mobileMenuOverlay.classList.remove("active");
+            document.body.style.overflow = "";
+          });
+
+          mobileMenuOverlay.addEventListener("click", (e) => {
+            if (e.target === mobileMenuOverlay) {
+              mobileMenuOverlay.classList.remove("active");
+              document.body.style.overflow = "";
+            }
+          });
+        }
+
+        // Required fields for validation
+        const requiredFields = [
+          { id: "origin_city", type: "text" },
+          { id: "destination_city", type: "text" },
+          { id: "weekly_volume", type: "select" },
+          { id: "company_name", type: "text" },
+          { id: "full_name", type: "text" },
+          { id: "email", type: "email" },
+        ];
+
+        // Clear error state on input
+        requiredFields.forEach(({ id }) => {
+          const field = document.getElementById(id);
+          if (field) {
+            field.addEventListener("input", () => {
+              field.classList.remove("field-error");
+              const errorEl = document.querySelector(`[data-error="${id}"]`);
+              if (errorEl) errorEl.classList.remove("visible");
+            });
+            field.addEventListener("change", () => {
+              field.classList.remove("field-error");
+              const errorEl = document.querySelector(`[data-error="${id}"]`);
+              if (errorEl) errorEl.classList.remove("visible");
+            });
+          }
+        });
+
+        // Validate email format
+        function isValidEmail(email) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        // Validate form
+        function validateForm() {
+          let isValid = true;
+
+          requiredFields.forEach(({ id, type }) => {
+            const field = document.getElementById(id);
+            const errorEl = document.querySelector(`[data-error="${id}"]`);
+
+            if (!field) return;
+
+            let hasError = false;
+
+            if (type === "select") {
+              hasError = !field.value;
+            } else if (type === "email") {
+              hasError = !field.value || !isValidEmail(field.value);
+            } else {
+              hasError = !field.value.trim();
+            }
+
+            if (hasError) {
+              isValid = false;
+              field.classList.add("field-error");
+              if (errorEl) errorEl.classList.add("visible");
+            } else {
+              field.classList.remove("field-error");
+              if (errorEl) errorEl.classList.remove("visible");
+            }
+          });
+
+          return isValid;
+        }
+
+        // Build email body from form data
+        function buildEmailBody() {
+          const formData = new FormData(form);
+          const lines = [];
+
+          lines.push("=== CORRIDOR ACTIVATION PROPOSAL ===\n");
+
+          lines.push("CORRIDOR DEFINITION");
+          lines.push(`Origin City: ${formData.get("origin_city")}`);
+          lines.push(`Destination City: ${formData.get("destination_city")}`);
+          lines.push(`Corridor Type: ${formData.get("corridor_type")}`);
+          if (formData.get("service_radius")) {
+            lines.push(`Service Radius: ${formData.get("service_radius")}`);
+          }
+          lines.push(`Weekly Volume: ${formData.get("weekly_volume")}`);
+
+          const shipmentTypes = formData.getAll("shipment_types");
+          if (shipmentTypes.length > 0) {
+            lines.push(`Shipment Types: ${shipmentTypes.join(", ")}`);
+          }
+
+          lines.push("\nYOUR ROLE");
+          lines.push(`Role: ${formData.get("role")}`);
+
+          lines.push("\nOPERATIONAL CONSTRAINTS");
+          if (formData.get("pickup_windows")) {
+            lines.push(`Pickup Windows: ${formData.get("pickup_windows")}`);
+          }
+          if (formData.get("delivery_windows")) {
+            lines.push(`Delivery Windows: ${formData.get("delivery_windows")}`);
+          }
+          lines.push(
+            `Zero-Detour Preference: ${formData.get("zero_detour") ? "Yes" : "No"}`,
+          );
+
+          lines.push("\nCONTACT INFORMATION");
+          lines.push(`Company: ${formData.get("company_name")}`);
+          lines.push(`Name: ${formData.get("full_name")}`);
+          lines.push(`Email: ${formData.get("email")}`);
+          if (formData.get("phone")) {
+            lines.push(`Phone: ${formData.get("phone")}`);
+          }
+          if (formData.get("website")) {
+            lines.push(`Website: ${formData.get("website")}`);
+          }
+
+          if (formData.get("notes")) {
+            lines.push("\nADDITIONAL NOTES");
+            lines.push(formData.get("notes"));
+          }
+
+          return lines.join("\n");
+        }
+
+        // Form submission
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          if (!validateForm()) {
+            // Scroll to first error
+            const firstError = document.querySelector(".field-error");
+            if (firstError) {
+              firstError.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              });
+              firstError.focus();
+            }
+            return;
+          }
+
+          // Build mailto link
+          const emailBody = buildEmailBody();
+          const subject = encodeURIComponent("Corridor Activation Proposal");
+          const body = encodeURIComponent(emailBody);
+          const mailtoLink = `mailto:partnerships@golynk.com?subject=${subject}&body=${body}`;
+
+          // Open mailto
+          window.location.href = mailtoLink;
+
+          // Show success message after a short delay
+          setTimeout(() => {
+            form.classList.add("hidden");
+            formSuccess.classList.remove("hidden");
+            formSuccess.scrollIntoView({ behavior: "smooth", block: "start" });
+          }, 500);
+        });
+      });
+    </script>
+  </body>
+</html>
