@@ -2446,40 +2446,35 @@
               payload,
             );
 
-            // Disable submit button
+            // Disable submit button and store original text
+            let originalButtonText = "Submit";
             if (submitBtn) {
+              originalButtonText = submitBtn.textContent;
               submitBtn.disabled = true;
               submitBtn.textContent = "Submitting...";
             }
 
             try {
-              // Submit to Apps Script endpoint
-              console.log(`[INTAKE FORM] Posting to ${INTAKE_WEBAPP_URL}`);
+              // Convert payload to URLSearchParams for Apps Script compatibility
+              const body = new URLSearchParams(payload);
+              body.set("_page", "get-started");
+              body.set("_submitted_at", new Date().toISOString());
+              body.set("_user_agent", navigator.userAgent);
+
               console.log(
-                "[INTAKE FORM] Request body:",
-                JSON.stringify(payload),
+                `[INTAKE FORM] Posting to ${INTAKE_WEBAPP_URL} with form-urlencoded body`,
               );
 
+              // Submit to Apps Script endpoint with form-urlencoded
               const response = await fetch(INTAKE_WEBAPP_URL, {
                 method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload),
+                mode: "no-cors",
+                body: body,
               });
 
-              console.log("[INTAKE FORM] Fetch completed");
-              console.log("[INTAKE FORM] Response status:", response.status);
-              console.log("[INTAKE FORM] Response ok:", response.ok);
-
-              // Try to read response
-              let responseText = "";
-              try {
-                responseText = await response.text();
-                console.log("[INTAKE FORM] Response text:", responseText);
-              } catch (readErr) {
-                console.log("[INTAKE FORM] Could not read response:", readErr);
-              }
+              console.log(
+                "[INTAKE FORM] Fetch completed (opaque response in no-cors mode)",
+              );
 
               // Hide form content, show success message
               Array.from(form.children).forEach((child) => {
@@ -2495,15 +2490,12 @@
               }
             } catch (error) {
               console.error("[INTAKE FORM] Submission error:", error);
-              alert(
-                `Submission error: ${error.message}. Please try again or contact support.`,
-              );
               if (errorEl) {
                 errorEl.classList.remove("hidden");
               }
               if (submitBtn) {
                 submitBtn.disabled = false;
-                submitBtn.textContent = "Submit";
+                submitBtn.textContent = originalButtonText;
               }
             }
           });
