@@ -413,6 +413,7 @@
                 <div class="role-form hidden border-t border-gray-100">
                   <form class="p-6 space-y-5 intake-form" data-role="shipper">
                     <input type="hidden" name="role" value="shipper" />
+                    <input type="hidden" name="hp" style="display:none;" />
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
@@ -711,6 +712,7 @@
                 <div class="role-form hidden border-t border-gray-100">
                   <form class="p-6 space-y-5 intake-form" data-role="carrier">
                     <input type="hidden" name="role" value="carrier" />
+                    <input type="hidden" name="hp" style="display:none;" />
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
@@ -997,6 +999,7 @@
                 <div class="role-form hidden border-t border-gray-100">
                   <form class="p-6 space-y-5 intake-form" data-role="fleet">
                     <input type="hidden" name="role" value="fleet" />
+                    <input type="hidden" name="hp" style="display:none;" />
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
@@ -1315,6 +1318,7 @@
                 <div class="role-form hidden border-t border-gray-100">
                   <form class="p-6 space-y-5 intake-form" data-role="microhub">
                     <input type="hidden" name="role" value="microhub" />
+                    <input type="hidden" name="hp" style="display:none;" />
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
@@ -1661,6 +1665,7 @@
                     data-role="institutional"
                   >
                     <input type="hidden" name="role" value="institutional" />
+                    <input type="hidden" name="hp" style="display:none;" />
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
@@ -2375,32 +2380,23 @@
         // Also listen for hash changes (back/forward navigation)
         window.addEventListener("hashchange", expandCardFromHash);
 
-        // Google Forms URL configuration per role
-        // IMPORTANT: Replace these placeholders with your actual Google Form URLs
-        const googleFormURLs = {
-          shipper:
-            "https://docs.google.com/forms/d/YOUR_SHIPPER_FORM_ID/viewform",
-          carrier:
-            "https://docs.google.com/forms/d/YOUR_CARRIER_FORM_ID/viewform",
-          fleet: "https://docs.google.com/forms/d/YOUR_FLEET_FORM_ID/viewform",
-          microhub:
-            "https://docs.google.com/forms/d/YOUR_MICROHUB_FORM_ID/viewform",
-          institutional:
-            "https://docs.google.com/forms/d/YOUR_INSTITUTIONAL_FORM_ID/viewform",
-        };
+        // Apps Script Web App endpoint for intake form submissions
+        const INTAKE_WEBAPP_URL =
+          "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
 
-        // Form submission handling - Google Forms redirect
+        // Form submission handling - Submit directly to Apps Script
         const intakeForms = document.querySelectorAll(".intake-form");
 
         intakeForms.forEach((form) => {
-          form.addEventListener("submit", function (e) {
+          form.addEventListener("submit", async function (e) {
             e.preventDefault();
 
             const role = form.getAttribute("data-role");
             const successEl = form.querySelector(".form-success");
+            const errorEl = form.querySelector(".form-error");
             const submitBtn = form.querySelector('button[type="submit"]');
 
-            // Validate form fields
+            // Validate required fields
             const inputs = form.querySelectorAll(
               "input[required], select[required], textarea[required]",
             );
@@ -2415,31 +2411,60 @@
             });
 
             if (!isValid) {
-              alert("Please fill in all required fields.");
+              if (errorEl) {
+                errorEl.classList.remove("hidden");
+              }
               return;
             }
 
-            // Show operational receipt
-            Array.from(form.children).forEach((child) => {
-              if (!child.classList.contains("form-success")) {
-                child.classList.add("hidden");
-              }
-            });
-            successEl.classList.remove("hidden");
+            // Collect form data
+            const fd = new FormData(form);
+            const payload = Object.fromEntries(fd.entries());
 
-            // Open Google Form in new tab
-            const formURL = googleFormURLs[role];
-            if (formURL && !formURL.includes("YOUR_")) {
-              window.open(formURL, "_blank", "noopener,noreferrer");
-            } else {
-              alert(
-                "Google Form URL not configured for this role. Please contact support.",
-              );
+            // Add metadata
+            payload.page = "get-started";
+            payload.submitted_at = new Date().toISOString();
+            payload.user_agent = navigator.userAgent;
+
+            // Disable submit button
+            if (submitBtn) {
+              submitBtn.disabled = true;
+              submitBtn.textContent = "Submitting...";
             }
 
-            // Optionally: Pre-fill Google Form fields by constructing URL parameters
-            // This requires setting up Google Form field IDs in the URL
-            // Example: formURL + "?usp=pp_url&entry.FIELD_ID=" + encodeURIComponent(value)
+            try {
+              // Submit to Apps Script endpoint
+              const response = await fetch(INTAKE_WEBAPP_URL, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+                mode: "no-cors",
+              });
+
+              // Hide form content, show success message
+              Array.from(form.children).forEach((child) => {
+                if (!child.classList.contains("form-success")) {
+                  child.classList.add("hidden");
+                }
+              });
+              if (successEl) {
+                successEl.classList.remove("hidden");
+              }
+              if (errorEl) {
+                errorEl.classList.add("hidden");
+              }
+            } catch (error) {
+              console.error("Form submission error:", error);
+              if (errorEl) {
+                errorEl.classList.remove("hidden");
+              }
+              if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit";
+              }
+            }
           });
         });
       });
