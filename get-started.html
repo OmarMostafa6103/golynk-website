@@ -358,7 +358,7 @@
 
       <!-- Role Selection Cards -->
       <section class="py-12 md:py-16">
-        <div class="max-w-[1000px] mx-auto px-4 sm:px-6">
+        <div class="max-w-[1000px] mx-auto px-4 sm:px-6" id="role-cards">
           <!-- Demand Section -->
           <div class="mb-12">
             <h3
@@ -2313,13 +2313,19 @@
           activeCard = card;
           const form = card.querySelector(".role-form");
 
+          if (!form) {
+            console.error("Form not found in card", card);
+            return;
+          }
+
           // Show form
           form.classList.remove("hidden");
 
           // Activate modal mode
           card.classList.add("modal-active");
-          backdrop.classList.add("active");
-          roleCardsContainer.classList.add("role-cards-dimmed");
+          if (backdrop) backdrop.classList.add("active");
+          if (roleCardsContainer)
+            roleCardsContainer.classList.add("role-cards-dimmed");
           document.body.classList.add("modal-open");
         }
 
@@ -2329,12 +2335,13 @@
           const form = activeCard.querySelector(".role-form");
 
           // Hide form
-          form.classList.add("hidden");
+          if (form) form.classList.add("hidden");
 
           // Deactivate modal mode
           activeCard.classList.remove("modal-active");
-          backdrop.classList.remove("active");
-          roleCardsContainer.classList.remove("role-cards-dimmed");
+          if (backdrop) backdrop.classList.remove("active");
+          if (roleCardsContainer)
+            roleCardsContainer.classList.remove("role-cards-dimmed");
           document.body.classList.remove("modal-open");
 
           activeCard = null;
@@ -2354,7 +2361,9 @@
         });
 
         // Close on backdrop click
-        backdrop.addEventListener("click", closeModal);
+        if (backdrop) {
+          backdrop.addEventListener("click", closeModal);
+        }
 
         // Close on Escape key
         document.addEventListener("keydown", (e) => {
