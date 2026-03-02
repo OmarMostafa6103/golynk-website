@@ -160,8 +160,8 @@
         />
       </symbol>
     </svg>
-    <script type="module" crossorigin src="/golynk-website/assets/main-BNmtawfm.js"></script>
-    <link rel="stylesheet" crossorigin href="/golynk-website/assets/main-Dqf_vGYg.css">
+    <script type="module" crossorigin src="/golynk-website/assets/main-DCCyq2cZ.js"></script>
+    <link rel="stylesheet" crossorigin href="/golynk-website/assets/main-CgKJsPjN.css">
   </head>
   <body class="bg-gray-50 text-text-primary antialiased">
     <!-- Modal Backdrop -->
@@ -359,9 +359,12 @@
       <!-- Role Selection Cards -->
       <section class="py-12 md:py-16">
         <div class="max-w-[1000px] mx-auto px-4 sm:px-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="role-cards">
-            <!-- Shipper Card -->
-            <div
+          <!-- Demand Section -->
+          <div class="mb-12">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-6">Demand (Shippers)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Shipper Card -->
+              <div
               id="shipper"
               class="role-card bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden transition-shadow hover:shadow-md relative"
               data-role="shipper"
@@ -590,36 +593,46 @@
                     </span>
                   </div>
 
-                  <!-- Success Message -->
-                  <div class="form-success hidden text-center py-4">
-                    <div
-                      class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
-                    >
-                      <svg class="w-6 h-6 text-green-600">
-                        <use href="#icon-check"></use>
-                      </svg>
+                  <!-- Operational Receipt -->
+                  <div class="form-success hidden px-6 py-6">
+                    <div class="space-y-6">
+                      <div>
+                        <div class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center">
+                          <svg class="w-6 h-6 text-green-600">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-text-primary mb-2">Submission received</h3>
+                        <p class="text-sm text-text-secondary">We review corridor viability and operational fit.</p>
+                      </div>
+                      <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                        <p class="text-sm font-medium text-blue-900">Expected response: within 24–72 hours</p>
+                      </div>
+                      <div class="space-y-3">
+                        <a href="https://calendly.com/golynk" target="_blank" rel="noopener noreferrer" class="block w-full px-4 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors text-center">
+                          Book a discussion
+                        </a>
+                        <a href="./corridor.html" class="block w-full px-4 py-3 border border-gray-200 text-text-primary font-medium rounded-lg hover:bg-gray-50 transition-colors text-center">
+                          Submit additional corridor details
+                        </a>
+                      </div>
                     </div>
-                    <p
-                      class="text-text-primary font-medium"
-                      data-i18n="get-started.messages.success"
-                    >
-                      Thanks — we'll review and respond shortly.
-                    </p>
                   </div>
 
                   <!-- Error Message -->
                   <div class="form-error hidden text-center py-4">
-                    <p
-                      class="text-red-600 font-medium"
-                      data-i18n="get-started.messages.error"
-                    >
-                      Something went wrong. Please try again.
-                    </p>
+                    <p class="text-red-600 font-medium">Something went wrong. Please try again.</p>
                   </div>
                 </form>
               </div>
             </div>
+            </div>
+          </div>
 
+          <!-- Supply Section -->
+          <div class="mb-12">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-6">Supply (Carriers, Fleet Operators, Microhubs)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Carrier Card -->
             <div
               id="role-carrier"
@@ -850,29 +863,35 @@
                     </span>
                   </div>
 
-                  <div class="form-success hidden text-center py-4">
-                    <div
-                      class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
-                    >
-                      <svg class="w-6 h-6 text-green-600">
-                        <use href="#icon-check"></use>
-                      </svg>
+                  <!-- Operational Receipt -->
+                  <div class="form-success hidden px-6 py-6">
+                    <div class="space-y-6">
+                      <div>
+                        <div class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center">
+                          <svg class="w-6 h-6 text-green-600">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-text-primary mb-2">Submission received</h3>
+                        <p class="text-sm text-text-secondary">We review corridor viability and operational fit.</p>
+                      </div>
+                      <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                        <p class="text-sm font-medium text-blue-900">Expected response: within 24–72 hours</p>
+                      </div>
+                      <div class="space-y-3">
+                        <a href="https://calendly.com/golynk" target="_blank" rel="noopener noreferrer" class="block w-full px-4 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors text-center">
+                          Book a discussion
+                        </a>
+                        <a href="./corridor.html" class="block w-full px-4 py-3 border border-gray-200 text-text-primary font-medium rounded-lg hover:bg-gray-50 transition-colors text-center">
+                          Submit additional corridor details
+                        </a>
+                      </div>
                     </div>
-                    <p
-                      class="text-text-primary font-medium"
-                      data-i18n="get-started.messages.success"
-                    >
-                      Thanks — we'll review and respond shortly.
-                    </p>
                   </div>
 
+                  <!-- Error Message -->
                   <div class="form-error hidden text-center py-4">
-                    <p
-                      class="text-red-600 font-medium"
-                      data-i18n="get-started.messages.error"
-                    >
-                      Something went wrong. Please try again.
-                    </p>
+                    <p class="text-red-600 font-medium">Something went wrong. Please try again.</p>
                   </div>
                 </form>
               </div>
@@ -1140,29 +1159,35 @@
                     </span>
                   </div>
 
-                  <div class="form-success hidden text-center py-4">
-                    <div
-                      class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
-                    >
-                      <svg class="w-6 h-6 text-green-600">
-                        <use href="#icon-check"></use>
-                      </svg>
+                  <!-- Operational Receipt -->
+                  <div class="form-success hidden px-6 py-6">
+                    <div class="space-y-6">
+                      <div>
+                        <div class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center">
+                          <svg class="w-6 h-6 text-green-600">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-text-primary mb-2">Submission received</h3>
+                        <p class="text-sm text-text-secondary">We review corridor viability and operational fit.</p>
+                      </div>
+                      <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                        <p class="text-sm font-medium text-blue-900">Expected response: within 24–72 hours</p>
+                      </div>
+                      <div class="space-y-3">
+                        <a href="https://calendly.com/golynk" target="_blank" rel="noopener noreferrer" class="block w-full px-4 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors text-center">
+                          Book a discussion
+                        </a>
+                        <a href="./corridor.html" class="block w-full px-4 py-3 border border-gray-200 text-text-primary font-medium rounded-lg hover:bg-gray-50 transition-colors text-center">
+                          Submit additional corridor details
+                        </a>
+                      </div>
                     </div>
-                    <p
-                      class="text-text-primary font-medium"
-                      data-i18n="get-started.messages.success"
-                    >
-                      Thanks — we'll review and respond shortly.
-                    </p>
                   </div>
 
+                  <!-- Error Message -->
                   <div class="form-error hidden text-center py-4">
-                    <p
-                      class="text-red-600 font-medium"
-                      data-i18n="get-started.messages.error"
-                    >
-                      Something went wrong. Please try again.
-                    </p>
+                    <p class="text-red-600 font-medium">Something went wrong. Please try again.</p>
                   </div>
                 </form>
               </div>
@@ -1440,34 +1465,46 @@
                     </span>
                   </div>
 
-                  <div class="form-success hidden text-center py-4">
-                    <div
-                      class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
-                    >
-                      <svg class="w-6 h-6 text-green-600">
-                        <use href="#icon-check"></use>
-                      </svg>
+                  <!-- Operational Receipt -->
+                  <div class="form-success hidden px-6 py-6">
+                    <div class="space-y-6">
+                      <div>
+                        <div class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center">
+                          <svg class="w-6 h-6 text-green-600">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-text-primary mb-2">Submission received</h3>
+                        <p class="text-sm text-text-secondary">We review corridor viability and operational fit.</p>
+                      </div>
+                      <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                        <p class="text-sm font-medium text-blue-900">Expected response: within 24–72 hours</p>
+                      </div>
+                      <div class="space-y-3">
+                        <a href="https://calendly.com/golynk" target="_blank" rel="noopener noreferrer" class="block w-full px-4 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors text-center">
+                          Book a discussion
+                        </a>
+                        <a href="./corridor.html" class="block w-full px-4 py-3 border border-gray-200 text-text-primary font-medium rounded-lg hover:bg-gray-50 transition-colors text-center">
+                          Submit additional corridor details
+                        </a>
+                      </div>
                     </div>
-                    <p
-                      class="text-text-primary font-medium"
-                      data-i18n="get-started.messages.success"
-                    >
-                      Thanks — we'll review and respond shortly.
-                    </p>
                   </div>
 
+                  <!-- Error Message -->
                   <div class="form-error hidden text-center py-4">
-                    <p
-                      class="text-red-600 font-medium"
-                      data-i18n="get-started.messages.error"
-                    >
-                      Something went wrong. Please try again.
-                    </p>
+                    <p class="text-red-600 font-medium">Something went wrong. Please try again.</p>
                   </div>
                 </form>
               </div>
             </div>
+            </div>
+          </div>
 
+          <!-- Institutional Section -->
+          <div class="mb-12">
+            <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-6">Institutional (Urban Planners & Networks)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Institutional / Urban Planners Card -->
             <div
               id="role-institutional"
@@ -1763,32 +1800,75 @@
                     </span>
                   </div>
 
-                  <div class="form-success hidden text-center py-4">
-                    <div
-                      class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
-                    >
-                      <svg class="w-6 h-6 text-green-600">
-                        <use href="#icon-check"></use>
-                      </svg>
+                  <!-- Operational Receipt -->
+                  <div class="form-success hidden px-6 py-6">
+                    <div class="space-y-6">
+                      <div>
+                        <div class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center">
+                          <svg class="w-6 h-6 text-green-600">
+                            <use href="#icon-check"></use>
+                          </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-text-primary mb-2">Submission received</h3>
+                        <p class="text-sm text-text-secondary">We review corridor viability and operational fit.</p>
+                      </div>
+                      <div class="bg-blue-50 border border-blue-100 rounded-lg p-4">
+                        <p class="text-sm font-medium text-blue-900">Expected response: within 24–72 hours</p>
+                      </div>
+                      <div class="space-y-3">
+                        <a href="https://calendly.com/golynk" target="_blank" rel="noopener noreferrer" class="block w-full px-4 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors text-center">
+                          Book a discussion
+                        </a>
+                        <a href="./corridor.html" class="block w-full px-4 py-3 border border-gray-200 text-text-primary font-medium rounded-lg hover:bg-gray-50 transition-colors text-center">
+                          Submit additional corridor details
+                        </a>
+                      </div>
                     </div>
-                    <p
-                      class="text-text-primary font-medium"
-                      data-i18n="get-started.messages.success"
-                    >
-                      Thanks — we'll review and respond shortly.
-                    </p>
                   </div>
 
+                  <!-- Error Message -->
                   <div class="form-error hidden text-center py-4">
-                    <p
-                      class="text-red-600 font-medium"
-                      data-i18n="get-started.messages.error"
-                    >
-                      Something went wrong. Please try again.
-                    </p>
+                    <p class="text-red-600 font-medium">Something went wrong. Please try again.</p>
                   </div>
                 </form>
               </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- What Happens Next -->
+      <section class="py-16 md:py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+          <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-text-primary mb-4">What happens next</h2>
+            <p class="text-text-secondary">We follow a transparent three-step process to evaluate and activate partnerships.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Step 1 -->
+            <div class="flex flex-col items-center md:items-start">
+              <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 flex-shrink-0">
+                <span class="text-lg font-semibold text-primary">1</span>
+              </div>
+              <h3 class="text-lg font-semibold text-text-primary mb-2 text-center md:text-left">Intake received</h3>
+              <p class="text-sm text-text-secondary text-center md:text-left">Your submission is logged into our review queue and assigned to our operations team.</p>
+            </div>
+            <!-- Step 2 -->
+            <div class="flex flex-col items-center md:items-start">
+              <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 flex-shrink-0">
+                <span class="text-lg font-semibold text-primary">2</span>
+              </div>
+              <h3 class="text-lg font-semibold text-text-primary mb-2 text-center md:text-left">Corridor / capacity review</h3>
+              <p class="text-sm text-text-secondary text-center md:text-left">We analyze the requested corridors, capacity requirements, and operational compatibility.</p>
+            </div>
+            <!-- Step 3 -->
+            <div class="flex flex-col items-center md:items-start">
+              <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 flex-shrink-0">
+                <span class="text-lg font-semibold text-primary">3</span>
+              </div>
+              <h3 class="text-lg font-semibold text-text-primary mb-2 text-center md:text-left">Pilot activation or integration call</h3>
+              <p class="text-sm text-text-secondary text-center md:text-left">If aligned, we schedule a call to finalize terms and go live with your first corridor.</p>
             </div>
           </div>
         </div>
@@ -2135,55 +2215,63 @@
         // Also listen for hash changes (back/forward navigation)
         window.addEventListener("hashchange", expandCardFromHash);
 
-        // Form submission handling
+        // Google Forms URL configuration per role
+        // IMPORTANT: Replace these placeholders with your actual Google Form URLs
+        const googleFormURLs = {
+          shipper: "https://docs.google.com/forms/d/YOUR_SHIPPER_FORM_ID/viewform",
+          carrier: "https://docs.google.com/forms/d/YOUR_CARRIER_FORM_ID/viewform",
+          fleet: "https://docs.google.com/forms/d/YOUR_FLEET_FORM_ID/viewform",
+          microhub: "https://docs.google.com/forms/d/YOUR_MICROHUB_FORM_ID/viewform",
+          institutional: "https://docs.google.com/forms/d/YOUR_INSTITUTIONAL_FORM_ID/viewform",
+        };
+
+        // Form submission handling - Google Forms redirect
         const intakeForms = document.querySelectorAll(".intake-form");
 
         intakeForms.forEach((form) => {
-          form.addEventListener("submit", async function (e) {
+          form.addEventListener("submit", function (e) {
             e.preventDefault();
 
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+            const role = form.getAttribute("data-role");
             const successEl = form.querySelector(".form-success");
-            const errorEl = form.querySelector(".form-error");
             const submitBtn = form.querySelector('button[type="submit"]');
-            const formFields = form.querySelectorAll(
-              "input, select, textarea, button",
-            );
 
-            // Reset states
-            successEl.classList.add("hidden");
-            errorEl.classList.add("hidden");
+            // Validate form fields
+            const inputs = form.querySelectorAll("input[required], select[required], textarea[required]");
+            let isValid = true;
+            inputs.forEach((input) => {
+              if (!input.value.trim()) {
+                isValid = false;
+                input.classList.add("border-red-500");
+              } else {
+                input.classList.remove("border-red-500");
+              }
+            });
 
-            // Disable form during submission
-            submitBtn.textContent = "Submitting...";
-            formFields.forEach((field) => (field.disabled = true));
-
-            try {
-              const response = await fetch("/api/intake", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-              });
-
-              // Hide all form children except success/error messages
-              Array.from(form.children).forEach((child) => {
-                if (
-                  !child.classList.contains("form-success") &&
-                  !child.classList.contains("form-error")
-                ) {
-                  child.classList.add("hidden");
-                }
-              });
-              successEl.classList.remove("hidden");
-            } catch (error) {
-              // Show error state
-              errorEl.classList.remove("hidden");
-              submitBtn.textContent = "Submit";
-              formFields.forEach((field) => (field.disabled = false));
+            if (!isValid) {
+              alert("Please fill in all required fields.");
+              return;
             }
+
+            // Show operational receipt
+            Array.from(form.children).forEach((child) => {
+              if (!child.classList.contains("form-success")) {
+                child.classList.add("hidden");
+              }
+            });
+            successEl.classList.remove("hidden");
+
+            // Open Google Form in new tab
+            const formURL = googleFormURLs[role];
+            if (formURL && !formURL.includes("YOUR_")) {
+              window.open(formURL, "_blank", "noopener,noreferrer");
+            } else {
+              alert("Google Form URL not configured for this role. Please contact support.");
+            }
+
+            // Optionally: Pre-fill Google Form fields by constructing URL parameters
+            // This requires setting up Google Form field IDs in the URL
+            // Example: formURL + "?usp=pp_url&entry.FIELD_ID=" + encodeURIComponent(value)
           });
         });
       });
