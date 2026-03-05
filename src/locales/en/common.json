@@ -65,7 +65,8 @@
           "getStarted": "Get Started",
           "pricing": "Pricing",
           "howItWorks": "How it works",
-          "faq": "FAQ"
+          "faq": "FAQ",
+          "api": "API Documentation"
         }
       },
       "carriers": {
@@ -73,7 +74,9 @@
         "links": {
           "getStarted": "Get Started",
           "corridors": "Corridors",
-          "dashboard": "Operator Dashboard"
+          "dashboard": "Operator Dashboard",
+          "joinIndividual": "Individual Partners",
+          "fleetOperators": "Fleet Operators"
         }
       },
       "resources": {
@@ -109,6 +112,7 @@
     "about": "About",
     "investor": "Investor",
     "careers": "Careers",
+    "contact": "Contact",
     "glTech": "GL Tech",
     "environment": "Environment"
   },

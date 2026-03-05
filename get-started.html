@@ -228,23 +228,53 @@
               </a>
 
               <!-- Language Selector -->
-              <select
-                class="language-selector px-3 py-2 text-sm font-medium text-text-primary bg-gray-50 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
-              >
-                <option value="en">EN</option>
-                <option value="de">DE</option>
-              </select>
+              <div class="relative inline-block">
+                <select
+                  class="language-selector pl-8 pr-3 py-2 text-sm font-medium text-text-primary bg-gray-50 border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all appearance-none"
+                >
+                  <option value="en">EN</option>
+                  <option value="de">DE</option>
+                </select>
+                <svg
+                  class="absolute left-2 top-1/2 -translate-y-1/2 size-4 text-text-primary pointer-events-none"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                  ></path>
+                  <path d="M2 12h20"></path>
+                </svg>
+              </div>
             </div>
 
             <!-- Mobile: Language Selector + Menu Button -->
             <div class="lg:hidden flex items-center gap-3">
               <!-- Language Selector (Mobile) -->
-              <select
-                class="language-selector px-2 py-1.5 text-xs font-medium text-text-primary bg-gray-50 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
-              >
-                <option value="en">EN</option>
-                <option value="de">DE</option>
-              </select>
+              <div class="relative inline-block">
+                <select
+                  class="language-selector pl-8 pr-2 py-1.5 text-xs font-medium text-text-primary bg-gray-50 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all appearance-none"
+                >
+                  <option value="en">EN</option>
+                  <option value="de">DE</option>
+                </select>
+                <svg
+                  class="absolute left-1.5 top-1/2 -translate-y-1/2 size-3 text-text-primary pointer-events-none"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                  ></path>
+                  <path d="M2 12h20"></path>
+                </svg>
+              </div>
 
               <!-- Mobile Menu Button -->
               <button
@@ -357,1289 +387,416 @@
 
       <!-- Role Selection Cards -->
       <section class="py-12 md:py-16">
-        <div class="max-w-[1000px] mx-auto px-4 sm:px-6">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="role-cards">
-            <!-- Shipper Card -->
-            <div
-              id="shipper"
-              class="role-card bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden transition-shadow hover:shadow-md relative"
-              data-role="shipper"
+        <div class="max-w-[1000px] mx-auto px-4 sm:px-6" id="role-cards">
+          <!-- Demand Section -->
+          <div class="mb-12">
+            <h3
+              class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-6"
             >
-              <button
-                type="button"
-                class="role-card-header w-full p-6 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-inset"
+              Demand (Shippers)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Shipper Card -->
+              <div
+                id="shipper"
+                class="role-card bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden transition-shadow hover:shadow-md relative"
+                data-role="shipper"
               >
-                <div class="flex items-start gap-4">
-                  <div
-                    class="w-12 h-12 flex-shrink-0 bg-primary/10 rounded-lg flex items-center justify-center"
-                  >
-                    <svg class="w-6 h-6 text-primary">
-                      <use href="#icon-ship"></use>
-                    </svg>
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <div class="flex items-center justify-between gap-2">
-                      <h2
-                        class="text-lg font-semibold text-text-primary"
-                        data-i18n="get-started.roles.shipper.title"
-                      >
-                        I'm a Shipper
-                      </h2>
-                    </div>
-                    <p
-                      class="text-text-secondary text-sm mt-1"
-                      data-i18n="get-started.roles.shipper.description"
-                    >
-                      Ship on existing routes with predictable handoffs.
-                    </p>
-                    <span
-                      class="inline-block mt-3 text-primary font-medium text-sm"
-                      data-i18n="get-started.roles.shipper.cta"
-                      >Check corridor availability →</span
-                    >
-                  </div>
-                </div>
-              </button>
-
-              <!-- Shipper Form (hidden by default) -->
-              <div class="role-form hidden border-t border-gray-100">
-                <form class="p-6 space-y-5 intake-form" data-role="shipper">
-                  <input type="hidden" name="role" value="shipper" />
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="shipper-full_name"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.fullName"
-                          >Full Name</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="shipper-full_name"
-                        name="full_name"
-                        required
-                        placeholder="Your full name"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        for="shipper-company_name"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.companyName"
-                          >Company Name</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="shipper-company_name"
-                        name="company_name"
-                        required
-                        placeholder="Your company name"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="shipper-city"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.city"
-                          >City</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="shipper-city"
-                        name="city"
-                        required
-                        placeholder="e.g. Munich, Berlin"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        for="shipper-volume_per_month"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.volumePerMonth"
-                          >Volume / Month</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <select
-                        id="shipper-volume_per_month"
-                        name="volume_per_month"
-                        required
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
-                        style="
-                          background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23717680%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e&quot;);
-                          background-repeat: no-repeat;
-                          background-position: right 1rem center;
-                          background-size: 1rem;
-                        "
-                      >
-                        <option value="" disabled selected>
-                          Select volume
-                        </option>
-                        <option value="1-20">1–20</option>
-                        <option value="20-100">20–100</option>
-                        <option value="100-500">100–500</option>
-                        <option value="500+">500+</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="shipper-email"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.email"
-                          >Email</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        id="shipper-email"
-                        name="email"
-                        required
-                        placeholder="you@company.com"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                      <p
-                        class="text-xs text-text-secondary/70 mt-1"
-                        data-i18n="get-started.form.privacyNote"
-                      >
-                        Your data stays private — we never share your
-                        information.
-                      </p>
-                    </div>
-                    <div>
-                      <label
-                        for="shipper-phone"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.phone"
-                          >Phone</span
-                        >
-                        <span
-                          class="text-text-secondary/60 font-normal"
-                          data-i18n="get-started.form.labels.optional"
-                          >(optional)</span
-                        >
-                      </label>
-                      <input
-                        type="tel"
-                        id="shipper-phone"
-                        name="phone"
-                        placeholder="+49 123 456 7890"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <button
-                    type="submit"
-                    class="w-full px-7 py-4 primary-btn"
-                    data-i18n="get-started.form.submitShipper"
-                  >
-                    Request Corridor Match
-                  </button>
-
-                  <!-- Trust Microcopy -->
-                  <div
-                    class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-text-secondary/70 pt-1"
-                  >
-                    <span class="flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.noCommitment"
-                        >No commitment</span
-                      >
-                    </span>
-                    <span class="flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.response24h"
-                        >Response within 24 hours</span
-                      >
-                    </span>
-                    <span class="hidden md:flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.priorityAccess"
-                        >Priority access for early partners</span
-                      >
-                    </span>
-                  </div>
-
-                  <!-- Success Message -->
-                  <div class="form-success hidden text-center py-4">
-                    <div
-                      class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
-                    >
-                      <svg class="w-6 h-6 text-green-600">
-                        <use href="#icon-check"></use>
-                      </svg>
-                    </div>
-                    <p
-                      class="text-text-primary font-medium"
-                      data-i18n="get-started.messages.success"
-                    >
-                      Thanks — we'll review and respond shortly.
-                    </p>
-                  </div>
-
-                  <!-- Error Message -->
-                  <div class="form-error hidden text-center py-4">
-                    <p
-                      class="text-red-600 font-medium"
-                      data-i18n="get-started.messages.error"
-                    >
-                      Something went wrong. Please try again.
-                    </p>
-                  </div>
-                </form>
-              </div>
-            </div>
-
-            <!-- Carrier Card -->
-            <div
-              id="role-carrier"
-              class="role-card bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden transition-shadow hover:shadow-md relative"
-              data-role="carrier"
-            >
-              <button
-                type="button"
-                class="role-card-header w-full p-6 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-inset"
-              >
-                <div class="flex items-start gap-4">
-                  <div
-                    class="w-12 h-12 flex-shrink-0 bg-primary/10 rounded-lg flex items-center justify-center"
-                  >
-                    <svg class="w-6 h-6 text-primary">
-                      <use href="#icon-delivery"></use>
-                    </svg>
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <div class="flex items-center justify-between gap-2">
-                      <h2
-                        class="text-lg font-semibold text-text-primary"
-                        data-i18n="get-started.roles.carrier.title"
-                      >
-                        I'm a Carrier
-                      </h2>
-                    </div>
-                    <p
-                      class="text-text-secondary text-sm mt-1"
-                      data-i18n="get-started.roles.carrier.description"
-                    >
-                      Earn on routes you already take — zero deviation matching.
-                    </p>
-                    <span
-                      class="inline-block mt-3 text-primary font-medium text-sm"
-                      data-i18n="get-started.roles.carrier.cta"
-                      >Share routes & availability →</span
-                    >
-                  </div>
-                </div>
-              </button>
-
-              <!-- Carrier Form -->
-              <div class="role-form hidden border-t border-gray-100">
-                <form class="p-6 space-y-5 intake-form" data-role="carrier">
-                  <input type="hidden" name="role" value="carrier" />
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="carrier-full_name"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.fullName"
-                          >Full Name</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="carrier-full_name"
-                        name="full_name"
-                        required
-                        placeholder="Your full name"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        for="carrier-city"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.city"
-                          >City</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="carrier-city"
-                        name="city"
-                        required
-                        placeholder="e.g. Munich, Berlin"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      for="carrier-vehicle_type"
-                      class="block text-sm font-medium text-text-primary mb-1.5"
-                    >
-                      <span data-i18n="get-started.form.labels.vehicleType"
-                        >Vehicle Type</span
-                      >
-                      <span class="text-red-500">*</span>
-                    </label>
-                    <select
-                      id="carrier-vehicle_type"
-                      name="vehicle_type"
-                      required
-                      class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
-                      style="
-                        background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23717680%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e&quot;);
-                        background-repeat: no-repeat;
-                        background-position: right 1rem center;
-                        background-size: 1rem;
-                      "
-                    >
-                      <option value="" disabled selected>
-                        Select vehicle type
-                      </option>
-                      <option value="walker">Walker</option>
-                      <option value="bike">Bike</option>
-                      <option value="car">Car</option>
-                      <option value="van">Van</option>
-                      <option value="truck">Truck</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label
-                      for="carrier-typical_route"
-                      class="block text-sm font-medium text-text-primary mb-1.5"
-                    >
-                      <span data-i18n="get-started.form.labels.typicalRoute"
-                        >Typical Route</span
-                      >
-                      <span class="text-red-500">*</span>
-                    </label>
-                    <textarea
-                      id="carrier-typical_route"
-                      name="typical_route"
-                      required
-                      rows="3"
-                      placeholder="Cairo → Giza daily 8–10am"
-                      class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-none"
-                    ></textarea>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="carrier-email"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.email"
-                          >Email</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        id="carrier-email"
-                        name="email"
-                        required
-                        placeholder="you@email.com"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                      <p
-                        class="text-xs text-text-secondary/70 mt-1"
-                        data-i18n="get-started.form.privacyNote"
-                      >
-                        Your data stays private — we never share your
-                        information.
-                      </p>
-                    </div>
-                    <div>
-                      <label
-                        for="carrier-phone"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.phone"
-                          >Phone</span
-                        >
-                        <span
-                          class="text-text-secondary/60 font-normal"
-                          data-i18n="get-started.form.labels.optional"
-                          >(optional)</span
-                        >
-                      </label>
-                      <input
-                        type="tel"
-                        id="carrier-phone"
-                        name="phone"
-                        placeholder="+49 123 456 7890"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <button
-                    type="submit"
-                    class="w-full px-7 py-4 primary-btn"
-                    data-i18n="get-started.form.submitCarrier"
-                  >
-                    Share My Route
-                  </button>
-
-                  <div
-                    class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-text-secondary/70 pt-1"
-                  >
-                    <span class="flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.noCommitment"
-                        >No commitment</span
-                      >
-                    </span>
-                    <span class="flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.response24h"
-                        >Response within 24 hours</span
-                      >
-                    </span>
-                    <span class="hidden md:flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.priorityAccess"
-                        >Priority access for early partners</span
-                      >
-                    </span>
-                  </div>
-
-                  <div class="form-success hidden text-center py-4">
-                    <div
-                      class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
-                    >
-                      <svg class="w-6 h-6 text-green-600">
-                        <use href="#icon-check"></use>
-                      </svg>
-                    </div>
-                    <p
-                      class="text-text-primary font-medium"
-                      data-i18n="get-started.messages.success"
-                    >
-                      Thanks — we'll review and respond shortly.
-                    </p>
-                  </div>
-
-                  <div class="form-error hidden text-center py-4">
-                    <p
-                      class="text-red-600 font-medium"
-                      data-i18n="get-started.messages.error"
-                    >
-                      Something went wrong. Please try again.
-                    </p>
-                  </div>
-                </form>
-              </div>
-            </div>
-
-            <!-- Fleet Operator Card -->
-            <div
-              id="role-fleet"
-              class="role-card bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden transition-shadow hover:shadow-md relative"
-              data-role="fleet"
-            >
-              <button
-                type="button"
-                class="role-card-header w-full p-6 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-inset"
-              >
-                <div class="flex items-start gap-4">
-                  <div
-                    class="w-12 h-12 flex-shrink-0 bg-primary/10 rounded-lg flex items-center justify-center"
-                  >
-                    <svg class="w-6 h-6 text-primary">
-                      <use href="#icon-fleet"></use>
-                    </svg>
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <div class="flex items-center justify-between gap-2">
-                      <h2
-                        class="text-lg font-semibold text-text-primary"
-                        data-i18n="get-started.roles.fleet.title"
-                      >
-                        I Run a Fleet
-                      </h2>
-                    </div>
-                    <p
-                      class="text-text-secondary text-sm mt-1"
-                      data-i18n="get-started.roles.fleet.description"
-                    >
-                      Monetize spare capacity without disrupting your routing.
-                    </p>
-                    <span
-                      class="inline-block mt-3 text-primary font-medium text-sm"
-                      data-i18n="get-started.roles.fleet.cta"
-                      >Request integration call →</span
-                    >
-                  </div>
-                </div>
-              </button>
-
-              <!-- Fleet Form -->
-              <div class="role-form hidden border-t border-gray-100">
-                <form class="p-6 space-y-5 intake-form" data-role="fleet">
-                  <input type="hidden" name="role" value="fleet" />
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="fleet-full_name"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.fullName"
-                          >Full Name</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="fleet-full_name"
-                        name="full_name"
-                        required
-                        placeholder="Your full name"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        for="fleet-company_name"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.companyName"
-                          >Company Name</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="fleet-company_name"
-                        name="company_name"
-                        required
-                        placeholder="Your company name"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="fleet-fleet_size"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.fleetSize"
-                          >Fleet Size</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <select
-                        id="fleet-fleet_size"
-                        name="fleet_size"
-                        required
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
-                        style="
-                          background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23717680%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e&quot;);
-                          background-repeat: no-repeat;
-                          background-position: right 1rem center;
-                          background-size: 1rem;
-                        "
-                      >
-                        <option value="" disabled selected>
-                          Select fleet size
-                        </option>
-                        <option value="1-10">1–10 vehicles</option>
-                        <option value="11-50">11–50 vehicles</option>
-                        <option value="51-200">51–200 vehicles</option>
-                        <option value="200+">200+ vehicles</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label
-                        for="fleet-lanes"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.lanesRegions"
-                          >Lanes / Regions</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="fleet-lanes"
-                        name="lanes"
-                        required
-                        placeholder="Berlin–Hamburg, Munich region"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="fleet-email"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.email"
-                          >Email</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        id="fleet-email"
-                        name="email"
-                        required
-                        placeholder="you@company.com"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                      <p
-                        class="text-xs text-text-secondary/70 mt-1"
-                        data-i18n="get-started.form.privacyNote"
-                      >
-                        Your data stays private — we never share your
-                        information.
-                      </p>
-                    </div>
-                    <div>
-                      <label
-                        for="fleet-phone"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.phone"
-                          >Phone</span
-                        >
-                        <span
-                          class="text-text-secondary/60 font-normal"
-                          data-i18n="get-started.form.labels.optional"
-                          >(optional)</span
-                        >
-                      </label>
-                      <input
-                        type="tel"
-                        id="fleet-phone"
-                        name="phone"
-                        placeholder="+49 123 456 7890"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      for="fleet-current_tools"
-                      class="block text-sm font-medium text-text-primary mb-1.5"
-                    >
-                      <span data-i18n="get-started.form.labels.currentTools"
-                        >Current Tools</span
-                      >
-                      <span
-                        class="text-text-secondary/60 font-normal"
-                        data-i18n="get-started.form.labels.optional"
-                        >(optional)</span
-                      >
-                    </label>
-                    <input
-                      type="text"
-                      id="fleet-current_tools"
-                      name="current_tools"
-                      placeholder="TMS / routing tool you use"
-                      class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    class="w-full px-7 py-4 primary-btn"
-                    data-i18n="get-started.form.submitFleet"
-                  >
-                    Request Integration Review
-                  </button>
-
-                  <div class="text-center mt-2">
-                    <a
-                      href="mailto:carrier@golynk.com?subject=Fleet%20Integration%20Call"
-                      class="text-primary text-sm hover:underline"
-                      data-i18n="get-started.fleet.scheduleCallLink"
-                    >
-                      Schedule Integration Call →
-                    </a>
-                  </div>
-
-                  <div
-                    class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-text-secondary/70 pt-1"
-                  >
-                    <span class="flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.noCommitment"
-                        >No commitment</span
-                      >
-                    </span>
-                    <span class="flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.response24h"
-                        >Response within 24 hours</span
-                      >
-                    </span>
-                    <span class="hidden md:flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.priorityAccess"
-                        >Priority access for early partners</span
-                      >
-                    </span>
-                  </div>
-
-                  <div class="form-success hidden text-center py-4">
-                    <div
-                      class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
-                    >
-                      <svg class="w-6 h-6 text-green-600">
-                        <use href="#icon-check"></use>
-                      </svg>
-                    </div>
-                    <p
-                      class="text-text-primary font-medium"
-                      data-i18n="get-started.messages.success"
-                    >
-                      Thanks — we'll review and respond shortly.
-                    </p>
-                  </div>
-
-                  <div class="form-error hidden text-center py-4">
-                    <p
-                      class="text-red-600 font-medium"
-                      data-i18n="get-started.messages.error"
-                    >
-                      Something went wrong. Please try again.
-                    </p>
-                  </div>
-                </form>
-              </div>
-            </div>
-
-            <!-- Microhub Owner Card -->
-            <div
-              id="role-microhub"
-              class="role-card bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden transition-shadow hover:shadow-md relative"
-              data-role="microhub"
-            >
-              <button
-                type="button"
-                class="role-card-header w-full p-6 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-inset"
-              >
-                <div class="flex items-start gap-4">
-                  <div
-                    class="w-12 h-12 flex-shrink-0 bg-primary/10 rounded-lg flex items-center justify-center"
-                  >
-                    <svg class="w-6 h-6 text-primary">
-                      <use href="#icon-hub"></use>
-                    </svg>
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <div class="flex items-center justify-between gap-2">
-                      <h2
-                        class="text-lg font-semibold text-text-primary"
-                        data-i18n="get-started.roles.microhub.title"
-                      >
-                        I Have Storage Space
-                      </h2>
-                    </div>
-                    <p
-                      class="text-text-secondary text-sm mt-1"
-                      data-i18n="get-started.roles.microhub.description"
-                    >
-                      Turn idle space into verified microhub handoff income.
-                    </p>
-                    <span
-                      class="inline-block mt-3 text-primary font-medium text-sm"
-                      data-i18n="get-started.roles.microhub.cta"
-                      >Register a microhub location →</span
-                    >
-                  </div>
-                </div>
-              </button>
-
-              <!-- Microhub Form -->
-              <div class="role-form hidden border-t border-gray-100">
-                <form class="p-6 space-y-5 intake-form" data-role="microhub">
-                  <input type="hidden" name="role" value="microhub" />
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="microhub-full_name"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.fullName"
-                          >Full Name</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="microhub-full_name"
-                        name="full_name"
-                        required
-                        placeholder="Your full name"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        for="microhub-location"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.location"
-                          >Location</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="microhub-location"
-                        name="location"
-                        required
-                        placeholder="Address or area"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="microhub-space_type"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.spaceType"
-                          >Space Type</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <select
-                        id="microhub-space_type"
-                        name="space_type"
-                        required
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
-                        style="
-                          background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23717680%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e&quot;);
-                          background-repeat: no-repeat;
-                          background-position: right 1rem center;
-                          background-size: 1rem;
-                        "
-                      >
-                        <option value="" disabled selected>
-                          Select space type
-                        </option>
-                        <option value="retail-backroom">Retail backroom</option>
-                        <option value="warehouse">Warehouse</option>
-                        <option value="garage">Garage</option>
-                        <option value="office">Office</option>
-                        <option value="other">Other</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label
-                        for="microhub-size_sqm"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.sizeSqm"
-                          >Size (sqm)</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <select
-                        id="microhub-size_sqm"
-                        name="size_sqm"
-                        required
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
-                        style="
-                          background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23717680%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e&quot;);
-                          background-repeat: no-repeat;
-                          background-position: right 1rem center;
-                          background-size: 1rem;
-                        "
-                      >
-                        <option value="" disabled selected>Select size</option>
-                        <option value="<20">&lt;20 sqm</option>
-                        <option value="20-50">20–50 sqm</option>
-                        <option value="50-150">50–150 sqm</option>
-                        <option value="150+">150+ sqm</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      for="microhub-access_hours"
-                      class="block text-sm font-medium text-text-primary mb-1.5"
-                    >
-                      <span data-i18n="get-started.form.labels.accessHours"
-                        >Access Hours</span
-                      >
-                      <span class="text-red-500">*</span>
-                    </label>
-                    <select
-                      id="microhub-access_hours"
-                      name="access_hours"
-                      required
-                      class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
-                      style="
-                        background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23717680%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e&quot;);
-                        background-repeat: no-repeat;
-                        background-position: right 1rem center;
-                        background-size: 1rem;
-                      "
-                    >
-                      <option value="" disabled selected>
-                        Select access hours
-                      </option>
-                      <option value="business-hours">Business hours</option>
-                      <option value="24-7">24/7</option>
-                      <option value="evenings">Evenings</option>
-                      <option value="weekends">Weekends</option>
-                    </select>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="microhub-email"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.email"
-                          >Email</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        id="microhub-email"
-                        name="email"
-                        required
-                        placeholder="you@email.com"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                      <p
-                        class="text-xs text-text-secondary/70 mt-1"
-                        data-i18n="get-started.form.privacyNote"
-                      >
-                        Your data stays private — we never share your
-                        information.
-                      </p>
-                    </div>
-                    <div>
-                      <label
-                        for="microhub-phone"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.phone"
-                          >Phone</span
-                        >
-                        <span
-                          class="text-text-secondary/60 font-normal"
-                          data-i18n="get-started.form.labels.optional"
-                          >(optional)</span
-                        >
-                      </label>
-                      <input
-                        type="tel"
-                        id="microhub-phone"
-                        name="phone"
-                        placeholder="+49 123 456 7890"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <button
-                    type="submit"
-                    class="w-full px-7 py-4 primary-btn"
-                    data-i18n="get-started.form.submitMicrohub"
-                  >
-                    Register Microhub Location
-                  </button>
-
-                  <div
-                    class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-text-secondary/70 pt-1"
-                  >
-                    <span class="flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.noCommitment"
-                        >No commitment</span
-                      >
-                    </span>
-                    <span class="flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.response24h"
-                        >Response within 24 hours</span
-                      >
-                    </span>
-                    <span class="hidden md:flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.priorityAccess"
-                        >Priority access for early partners</span
-                      >
-                    </span>
-                  </div>
-
-                  <div class="form-success hidden text-center py-4">
-                    <div
-                      class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
-                    >
-                      <svg class="w-6 h-6 text-green-600">
-                        <use href="#icon-check"></use>
-                      </svg>
-                    </div>
-                    <p
-                      class="text-text-primary font-medium"
-                      data-i18n="get-started.messages.success"
-                    >
-                      Thanks — we'll review and respond shortly.
-                    </p>
-                  </div>
-
-                  <div class="form-error hidden text-center py-4">
-                    <p
-                      class="text-red-600 font-medium"
-                      data-i18n="get-started.messages.error"
-                    >
-                      Something went wrong. Please try again.
-                    </p>
-                  </div>
-                </form>
-              </div>
-            </div>
-
-            <!-- Institutional / Urban Planners Card -->
-            <div
-              id="role-institutional"
-              class="role-card bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden transition-shadow hover:shadow-md md:col-span-2 md:max-w-[calc(50%-0.75rem)] md:mx-auto relative"
-              data-role="institutional"
-            >
-              <button
-                type="button"
-                class="role-card-header w-full p-6 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-inset"
-              >
-                <div class="flex items-start gap-4">
-                  <div
-                    class="w-12 h-12 flex-shrink-0 bg-primary/10 rounded-lg flex items-center justify-center"
-                  >
-                    <svg class="w-6 h-6 text-primary">
-                      <use href="#icon-institution"></use>
-                    </svg>
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <div class="flex items-center justify-between gap-2">
-                      <h2
-                        class="text-lg font-semibold text-text-primary"
-                        data-i18n="get-started.roles.institutional.title"
-                      >
-                        Urban Planners & Institutional Networks
-                      </h2>
-                    </div>
-                    <p
-                      class="text-text-secondary text-sm mt-1"
-                      data-i18n="get-started.roles.institutional.description"
-                    >
-                      Improve logistics flow without increasing vehicles while
-                      maintaining compliance.
-                    </p>
-                    <span
-                      class="inline-block mt-3 text-primary font-medium text-sm"
-                      data-i18n="get-started.roles.institutional.cta"
-                      >Partner with GoLynk →</span
-                    >
-                  </div>
-                </div>
-              </button>
-
-              <!-- Institutional Form -->
-              <div class="role-form hidden border-t border-gray-100">
-                <form
-                  class="p-6 space-y-5 intake-form"
-                  data-role="institutional"
+                <button
+                  type="button"
+                  class="role-card-header w-full p-6 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-inset"
                 >
-                  <input type="hidden" name="role" value="institutional" />
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="institutional-full_name"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.fullName"
-                          >Full Name</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="institutional-full_name"
-                        name="full_name"
-                        required
-                        placeholder="Your full name"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 flex-shrink-0 bg-primary/10 rounded-lg flex items-center justify-center"
+                    >
+                      <svg class="w-6 h-6 text-primary">
+                        <use href="#icon-ship"></use>
+                      </svg>
                     </div>
-                    <div>
-                      <label
-                        for="institutional-organization"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.organization"
-                          >Organization</span
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between gap-2">
+                        <h2
+                          class="text-lg font-semibold text-text-primary"
+                          data-i18n="get-started.roles.shipper.title"
                         >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="institutional-organization"
-                        name="organization"
-                        required
-                        placeholder="City, agency, or institution"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="institutional-role_title"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.roleTitle"
-                          >Role / Title</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="institutional-role_title"
-                        name="role_title"
-                        required
-                        placeholder="City Logistics Planner"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        for="institutional-city_region"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.cityRegion"
-                          >City / Region</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        id="institutional-city_region"
-                        name="city_region"
-                        required
-                        placeholder="Berlin / Brandenburg"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label
-                        for="institutional-email"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.email"
-                          >Email</span
-                        >
-                        <span class="text-red-500">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        id="institutional-email"
-                        name="email"
-                        required
-                        placeholder="you@organization.gov"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
+                          I'm a Shipper
+                        </h2>
+                      </div>
                       <p
-                        class="text-xs text-text-secondary/70 mt-1"
-                        data-i18n="get-started.form.privacyNote"
+                        class="text-text-secondary text-sm mt-1"
+                        data-i18n="get-started.roles.shipper.description"
                       >
-                        Your data stays private — we never share your
-                        information.
+                        Ship on existing routes with predictable handoffs.
+                      </p>
+                      <span
+                        class="inline-block mt-3 text-primary font-medium text-sm"
+                        data-i18n="get-started.roles.shipper.cta"
+                        >Check corridor availability →</span
+                      >
+                    </div>
+                  </div>
+                </button>
+
+                <!-- Shipper Form (hidden by default) -->
+                <div class="role-form hidden border-t border-gray-100">
+                  <form class="p-6 space-y-5 intake-form" data-role="shipper">
+                    <input type="hidden" name="role" value="shipper" />
+                    <input type="hidden" name="hp" style="display: none" />
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="shipper-full_name"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.fullName"
+                            >Full Name</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="shipper-full_name"
+                          name="full_name"
+                          required
+                          placeholder="Your full name"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          for="shipper-company_name"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.companyName"
+                            >Company Name</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="shipper-company_name"
+                          name="company_name"
+                          required
+                          placeholder="Your company name"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="shipper-city"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.city"
+                            >City</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="shipper-city"
+                          name="city"
+                          required
+                          placeholder="e.g. Munich, Berlin"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          for="shipper-volume_per_month"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span
+                            data-i18n="get-started.form.labels.volumePerMonth"
+                            >Volume / Month</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <select
+                          id="shipper-volume_per_month"
+                          name="volume_per_month"
+                          required
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
+                          style="
+                            background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23717680%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e&quot;);
+                            background-repeat: no-repeat;
+                            background-position: right 1rem center;
+                            background-size: 1rem;
+                          "
+                        >
+                          <option value="" disabled selected>
+                            Select volume
+                          </option>
+                          <option value="1-20">1–20</option>
+                          <option value="20-100">20–100</option>
+                          <option value="100-500">100–500</option>
+                          <option value="500+">500+</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="shipper-email"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.email"
+                            >Email</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          id="shipper-email"
+                          name="email"
+                          required
+                          placeholder="you@company.com"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                        <p
+                          class="text-xs text-text-secondary/70 mt-1"
+                          data-i18n="get-started.form.privacyNote"
+                        >
+                          Your data stays private — we never share your
+                          information.
+                        </p>
+                      </div>
+                      <div>
+                        <label
+                          for="shipper-phone"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.phone"
+                            >Phone</span
+                          >
+                          <span
+                            class="text-text-secondary/60 font-normal"
+                            data-i18n="get-started.form.labels.optional"
+                            >(optional)</span
+                          >
+                        </label>
+                        <input
+                          type="tel"
+                          id="shipper-phone"
+                          name="phone"
+                          placeholder="+49 123 456 7890"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      class="w-full px-7 py-4 primary-btn"
+                      data-i18n="get-started.form.submitShipper"
+                    >
+                      Request Corridor Match
+                    </button>
+
+                    <!-- Trust Microcopy -->
+                    <div
+                      class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-text-secondary/70 pt-1"
+                    >
+                      <span class="flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.noCommitment"
+                          >No commitment</span
+                        >
+                      </span>
+                      <span class="flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.response24h"
+                          >Response within 24 hours</span
+                        >
+                      </span>
+                      <span class="hidden md:flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.priorityAccess"
+                          >Priority access for early partners</span
+                        >
+                      </span>
+                    </div>
+
+                    <!-- Operational Receipt -->
+                    <div class="form-success hidden px-6 py-6">
+                      <div class="space-y-6">
+                        <div>
+                          <div
+                            class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
+                          >
+                            <svg class="w-6 h-6 text-green-600">
+                              <use href="#icon-check"></use>
+                            </svg>
+                          </div>
+                          <h3
+                            class="text-lg font-semibold text-text-primary mb-2"
+                          >
+                            Submission received
+                          </h3>
+                          <p class="text-sm text-text-secondary">
+                            We review corridor viability and operational fit.
+                          </p>
+                        </div>
+                        <div
+                          class="bg-blue-50 border border-blue-100 rounded-lg p-4"
+                        >
+                          <p class="text-sm font-medium text-blue-900">
+                            Expected response: within 24–72 hours
+                          </p>
+                        </div>
+                        <div class="space-y-3">
+                          <a
+                            href="https://calendly.com/golynk"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="block w-full px-4 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors text-center"
+                          >
+                            Book a discussion
+                          </a>
+                          <a
+                            href="./corridor.html"
+                            class="block w-full px-4 py-3 border border-gray-200 text-text-primary font-medium rounded-lg hover:bg-gray-50 transition-colors text-center"
+                          >
+                            Submit additional corridor details
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div class="form-error hidden text-center py-4">
+                      <p class="text-red-600 font-medium">
+                        Something went wrong. Please try again.
                       </p>
                     </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Supply Section -->
+          <div class="mb-12">
+            <h3
+              class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-6"
+            >
+              Supply (Carriers, Fleet Operators, Microhubs)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Carrier Card -->
+              <div
+                id="role-carrier"
+                class="role-card bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden transition-shadow hover:shadow-md relative"
+                data-role="carrier"
+              >
+                <button
+                  type="button"
+                  class="role-card-header w-full p-6 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-inset"
+                >
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 flex-shrink-0 bg-primary/10 rounded-lg flex items-center justify-center"
+                    >
+                      <svg class="w-6 h-6 text-primary">
+                        <use href="#icon-delivery"></use>
+                      </svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between gap-2">
+                        <h2
+                          class="text-lg font-semibold text-text-primary"
+                          data-i18n="get-started.roles.carrier.title"
+                        >
+                          I'm a Carrier
+                        </h2>
+                      </div>
+                      <p
+                        class="text-text-secondary text-sm mt-1"
+                        data-i18n="get-started.roles.carrier.description"
+                      >
+                        Earn on routes you already take — zero deviation
+                        matching.
+                      </p>
+                      <span
+                        class="inline-block mt-3 text-primary font-medium text-sm"
+                        data-i18n="get-started.roles.carrier.cta"
+                        >Share routes & availability →</span
+                      >
+                    </div>
+                  </div>
+                </button>
+
+                <!-- Carrier Form -->
+                <div class="role-form hidden border-t border-gray-100">
+                  <form class="p-6 space-y-5 intake-form" data-role="carrier">
+                    <input type="hidden" name="role" value="carrier" />
+                    <input type="hidden" name="hp" style="display: none" />
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="carrier-full_name"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.fullName"
+                            >Full Name</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="carrier-full_name"
+                          name="full_name"
+                          required
+                          placeholder="Your full name"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          for="carrier-city"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.city"
+                            >City</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="carrier-city"
+                          name="city"
+                          required
+                          placeholder="e.g. Munich, Berlin"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                    </div>
+
                     <div>
                       <label
-                        for="institutional-interest_area"
+                        for="carrier-vehicle_type"
                         class="block text-sm font-medium text-text-primary mb-1.5"
                       >
-                        <span data-i18n="get-started.form.labels.interestArea"
-                          >Interest Area</span
+                        <span data-i18n="get-started.form.labels.vehicleType"
+                          >Vehicle Type</span
                         >
                         <span class="text-red-500">*</span>
                       </label>
                       <select
-                        id="institutional-interest_area"
-                        name="interest_area"
+                        id="carrier-vehicle_type"
+                        name="vehicle_type"
                         required
                         class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
                         style="
@@ -1650,144 +807,1262 @@
                         "
                       >
                         <option value="" disabled selected>
-                          Select interest area
+                          Select vehicle type
                         </option>
-                        <option value="planning-dashboards">
-                          Planning dashboards
-                        </option>
-                        <option value="secure-document-logistics">
-                          Secure document logistics
-                        </option>
-                        <option value="carbon-reporting-esg">
-                          Carbon reporting / ESG
-                        </option>
-                        <option value="network-coordination-api">
-                          Network coordination / API
-                        </option>
+                        <option value="walker">Walker</option>
+                        <option value="bike">Bike</option>
+                        <option value="car">Car</option>
+                        <option value="van">Van</option>
+                        <option value="truck">Truck</option>
                         <option value="other">Other</option>
                       </select>
                     </div>
-                  </div>
 
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label
-                        for="institutional-phone"
+                        for="carrier-typical_route"
                         class="block text-sm font-medium text-text-primary mb-1.5"
                       >
-                        <span data-i18n="get-started.form.labels.phone"
-                          >Phone</span
+                        <span data-i18n="get-started.form.labels.typicalRoute"
+                          >Typical Route</span
                         >
-                        <span
-                          class="text-text-secondary/60 font-normal"
-                          data-i18n="get-started.form.labels.optional"
-                          >(optional)</span
-                        >
-                      </label>
-                      <input
-                        type="tel"
-                        id="institutional-phone"
-                        name="phone"
-                        placeholder="+49 123 456 7890"
-                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        for="institutional-notes"
-                        class="block text-sm font-medium text-text-primary mb-1.5"
-                      >
-                        <span data-i18n="get-started.form.labels.notes"
-                          >Notes</span
-                        >
-                        <span
-                          class="text-text-secondary/60 font-normal"
-                          data-i18n="get-started.form.labels.optional"
-                          >(optional)</span
-                        >
+                        <span class="text-red-500">*</span>
                       </label>
                       <textarea
-                        id="institutional-notes"
-                        name="notes"
-                        rows="2"
-                        placeholder="Additional context or questions"
+                        id="carrier-typical_route"
+                        name="typical_route"
+                        required
+                        rows="3"
+                        placeholder="Cairo → Giza daily 8–10am"
                         class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-none"
                       ></textarea>
                     </div>
-                  </div>
 
-                  <button
-                    type="submit"
-                    class="w-full px-7 py-4 primary-btn"
-                    data-i18n="get-started.form.submitInstitutional"
-                  >
-                    Request Partnership Call
-                  </button>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="carrier-email"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.email"
+                            >Email</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          id="carrier-email"
+                          name="email"
+                          required
+                          placeholder="you@email.com"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                        <p
+                          class="text-xs text-text-secondary/70 mt-1"
+                          data-i18n="get-started.form.privacyNote"
+                        >
+                          Your data stays private — we never share your
+                          information.
+                        </p>
+                      </div>
+                      <div>
+                        <label
+                          for="carrier-phone"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.phone"
+                            >Phone</span
+                          >
+                          <span
+                            class="text-text-secondary/60 font-normal"
+                            data-i18n="get-started.form.labels.optional"
+                            >(optional)</span
+                          >
+                        </label>
+                        <input
+                          type="tel"
+                          id="carrier-phone"
+                          name="phone"
+                          placeholder="+49 123 456 7890"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                    </div>
 
-                  <div class="text-center">
-                    <a
-                      href="mailto:partners@golynk.com?subject=Institutional%20Partnership%20Inquiry"
-                      class="text-sm text-text-secondary hover:text-primary transition-colors"
+                    <button
+                      type="submit"
+                      class="w-full px-7 py-4 primary-btn"
+                      data-i18n="get-started.form.submitCarrier"
                     >
-                      Contact Partnerships →
-                    </a>
-                  </div>
+                      Share My Route
+                    </button>
 
-                  <div
-                    class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-text-secondary/70 pt-1"
-                  >
-                    <span class="flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.chainOfCustody"
-                        >Chain-of-custody</span
-                      >
-                    </span>
-                    <span class="flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.slaBacked"
-                        >SLA-backed operations</span
-                      >
-                    </span>
-                    <span class="hidden md:flex items-center gap-1">
-                      <svg class="w-3.5 h-3.5 text-green-500">
-                        <use href="#icon-check"></use>
-                      </svg>
-                      <span data-i18n="get-started.trust.complianceReady"
-                        >Compliance-ready reporting</span
-                      >
-                    </span>
-                  </div>
-
-                  <div class="form-success hidden text-center py-4">
                     <div
-                      class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
+                      class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-text-secondary/70 pt-1"
                     >
-                      <svg class="w-6 h-6 text-green-600">
-                        <use href="#icon-check"></use>
+                      <span class="flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.noCommitment"
+                          >No commitment</span
+                        >
+                      </span>
+                      <span class="flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.response24h"
+                          >Response within 24 hours</span
+                        >
+                      </span>
+                      <span class="hidden md:flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.priorityAccess"
+                          >Priority access for early partners</span
+                        >
+                      </span>
+                    </div>
+
+                    <!-- Operational Receipt -->
+                    <div class="form-success hidden px-6 py-6">
+                      <div class="space-y-6">
+                        <div>
+                          <div
+                            class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
+                          >
+                            <svg class="w-6 h-6 text-green-600">
+                              <use href="#icon-check"></use>
+                            </svg>
+                          </div>
+                          <h3
+                            class="text-lg font-semibold text-text-primary mb-2"
+                          >
+                            Submission received
+                          </h3>
+                          <p class="text-sm text-text-secondary">
+                            We review corridor viability and operational fit.
+                          </p>
+                        </div>
+                        <div
+                          class="bg-blue-50 border border-blue-100 rounded-lg p-4"
+                        >
+                          <p class="text-sm font-medium text-blue-900">
+                            Expected response: within 24–72 hours
+                          </p>
+                        </div>
+                        <div class="space-y-3">
+                          <a
+                            href="https://calendly.com/golynk"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="block w-full px-4 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors text-center"
+                          >
+                            Book a discussion
+                          </a>
+                          <a
+                            href="./corridor.html"
+                            class="block w-full px-4 py-3 border border-gray-200 text-text-primary font-medium rounded-lg hover:bg-gray-50 transition-colors text-center"
+                          >
+                            Submit additional corridor details
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div class="form-error hidden text-center py-4">
+                      <p class="text-red-600 font-medium">
+                        Something went wrong. Please try again.
+                      </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Fleet Operator Card -->
+              <div
+                id="role-fleet"
+                class="role-card bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden transition-shadow hover:shadow-md relative"
+                data-role="fleet"
+              >
+                <button
+                  type="button"
+                  class="role-card-header w-full p-6 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-inset"
+                >
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 flex-shrink-0 bg-primary/10 rounded-lg flex items-center justify-center"
+                    >
+                      <svg class="w-6 h-6 text-primary">
+                        <use href="#icon-fleet"></use>
                       </svg>
                     </div>
-                    <p
-                      class="text-text-primary font-medium"
-                      data-i18n="get-started.messages.success"
-                    >
-                      Thanks — we'll review and respond shortly.
-                    </p>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between gap-2">
+                        <h2
+                          class="text-lg font-semibold text-text-primary"
+                          data-i18n="get-started.roles.fleet.title"
+                        >
+                          I Run a Fleet
+                        </h2>
+                      </div>
+                      <p
+                        class="text-text-secondary text-sm mt-1"
+                        data-i18n="get-started.roles.fleet.description"
+                      >
+                        Monetize spare capacity without disrupting your routing.
+                      </p>
+                      <span
+                        class="inline-block mt-3 text-primary font-medium text-sm"
+                        data-i18n="get-started.roles.fleet.cta"
+                        >Request integration call →</span
+                      >
+                    </div>
                   </div>
+                </button>
 
-                  <div class="form-error hidden text-center py-4">
-                    <p
-                      class="text-red-600 font-medium"
-                      data-i18n="get-started.messages.error"
+                <!-- Fleet Form -->
+                <div class="role-form hidden border-t border-gray-100">
+                  <form class="p-6 space-y-5 intake-form" data-role="fleet">
+                    <input type="hidden" name="role" value="fleet" />
+                    <input type="hidden" name="hp" style="display: none" />
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="fleet-full_name"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.fullName"
+                            >Full Name</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="fleet-full_name"
+                          name="full_name"
+                          required
+                          placeholder="Your full name"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          for="fleet-company_name"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.companyName"
+                            >Company Name</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="fleet-company_name"
+                          name="company_name"
+                          required
+                          placeholder="Your company name"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="fleet-fleet_size"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.fleetSize"
+                            >Fleet Size</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <select
+                          id="fleet-fleet_size"
+                          name="fleet_size"
+                          required
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
+                          style="
+                            background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23717680%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e&quot;);
+                            background-repeat: no-repeat;
+                            background-position: right 1rem center;
+                            background-size: 1rem;
+                          "
+                        >
+                          <option value="" disabled selected>
+                            Select fleet size
+                          </option>
+                          <option value="1-10">1–10 vehicles</option>
+                          <option value="11-50">11–50 vehicles</option>
+                          <option value="51-200">51–200 vehicles</option>
+                          <option value="200+">200+ vehicles</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label
+                          for="fleet-lanes"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.lanesRegions"
+                            >Lanes / Regions</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="fleet-lanes"
+                          name="lanes"
+                          required
+                          placeholder="Berlin–Hamburg, Munich region"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="fleet-email"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.email"
+                            >Email</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          id="fleet-email"
+                          name="email"
+                          required
+                          placeholder="you@company.com"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                        <p
+                          class="text-xs text-text-secondary/70 mt-1"
+                          data-i18n="get-started.form.privacyNote"
+                        >
+                          Your data stays private — we never share your
+                          information.
+                        </p>
+                      </div>
+                      <div>
+                        <label
+                          for="fleet-phone"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.phone"
+                            >Phone</span
+                          >
+                          <span
+                            class="text-text-secondary/60 font-normal"
+                            data-i18n="get-started.form.labels.optional"
+                            >(optional)</span
+                          >
+                        </label>
+                        <input
+                          type="tel"
+                          id="fleet-phone"
+                          name="phone"
+                          placeholder="+49 123 456 7890"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        for="fleet-current_tools"
+                        class="block text-sm font-medium text-text-primary mb-1.5"
+                      >
+                        <span data-i18n="get-started.form.labels.currentTools"
+                          >Current Tools</span
+                        >
+                        <span
+                          class="text-text-secondary/60 font-normal"
+                          data-i18n="get-started.form.labels.optional"
+                          >(optional)</span
+                        >
+                      </label>
+                      <input
+                        type="text"
+                        id="fleet-current_tools"
+                        name="current_tools"
+                        placeholder="TMS / routing tool you use"
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                      />
+                    </div>
+
+                    <button
+                      type="submit"
+                      class="w-full px-7 py-4 primary-btn"
+                      data-i18n="get-started.form.submitFleet"
                     >
-                      Something went wrong. Please try again.
-                    </p>
-                  </div>
-                </form>
+                      Request Integration Review
+                    </button>
+
+                    <div class="text-center mt-2">
+                      <a
+                        href="mailto:carrier@golynk.com?subject=Fleet%20Integration%20Call"
+                        class="text-primary text-sm hover:underline"
+                        data-i18n="get-started.fleet.scheduleCallLink"
+                      >
+                        Schedule Integration Call →
+                      </a>
+                    </div>
+
+                    <div
+                      class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-text-secondary/70 pt-1"
+                    >
+                      <span class="flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.noCommitment"
+                          >No commitment</span
+                        >
+                      </span>
+                      <span class="flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.response24h"
+                          >Response within 24 hours</span
+                        >
+                      </span>
+                      <span class="hidden md:flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.priorityAccess"
+                          >Priority access for early partners</span
+                        >
+                      </span>
+                    </div>
+
+                    <!-- Operational Receipt -->
+                    <div class="form-success hidden px-6 py-6">
+                      <div class="space-y-6">
+                        <div>
+                          <div
+                            class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
+                          >
+                            <svg class="w-6 h-6 text-green-600">
+                              <use href="#icon-check"></use>
+                            </svg>
+                          </div>
+                          <h3
+                            class="text-lg font-semibold text-text-primary mb-2"
+                          >
+                            Submission received
+                          </h3>
+                          <p class="text-sm text-text-secondary">
+                            We review corridor viability and operational fit.
+                          </p>
+                        </div>
+                        <div
+                          class="bg-blue-50 border border-blue-100 rounded-lg p-4"
+                        >
+                          <p class="text-sm font-medium text-blue-900">
+                            Expected response: within 24–72 hours
+                          </p>
+                        </div>
+                        <div class="space-y-3">
+                          <a
+                            href="https://calendly.com/golynk"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="block w-full px-4 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors text-center"
+                          >
+                            Book a discussion
+                          </a>
+                          <a
+                            href="./corridor.html"
+                            class="block w-full px-4 py-3 border border-gray-200 text-text-primary font-medium rounded-lg hover:bg-gray-50 transition-colors text-center"
+                          >
+                            Submit additional corridor details
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div class="form-error hidden text-center py-4">
+                      <p class="text-red-600 font-medium">
+                        Something went wrong. Please try again.
+                      </p>
+                    </div>
+                  </form>
+                </div>
               </div>
+
+              <!-- Microhub Owner Card -->
+              <div
+                id="role-microhub"
+                class="role-card bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden transition-shadow hover:shadow-md relative"
+                data-role="microhub"
+              >
+                <button
+                  type="button"
+                  class="role-card-header w-full p-6 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-inset"
+                >
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 flex-shrink-0 bg-primary/10 rounded-lg flex items-center justify-center"
+                    >
+                      <svg class="w-6 h-6 text-primary">
+                        <use href="#icon-hub"></use>
+                      </svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between gap-2">
+                        <h2
+                          class="text-lg font-semibold text-text-primary"
+                          data-i18n="get-started.roles.microhub.title"
+                        >
+                          I Have Storage Space
+                        </h2>
+                      </div>
+                      <p
+                        class="text-text-secondary text-sm mt-1"
+                        data-i18n="get-started.roles.microhub.description"
+                      >
+                        Turn idle space into verified microhub handoff income.
+                      </p>
+                      <span
+                        class="inline-block mt-3 text-primary font-medium text-sm"
+                        data-i18n="get-started.roles.microhub.cta"
+                        >Register a microhub location →</span
+                      >
+                    </div>
+                  </div>
+                </button>
+
+                <!-- Microhub Form -->
+                <div class="role-form hidden border-t border-gray-100">
+                  <form class="p-6 space-y-5 intake-form" data-role="microhub">
+                    <input type="hidden" name="role" value="microhub" />
+                    <input type="hidden" name="hp" style="display: none" />
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="microhub-full_name"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.fullName"
+                            >Full Name</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="microhub-full_name"
+                          name="full_name"
+                          required
+                          placeholder="Your full name"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          for="microhub-location"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.location"
+                            >Location</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="microhub-location"
+                          name="location"
+                          required
+                          placeholder="Address or area"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="microhub-space_type"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.spaceType"
+                            >Space Type</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <select
+                          id="microhub-space_type"
+                          name="space_type"
+                          required
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
+                          style="
+                            background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23717680%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e&quot;);
+                            background-repeat: no-repeat;
+                            background-position: right 1rem center;
+                            background-size: 1rem;
+                          "
+                        >
+                          <option value="" disabled selected>
+                            Select space type
+                          </option>
+                          <option value="retail-backroom">
+                            Retail backroom
+                          </option>
+                          <option value="warehouse">Warehouse</option>
+                          <option value="garage">Garage</option>
+                          <option value="office">Office</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label
+                          for="microhub-size_sqm"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.sizeSqm"
+                            >Size (sqm)</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <select
+                          id="microhub-size_sqm"
+                          name="size_sqm"
+                          required
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
+                          style="
+                            background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23717680%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e&quot;);
+                            background-repeat: no-repeat;
+                            background-position: right 1rem center;
+                            background-size: 1rem;
+                          "
+                        >
+                          <option value="" disabled selected>
+                            Select size
+                          </option>
+                          <option value="<20">&lt;20 sqm</option>
+                          <option value="20-50">20–50 sqm</option>
+                          <option value="50-150">50–150 sqm</option>
+                          <option value="150+">150+ sqm</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label
+                        for="microhub-access_hours"
+                        class="block text-sm font-medium text-text-primary mb-1.5"
+                      >
+                        <span data-i18n="get-started.form.labels.accessHours"
+                          >Access Hours</span
+                        >
+                        <span class="text-red-500">*</span>
+                      </label>
+                      <select
+                        id="microhub-access_hours"
+                        name="access_hours"
+                        required
+                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
+                        style="
+                          background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23717680%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e&quot;);
+                          background-repeat: no-repeat;
+                          background-position: right 1rem center;
+                          background-size: 1rem;
+                        "
+                      >
+                        <option value="" disabled selected>
+                          Select access hours
+                        </option>
+                        <option value="business-hours">Business hours</option>
+                        <option value="24-7">24/7</option>
+                        <option value="evenings">Evenings</option>
+                        <option value="weekends">Weekends</option>
+                      </select>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="microhub-email"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.email"
+                            >Email</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          id="microhub-email"
+                          name="email"
+                          required
+                          placeholder="you@email.com"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                        <p
+                          class="text-xs text-text-secondary/70 mt-1"
+                          data-i18n="get-started.form.privacyNote"
+                        >
+                          Your data stays private — we never share your
+                          information.
+                        </p>
+                      </div>
+                      <div>
+                        <label
+                          for="microhub-phone"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.phone"
+                            >Phone</span
+                          >
+                          <span
+                            class="text-text-secondary/60 font-normal"
+                            data-i18n="get-started.form.labels.optional"
+                            >(optional)</span
+                          >
+                        </label>
+                        <input
+                          type="tel"
+                          id="microhub-phone"
+                          name="phone"
+                          placeholder="+49 123 456 7890"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      class="w-full px-7 py-4 primary-btn"
+                      data-i18n="get-started.form.submitMicrohub"
+                    >
+                      Register Microhub Location
+                    </button>
+
+                    <div
+                      class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-text-secondary/70 pt-1"
+                    >
+                      <span class="flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.noCommitment"
+                          >No commitment</span
+                        >
+                      </span>
+                      <span class="flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.response24h"
+                          >Response within 24 hours</span
+                        >
+                      </span>
+                      <span class="hidden md:flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.priorityAccess"
+                          >Priority access for early partners</span
+                        >
+                      </span>
+                    </div>
+
+                    <!-- Operational Receipt -->
+                    <div class="form-success hidden px-6 py-6">
+                      <div class="space-y-6">
+                        <div>
+                          <div
+                            class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
+                          >
+                            <svg class="w-6 h-6 text-green-600">
+                              <use href="#icon-check"></use>
+                            </svg>
+                          </div>
+                          <h3
+                            class="text-lg font-semibold text-text-primary mb-2"
+                          >
+                            Submission received
+                          </h3>
+                          <p class="text-sm text-text-secondary">
+                            We review corridor viability and operational fit.
+                          </p>
+                        </div>
+                        <div
+                          class="bg-blue-50 border border-blue-100 rounded-lg p-4"
+                        >
+                          <p class="text-sm font-medium text-blue-900">
+                            Expected response: within 24–72 hours
+                          </p>
+                        </div>
+                        <div class="space-y-3">
+                          <a
+                            href="https://calendly.com/golynk"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="block w-full px-4 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors text-center"
+                          >
+                            Book a discussion
+                          </a>
+                          <a
+                            href="./corridor.html"
+                            class="block w-full px-4 py-3 border border-gray-200 text-text-primary font-medium rounded-lg hover:bg-gray-50 transition-colors text-center"
+                          >
+                            Submit additional corridor details
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div class="form-error hidden text-center py-4">
+                      <p class="text-red-600 font-medium">
+                        Something went wrong. Please try again.
+                      </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Institutional Section -->
+          <div class="mb-12">
+            <h3
+              class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-6"
+            >
+              Institutional (Urban Planners & Networks)
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Institutional / Urban Planners Card -->
+              <div
+                id="role-institutional"
+                class="role-card bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden transition-shadow hover:shadow-md md:col-span-2 md:max-w-[calc(50%-0.75rem)] md:mx-auto relative"
+                data-role="institutional"
+              >
+                <button
+                  type="button"
+                  class="role-card-header w-full p-6 text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/20 focus:ring-inset"
+                >
+                  <div class="flex items-start gap-4">
+                    <div
+                      class="w-12 h-12 flex-shrink-0 bg-primary/10 rounded-lg flex items-center justify-center"
+                    >
+                      <svg class="w-6 h-6 text-primary">
+                        <use href="#icon-institution"></use>
+                      </svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center justify-between gap-2">
+                        <h2
+                          class="text-lg font-semibold text-text-primary"
+                          data-i18n="get-started.roles.institutional.title"
+                        >
+                          Urban Planners & Institutional Networks
+                        </h2>
+                      </div>
+                      <p
+                        class="text-text-secondary text-sm mt-1"
+                        data-i18n="get-started.roles.institutional.description"
+                      >
+                        Improve logistics flow without increasing vehicles while
+                        maintaining compliance.
+                      </p>
+                      <span
+                        class="inline-block mt-3 text-primary font-medium text-sm"
+                        data-i18n="get-started.roles.institutional.cta"
+                        >Partner with GoLynk →</span
+                      >
+                    </div>
+                  </div>
+                </button>
+
+                <!-- Institutional Form -->
+                <div class="role-form hidden border-t border-gray-100">
+                  <form
+                    class="p-6 space-y-5 intake-form"
+                    data-role="institutional"
+                  >
+                    <input type="hidden" name="role" value="institutional" />
+                    <input type="hidden" name="hp" style="display: none" />
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="institutional-full_name"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.fullName"
+                            >Full Name</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="institutional-full_name"
+                          name="full_name"
+                          required
+                          placeholder="Your full name"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          for="institutional-organization"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.organization"
+                            >Organization</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="institutional-organization"
+                          name="organization"
+                          required
+                          placeholder="City, agency, or institution"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="institutional-role_title"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.roleTitle"
+                            >Role / Title</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="institutional-role_title"
+                          name="role_title"
+                          required
+                          placeholder="City Logistics Planner"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          for="institutional-city_region"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.cityRegion"
+                            >City / Region</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="institutional-city_region"
+                          name="city_region"
+                          required
+                          placeholder="Berlin / Brandenburg"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="institutional-email"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.email"
+                            >Email</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="email"
+                          id="institutional-email"
+                          name="email"
+                          required
+                          placeholder="you@organization.gov"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                        <p
+                          class="text-xs text-text-secondary/70 mt-1"
+                          data-i18n="get-started.form.privacyNote"
+                        >
+                          Your data stays private — we never share your
+                          information.
+                        </p>
+                      </div>
+                      <div>
+                        <label
+                          for="institutional-interest_area"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.interestArea"
+                            >Interest Area</span
+                          >
+                          <span class="text-red-500">*</span>
+                        </label>
+                        <select
+                          id="institutional-interest_area"
+                          name="interest_area"
+                          required
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors appearance-none cursor-pointer"
+                          style="
+                            background-image: url(&quot;data:image/svg+xml;charset=UTF-8,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23717680%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3e%3cpolyline points=%276 9 12 15 18 9%27%3e%3c/polyline%3e%3c/svg%3e&quot;);
+                            background-repeat: no-repeat;
+                            background-position: right 1rem center;
+                            background-size: 1rem;
+                          "
+                        >
+                          <option value="" disabled selected>
+                            Select interest area
+                          </option>
+                          <option value="planning-dashboards">
+                            Planning dashboards
+                          </option>
+                          <option value="secure-document-logistics">
+                            Secure document logistics
+                          </option>
+                          <option value="carbon-reporting-esg">
+                            Carbon reporting / ESG
+                          </option>
+                          <option value="network-coordination-api">
+                            Network coordination / API
+                          </option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label
+                          for="institutional-phone"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.phone"
+                            >Phone</span
+                          >
+                          <span
+                            class="text-text-secondary/60 font-normal"
+                            data-i18n="get-started.form.labels.optional"
+                            >(optional)</span
+                          >
+                        </label>
+                        <input
+                          type="tel"
+                          id="institutional-phone"
+                          name="phone"
+                          placeholder="+49 123 456 7890"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          for="institutional-notes"
+                          class="block text-sm font-medium text-text-primary mb-1.5"
+                        >
+                          <span data-i18n="get-started.form.labels.notes"
+                            >Notes</span
+                          >
+                          <span
+                            class="text-text-secondary/60 font-normal"
+                            data-i18n="get-started.form.labels.optional"
+                            >(optional)</span
+                          >
+                        </label>
+                        <textarea
+                          id="institutional-notes"
+                          name="notes"
+                          rows="2"
+                          placeholder="Additional context or questions"
+                          class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-text-primary placeholder:text-text-secondary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-none"
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <button
+                      type="submit"
+                      class="w-full px-7 py-4 primary-btn"
+                      data-i18n="get-started.form.submitInstitutional"
+                    >
+                      Request Partnership Call
+                    </button>
+
+                    <div class="text-center">
+                      <a
+                        href="mailto:partners@golynk.com?subject=Institutional%20Partnership%20Inquiry"
+                        class="text-sm text-text-secondary hover:text-primary transition-colors"
+                      >
+                        Contact Partnerships →
+                      </a>
+                    </div>
+
+                    <div
+                      class="flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-text-secondary/70 pt-1"
+                    >
+                      <span class="flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.chainOfCustody"
+                          >Chain-of-custody</span
+                        >
+                      </span>
+                      <span class="flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.slaBacked"
+                          >SLA-backed operations</span
+                        >
+                      </span>
+                      <span class="hidden md:flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5 text-green-500">
+                          <use href="#icon-check"></use>
+                        </svg>
+                        <span data-i18n="get-started.trust.complianceReady"
+                          >Compliance-ready reporting</span
+                        >
+                      </span>
+                    </div>
+
+                    <!-- Operational Receipt -->
+                    <div class="form-success hidden px-6 py-6">
+                      <div class="space-y-6">
+                        <div>
+                          <div
+                            class="w-12 h-12 mx-auto mb-3 bg-green-100 rounded-full flex items-center justify-center"
+                          >
+                            <svg class="w-6 h-6 text-green-600">
+                              <use href="#icon-check"></use>
+                            </svg>
+                          </div>
+                          <h3
+                            class="text-lg font-semibold text-text-primary mb-2"
+                          >
+                            Submission received
+                          </h3>
+                          <p class="text-sm text-text-secondary">
+                            We review corridor viability and operational fit.
+                          </p>
+                        </div>
+                        <div
+                          class="bg-blue-50 border border-blue-100 rounded-lg p-4"
+                        >
+                          <p class="text-sm font-medium text-blue-900">
+                            Expected response: within 24–72 hours
+                          </p>
+                        </div>
+                        <div class="space-y-3">
+                          <a
+                            href="https://calendly.com/golynk"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="block w-full px-4 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors text-center"
+                          >
+                            Book a discussion
+                          </a>
+                          <a
+                            href="./corridor.html"
+                            class="block w-full px-4 py-3 border border-gray-200 text-text-primary font-medium rounded-lg hover:bg-gray-50 transition-colors text-center"
+                          >
+                            Submit additional corridor details
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div class="form-error hidden text-center py-4">
+                      <p class="text-red-600 font-medium">
+                        Something went wrong. Please try again.
+                      </p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- What Happens Next -->
+      <section class="py-16 md:py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6">
+          <div class="text-center mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-text-primary mb-4">
+              What happens next
+            </h2>
+            <p class="text-text-secondary">
+              We follow a transparent three-step process to evaluate and
+              activate partnerships.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Step 1 -->
+            <div class="flex flex-col items-center md:items-start">
+              <div
+                class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 flex-shrink-0"
+              >
+                <span class="text-lg font-semibold text-primary">1</span>
+              </div>
+              <h3
+                class="text-lg font-semibold text-text-primary mb-2 text-center md:text-left"
+              >
+                Intake received
+              </h3>
+              <p class="text-sm text-text-secondary text-center md:text-left">
+                Your submission is logged into our review queue and assigned to
+                our operations team.
+              </p>
+            </div>
+            <!-- Step 2 -->
+            <div class="flex flex-col items-center md:items-start">
+              <div
+                class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 flex-shrink-0"
+              >
+                <span class="text-lg font-semibold text-primary">2</span>
+              </div>
+              <h3
+                class="text-lg font-semibold text-text-primary mb-2 text-center md:text-left"
+              >
+                Corridor / capacity review
+              </h3>
+              <p class="text-sm text-text-secondary text-center md:text-left">
+                We analyze the requested corridors, capacity requirements, and
+                operational compatibility.
+              </p>
+            </div>
+            <!-- Step 3 -->
+            <div class="flex flex-col items-center md:items-start">
+              <div
+                class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 flex-shrink-0"
+              >
+                <span class="text-lg font-semibold text-primary">3</span>
+              </div>
+              <h3
+                class="text-lg font-semibold text-text-primary mb-2 text-center md:text-left"
+              >
+                Pilot activation or integration call
+              </h3>
+              <p class="text-sm text-text-secondary text-center md:text-left">
+                If aligned, we schedule a call to finalize terms and go live
+                with your first corridor.
+              </p>
             </div>
           </div>
         </div>
@@ -2063,18 +2338,29 @@
         });
 
         function openModal(card) {
+          if (!card) {
+            console.error("Card is null/undefined in openModal");
+            return;
+          }
+
           if (activeCard) closeModal();
 
           activeCard = card;
           const form = card.querySelector(".role-form");
+
+          if (!form) {
+            console.error("Form not found in card", card);
+            return;
+          }
 
           // Show form
           form.classList.remove("hidden");
 
           // Activate modal mode
           card.classList.add("modal-active");
-          backdrop.classList.add("active");
-          roleCardsContainer.classList.add("role-cards-dimmed");
+          if (backdrop) backdrop.classList.add("active");
+          if (roleCardsContainer)
+            roleCardsContainer.classList.add("role-cards-dimmed");
           document.body.classList.add("modal-open");
         }
 
@@ -2084,12 +2370,13 @@
           const form = activeCard.querySelector(".role-form");
 
           // Hide form
-          form.classList.add("hidden");
+          if (form) form.classList.add("hidden");
 
           // Deactivate modal mode
           activeCard.classList.remove("modal-active");
-          backdrop.classList.remove("active");
-          roleCardsContainer.classList.remove("role-cards-dimmed");
+          if (backdrop) backdrop.classList.remove("active");
+          if (roleCardsContainer)
+            roleCardsContainer.classList.remove("role-cards-dimmed");
           document.body.classList.remove("modal-open");
 
           activeCard = null;
@@ -2109,7 +2396,9 @@
         });
 
         // Close on backdrop click
-        backdrop.addEventListener("click", closeModal);
+        if (backdrop) {
+          backdrop.addEventListener("click", closeModal);
+        }
 
         // Close on Escape key
         document.addEventListener("keydown", (e) => {
@@ -2135,54 +2424,109 @@
         // Also listen for hash changes (back/forward navigation)
         window.addEventListener("hashchange", expandCardFromHash);
 
-        // Form submission handling
+        // Apps Script Web App endpoint for intake form submissions
+        const INTAKE_WEBAPP_URL =
+          "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
+
+        // Form submission handling - Submit directly to Apps Script
         const intakeForms = document.querySelectorAll(".intake-form");
 
         intakeForms.forEach((form) => {
           form.addEventListener("submit", async function (e) {
             e.preventDefault();
 
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+            const role = form.getAttribute("data-role");
             const successEl = form.querySelector(".form-success");
             const errorEl = form.querySelector(".form-error");
             const submitBtn = form.querySelector('button[type="submit"]');
-            const formFields = form.querySelectorAll(
-              "input, select, textarea, button",
+
+            // Validate required fields
+            const inputs = form.querySelectorAll(
+              "input[required], select[required], textarea[required]",
+            );
+            let isValid = true;
+            inputs.forEach((input) => {
+              if (!input.value.trim()) {
+                isValid = false;
+                input.classList.add("border-red-500");
+              } else {
+                input.classList.remove("border-red-500");
+              }
+            });
+
+            if (!isValid) {
+              if (errorEl) {
+                errorEl.classList.remove("hidden");
+              }
+              return;
+            }
+
+            // Collect form data
+            const fd = new FormData(form);
+            const payload = Object.fromEntries(fd.entries());
+
+            // Add metadata
+            payload.page = "get-started";
+            payload.submitted_at = new Date().toISOString();
+            payload.user_agent = navigator.userAgent;
+
+            // Debug: log payload before submission
+            console.log(
+              `[INTAKE FORM] Submitting ${role} form with payload:`,
+              payload,
             );
 
-            // Reset states
-            successEl.classList.add("hidden");
-            errorEl.classList.add("hidden");
-
-            // Disable form during submission
-            submitBtn.textContent = "Submitting...";
-            formFields.forEach((field) => (field.disabled = true));
+            // Disable submit button and store original text
+            let originalButtonText = "Submit";
+            if (submitBtn) {
+              originalButtonText = submitBtn.textContent;
+              submitBtn.disabled = true;
+              submitBtn.textContent = "Submitting...";
+            }
 
             try {
-              const response = await fetch("/api/intake", {
+              // Convert payload to URLSearchParams for Apps Script compatibility
+              const body = new URLSearchParams(payload);
+              body.set("_page", "get-started");
+              body.set("_submitted_at", new Date().toISOString());
+              body.set("_user_agent", navigator.userAgent);
+
+              console.log(
+                `[INTAKE FORM] Posting to ${INTAKE_WEBAPP_URL} with form-urlencoded body`,
+              );
+
+              // Submit to Apps Script endpoint with form-urlencoded
+              const response = await fetch(INTAKE_WEBAPP_URL, {
                 method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
+                mode: "no-cors",
+                body: body,
               });
 
-              // Hide all form children except success/error messages
+              console.log(
+                "[INTAKE FORM] Fetch completed (opaque response in no-cors mode)",
+              );
+
+              // Hide form content, show success message
               Array.from(form.children).forEach((child) => {
-                if (
-                  !child.classList.contains("form-success") &&
-                  !child.classList.contains("form-error")
-                ) {
+                if (!child.classList.contains("form-success")) {
                   child.classList.add("hidden");
                 }
               });
-              successEl.classList.remove("hidden");
+              if (successEl) {
+                successEl.classList.remove("hidden");
+              }
+              if (errorEl) {
+                errorEl.classList.add("hidden");
+              }
             } catch (error) {
-              // Show error state
-              errorEl.classList.remove("hidden");
-              submitBtn.textContent = "Submit";
-              formFields.forEach((field) => (field.disabled = false));
+              console.error("[INTAKE FORM] Submission error:", error);
+              if (errorEl) {
+                errorEl.classList.remove("hidden");
+              }
+              if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalButtonText;
+              }
             }
           });
         });

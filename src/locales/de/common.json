@@ -65,7 +65,8 @@
           "getStarted": "Loslegen",
           "pricing": "Preisgestaltung",
           "howItWorks": "Wie es funktioniert",
-          "faq": "Häufig gestellte Fragen"
+          "faq": "Häufig gestellte Fragen",
+          "api": "API-Dokumentation"
         }
       },
       "carriers": {
@@ -73,7 +74,9 @@
         "links": {
           "getStarted": "Loslegen",
           "corridors": "Korridore",
-          "dashboard": "Benutzerdashboard"
+          "dashboard": "Benutzerdashboard",
+          "joinIndividual": "Individuelle Partner",
+          "fleetOperators": "Flottenführer"
         }
       },
       "resources": {
@@ -109,6 +112,7 @@
     "about": "Über uns",
     "investor": "Investor",
     "careers": "Karrieren",
+    "contact": "Kontakt",
     "glTech": "GL Tech",
     "environment": "Umwelt"
   },

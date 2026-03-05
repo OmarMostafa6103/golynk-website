@@ -393,43 +393,73 @@
               </a>
 
               <!-- Language Selector -->
-              <select
-                class="language-selector px-3 py-2 text-sm font-medium text-white bg-white/10 border border-white/20 rounded-md cursor-pointer hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-              >
-                <option
-                  value="en"
-                  class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
+              <div class="relative inline-block">
+                <select
+                  class="language-selector pl-8 pr-3 py-2 text-sm font-medium text-white bg-white/10 border border-white/20 rounded-md cursor-pointer hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all appearance-none"
                 >
-                  EN
-                </option>
-                <option
-                  value="de"
-                  class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
+                  <option
+                    value="en"
+                    class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
+                  >
+                    EN
+                  </option>
+                  <option
+                    value="de"
+                    class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
+                  >
+                    DE
+                  </option>
+                </select>
+                <svg
+                  class="absolute left-2 top-1/2 -translate-y-1/2 size-4 text-white pointer-events-none"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
                 >
-                  DE
-                </option>
-              </select>
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                  ></path>
+                  <path d="M2 12h20"></path>
+                </svg>
+              </div>
             </div>
 
             <!-- Mobile: Language Selector + Menu Button -->
             <div class="lg:hidden flex items-center gap-3">
               <!-- Language Selector (Mobile) -->
-              <select
-                class="language-selector px-2 py-1.5 text-xs font-medium text-white bg-white/10 border border-white/20 rounded-md cursor-pointer hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-              >
-                <option
-                  value="en"
-                  class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
+              <div class="relative inline-block">
+                <select
+                  class="language-selector pl-8 pr-2 py-1.5 text-xs font-medium text-white bg-white/10 border border-white/20 rounded-md cursor-pointer hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all appearance-none"
                 >
-                  EN
-                </option>
-                <option
-                  value="de"
-                  class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
+                  <option
+                    value="en"
+                    class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
+                  >
+                    EN
+                  </option>
+                  <option
+                    value="de"
+                    class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
+                  >
+                    DE
+                  </option>
+                </select>
+                <svg
+                  class="absolute left-1.5 top-1/2 -translate-y-1/2 size-3 text-white pointer-events-none"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
                 >
-                  DE
-                </option>
-              </select>
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path
+                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                  ></path>
+                  <path d="M2 12h20"></path>
+                </svg>
+              </div>
 
               <!-- Mobile Menu Button -->
               <button class="p-2">
