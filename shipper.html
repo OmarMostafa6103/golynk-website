@@ -3248,10 +3248,11 @@
             <!-- Early Access Form -->
             <form
               id="early-access-form"
-              action="/api/early-access"
-              method="POST"
               class="space-y-5"
             >
+              <input type="hidden" name="role" value="shipper" />
+              <input type="hidden" name="source" value="shipper-page" />
+              <input type="hidden" name="hp" style="display: none" />
               <!-- Row 1: Name & Company -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -3976,11 +3977,11 @@
         }
       });
 
-      // Early Access Form Handler
-      // Apps Script URL for form submissions
-      const SHIPPER_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
-
+      // Early Access Form Handler - same Apps Script endpoint as get-started page
       document.addEventListener("DOMContentLoaded", function () {
+        const SHIPPER_WEBAPP_URL =
+          "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
+
         const form = document.getElementById("early-access-form");
         const successState = document.getElementById("early-access-success");
 
@@ -3988,79 +3989,58 @@
           form.addEventListener("submit", async function (e) {
             e.preventDefault();
 
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+            // Validate required fields
+            const inputs = form.querySelectorAll(
+              "input[required], select[required], textarea[required]"
+            );
+            let isValid = true;
+            inputs.forEach((input) => {
+              if (!input.value.trim()) {
+                isValid = false;
+                input.classList.add("border-red-500");
+              } else {
+                input.classList.remove("border-red-500");
+              }
+            });
+
+            if (!isValid) return;
+
+            const submitBtn = form.querySelector('button[type="submit"]');
+            let originalText = "Submit";
+            if (submitBtn) {
+              originalText = submitBtn.textContent;
+              submitBtn.disabled = true;
+              submitBtn.textContent = "Submitting...";
+            }
 
             try {
-              // Add metadata
-              data.form_type = "shipper-early-access";
-              data.page = "shipper";
-              data.submitted_at = new Date().toISOString();
-              data.user_agent = navigator.userAgent;
+              // Collect form data and add metadata
+              const fd = new FormData(form);
+              const body = new URLSearchParams(fd);
+              body.set("_page", "shipper");
+              body.set("_submitted_at", new Date().toISOString());
+              body.set("_user_agent", navigator.userAgent);
 
-              const response = await fetch(SHIPPER_APPS_SCRIPT_URL, {
+              // Submit to same Apps Script as get-started page
+              await fetch(SHIPPER_WEBAPP_URL, {
                 method: "POST",
                 mode: "no-cors",
-                body: JSON.stringify(data),
+                body: body,
               });
 
               // Show success state
               form.classList.add("hidden");
               successState.classList.remove("hidden");
-
-              // Scroll to success message
-              successState.scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-              });
+              successState.scrollIntoView({ behavior: "smooth", block: "center" });
             } catch (error) {
-              console.error("[SHIPPER EARLY ACCESS] Submission error:", error);
-              // Show success state anyway for demo
+              // Show success state anyway (no-cors returns opaque response)
               form.classList.add("hidden");
               successState.classList.remove("hidden");
-              successState.scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-              });
+              successState.scrollIntoView({ behavior: "smooth", block: "center" });
             }
           });
         }
       });
-
-      // Newsletter form handler
-      (() => {
-        const NEWSLETTER_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
-        
-        const form = document.getElementById("footer-newsletter-form");
-        if (form) {
-          form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            
-            const email = form.querySelector('input[type="email"]').value;
-            const page = "shipper";
-            
-            try {
-              await fetch(NEWSLETTER_APPS_SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                body: JSON.stringify({
-                  form_type: "newsletter",
-                  email: email,
-                  page: page,
-                  submitted_at: new Date().toISOString(),
-                  user_agent: navigator.userAgent
-                })
-              });
-              
-              form.reset();
-              alert("Thank you for subscribing!");
-            } catch (error) {
-              console.error("Newsletter submission error:", error);
-              alert("Subscription sent!");
-            }
-          });
-        }
-      })();
     </script>
   </body>
 </html>

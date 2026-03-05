@@ -1110,9 +1110,6 @@
         });
       });
 
-      // Apps Script URL for form submissions
-      const CAPITAL_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
-
       // Form submission
       document
         .getElementById("capital-request-form")
@@ -1126,73 +1123,11 @@
           const email = document.getElementById("email").value;
           const note = document.getElementById("note").value;
 
-          const payload = {
-            form_type: "capital-request",
-            page: "capital",
-            full_name: fullName,
-            organization: organization,
-            role: role,
-            focus_area: focusArea,
-            email: email,
-            additional_notes: note,
-            submitted_at: new Date().toISOString(),
-            user_agent: navigator.userAgent
-          };
+          const body = `Full Name: ${fullName}\nOrganization/Fund: ${organization}\nRole: ${role || "Not provided"}\nFocus Area: ${focusArea}\nEmail: ${email}\nAdditional Notes: ${note || "None"}`;
+          const mailtoLink = `mailto:invest@golynk.com?subject=Investor%20Pack%20Request%20-%20${encodeURIComponent(fullName)}&body=${encodeURIComponent(body)}`;
 
-          // Submit to Apps Script
-          fetch(CAPITAL_APPS_SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            body: JSON.stringify(payload),
-          })
-          .then(() => {
-            // Show success message
-            alert("Thank you for your inquiry! We'll respond within 24-48 hours.");
-            document.getElementById("capital-request-form").reset();
-          })
-          .catch((error) => {
-            console.error("Form submission error:", error);
-            // Fallback to email
-            const body = `Full Name: ${fullName}\nOrganization/Fund: ${organization}\nRole: ${role || "Not provided"}\nFocus Area: ${focusArea}\nEmail: ${email}\nAdditional Notes: ${note || "None"}`;
-            const mailtoLink = `mailto:invest@golynk.com?subject=Investor%20Pack%20Request%20-%20${encodeURIComponent(fullName)}&body=${encodeURIComponent(body)}`;
-            window.location.href = mailtoLink;
-          });
+          window.location.href = mailtoLink;
         });
-
-        // Newsletter form handler
-        (() => {
-          const NEWSLETTER_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
-          
-          const form = document.getElementById("footer-newsletter-form");
-          if (form) {
-            form.addEventListener("submit", async (e) => {
-              e.preventDefault();
-              
-              const email = form.querySelector('input[type="email"]').value;
-              const page = "capital";
-              
-              try {
-                await fetch(NEWSLETTER_APPS_SCRIPT_URL, {
-                  method: "POST",
-                  mode: "no-cors",
-                  body: JSON.stringify({
-                    form_type: "newsletter",
-                    email: email,
-                    page: page,
-                    submitted_at: new Date().toISOString(),
-                    user_agent: navigator.userAgent
-                  })
-                });
-                
-                form.reset();
-                alert("Thank you for subscribing!");
-              } catch (error) {
-                console.error("Newsletter submission error:", error);
-                alert("Subscription sent!");
-              }
-            });
-          }
-        })();
     </script>
   </body>
 </html>
