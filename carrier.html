@@ -2551,6 +2551,9 @@
         window.addEventListener("hashchange", handleHashNavigation);
 
         // Carrier intake form submission handling
+        // Apps Script URL for form submissions
+        const CARRIER_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
+
         const carrierForms = document.querySelectorAll(".carrier-intake-form");
 
         carrierForms.forEach((form) => {
@@ -2576,11 +2579,15 @@
             formFields.forEach((field) => (field.disabled = true));
 
             try {
-              const response = await fetch("/api/intake", {
+              // Add metadata
+              data.page = "carrier";
+              data.form_type = form.getAttribute("data-role");
+              data.submitted_at = new Date().toISOString();
+              data.user_agent = navigator.userAgent;
+
+              const response = await fetch(CARRIER_APPS_SCRIPT_URL, {
                 method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
+                mode: "no-cors",
                 body: JSON.stringify(data),
               });
 
@@ -2595,6 +2602,7 @@
               });
               successEl.classList.remove("hidden");
             } catch (error) {
+              console.error("[CARRIER FORM] Submission error:", error);
               // Show error state
               errorEl.classList.remove("hidden");
               submitBtn.textContent = originalText;
@@ -2624,5 +2632,41 @@
         background-color: #5a37a8;
       }
     </style>
+    <script>
+      // Newsletter form handler
+      (() => {
+        const NEWSLETTER_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
+        
+        const form = document.getElementById("footer-newsletter-form");
+        if (form) {
+          form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            const email = form.querySelector('input[type="email"]').value;
+            const page = "carrier";
+            
+            try {
+              await fetch(NEWSLETTER_APPS_SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors",
+                body: JSON.stringify({
+                  form_type: "newsletter",
+                  email: email,
+                  page: page,
+                  submitted_at: new Date().toISOString(),
+                  user_agent: navigator.userAgent
+                })
+              });
+              
+              form.reset();
+              alert("Thank you for subscribing!");
+            } catch (error) {
+              console.error("Newsletter submission error:", error);
+              alert("Subscription sent!");
+            }
+          });
+        }
+      })();
+    </script>
   </body>
 </html>
