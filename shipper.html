@@ -3984,6 +3984,7 @@
 
         const form = document.getElementById("early-access-form");
         const successState = document.getElementById("early-access-success");
+        const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
 
         if (form && successState) {
           form.addEventListener("submit", async function (e) {
@@ -4005,23 +4006,26 @@
 
             if (!isValid) return;
 
-            const submitBtn = form.querySelector('button[type="submit"]');
-            let originalText = "Submit";
+            // Collect form data (matching get-started format)
+            const fd = new FormData(form);
+            const payload = Object.fromEntries(fd.entries());
+            payload.page = "shipper";
+            payload.submitted_at = new Date().toISOString();
+            payload.user_agent = navigator.userAgent;
+
+            let originalButtonText = "Submit";
             if (submitBtn) {
-              originalText = submitBtn.textContent;
+              originalButtonText = submitBtn.textContent;
               submitBtn.disabled = true;
               submitBtn.textContent = "Submitting...";
             }
 
             try {
-              // Collect form data and add metadata
-              const fd = new FormData(form);
-              const body = new URLSearchParams(fd);
+              const body = new URLSearchParams(payload);
               body.set("_page", "shipper");
               body.set("_submitted_at", new Date().toISOString());
               body.set("_user_agent", navigator.userAgent);
 
-              // Submit to same Apps Script as get-started page
               await fetch(SHIPPER_WEBAPP_URL, {
                 method: "POST",
                 mode: "no-cors",
@@ -4033,10 +4037,11 @@
               successState.classList.remove("hidden");
               successState.scrollIntoView({ behavior: "smooth", block: "center" });
             } catch (error) {
-              // Show success state anyway (no-cors returns opaque response)
-              form.classList.add("hidden");
-              successState.classList.remove("hidden");
-              successState.scrollIntoView({ behavior: "smooth", block: "center" });
+              console.error("[SHIPPER FORM] Submission error:", error);
+              if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalButtonText;
+              }
             }
           });
         }

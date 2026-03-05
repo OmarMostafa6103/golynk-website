@@ -1666,6 +1666,16 @@
           return isValid;
         }
 
+        // Role normalization: map corridor roles to existing Apps Script sheet tabs
+        const ROLE_MAP = {
+          shipper: "shipper",
+          fleet: "fleet",
+          microhub: "microhub",
+          logistics: "carrier",       // closest match
+          municipality: "institutional", // closest match
+          other: "shipper",           // default
+        };
+
         // Form submission
         form.addEventListener("submit", async function (e) {
           e.preventDefault();
@@ -1684,24 +1694,39 @@
           }
 
           const submitBtn = form.querySelector('button[type="submit"]');
-          let originalText = "Submit for Evaluation";
+          let originalButtonText = "Submit for Evaluation";
           if (submitBtn) {
-            originalText = submitBtn.textContent;
+            originalButtonText = submitBtn.textContent;
             submitBtn.disabled = true;
             submitBtn.textContent = "Submitting...";
           }
 
           try {
-            // Collect all form data (including multi-value shipment_types checkboxes)
+            // Collect all form data
             const fd = new FormData(form);
-            const body = new URLSearchParams();
 
-            // Copy all fields - URLSearchParams handles multi-value fields correctly
+            // Build payload, preserving multi-value checkboxes (shipment_types)
+            const payload = {};
             fd.forEach((value, key) => {
-              body.append(key, value);
+              if (key in payload) {
+                // Multi-value: join with comma for Apps Script compatibility
+                payload[key] = payload[key] + ", " + value;
+              } else {
+                payload[key] = value;
+              }
             });
 
-            // Add metadata
+            // Normalize role to an existing sheet tab
+            const submitterRole = payload.role || "shipper";
+            payload.submitter_role = submitterRole;
+            payload.role = ROLE_MAP[submitterRole] || "shipper";
+
+            // Add metadata (matching get-started format)
+            payload.page = "corridor";
+            payload.submitted_at = new Date().toISOString();
+            payload.user_agent = navigator.userAgent;
+
+            const body = new URLSearchParams(payload);
             body.set("_page", "corridor");
             body.set("_submitted_at", new Date().toISOString());
             body.set("_user_agent", navigator.userAgent);
@@ -1718,7 +1743,8 @@
             formSuccess.classList.remove("hidden");
             formSuccess.scrollIntoView({ behavior: "smooth", block: "start" });
           } catch (error) {
-            // Show success anyway (no-cors returns opaque response, errors are network-level only)
+            console.error("[CORRIDOR FORM] Submission error:", error);
+            // Still show success (no-cors gives opaque response; only real network failures throw)
             form.classList.add("hidden");
             formSuccess.classList.remove("hidden");
             formSuccess.scrollIntoView({ behavior: "smooth", block: "start" });

@@ -2564,7 +2564,6 @@
           form.addEventListener("submit", async function (e) {
             e.preventDefault();
 
-            const role = form.getAttribute("data-role");
             const successEl = form.querySelector(".form-success");
             const errorEl = form.querySelector(".form-error");
             const submitBtn = form.querySelector('button[type="submit"]');
@@ -2588,27 +2587,33 @@
               return;
             }
 
-            // Reset states
-            if (successEl) successEl.classList.add("hidden");
-            if (errorEl) errorEl.classList.add("hidden");
+            // Collect form data
+            const fd = new FormData(form);
+            const payload = Object.fromEntries(fd.entries());
+
+            // Add metadata (matching get-started format)
+            payload.page = "carrier";
+            payload.submitted_at = new Date().toISOString();
+            payload.user_agent = navigator.userAgent;
 
             // Disable submit button
-            let originalText = "Submit";
+            let originalButtonText = "Submit";
             if (submitBtn) {
-              originalText = submitBtn.textContent;
+              originalButtonText = submitBtn.textContent;
               submitBtn.disabled = true;
               submitBtn.textContent = "Submitting...";
             }
 
+            // Reset states
+            if (successEl) successEl.classList.add("hidden");
+            if (errorEl) errorEl.classList.add("hidden");
+
             try {
-              // Collect form data and add metadata
-              const fd = new FormData(form);
-              const body = new URLSearchParams(fd);
+              const body = new URLSearchParams(payload);
               body.set("_page", "carrier");
               body.set("_submitted_at", new Date().toISOString());
               body.set("_user_agent", navigator.userAgent);
 
-              // Submit to same Apps Script as get-started page
               await fetch(CARRIER_WEBAPP_URL, {
                 method: "POST",
                 mode: "no-cors",
@@ -2617,19 +2622,17 @@
 
               // Hide all form children except success/error messages
               Array.from(form.children).forEach((child) => {
-                if (
-                  !child.classList.contains("form-success") &&
-                  !child.classList.contains("form-error")
-                ) {
+                if (!child.classList.contains("form-success")) {
                   child.classList.add("hidden");
                 }
               });
               if (successEl) successEl.classList.remove("hidden");
             } catch (error) {
+              console.error("[CARRIER FORM] Submission error:", error);
               if (errorEl) errorEl.classList.remove("hidden");
               if (submitBtn) {
                 submitBtn.disabled = false;
-                submitBtn.textContent = originalText;
+                submitBtn.textContent = originalButtonText;
               }
             }
           });
