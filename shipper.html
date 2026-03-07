@@ -2,8 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./public/Logo.svg" />
+        <link rel="icon" type="image/svg+xml" href="/Logo.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Open Graph / Social Preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="GoLynk" />
+    <meta property="og:image" content="https://golynk.de/og-golynk.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://golynk.de/og-golynk.jpg" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://golynk.de/shipper" />
+    <meta name="theme-color" content="#6941c6" />
+    <meta property="og:url" content="https://golynk.de/shipper" />
+    <meta property="og:title" content="GoLynk - Smart Delivery Network" />
+    <meta property="og:description" content="GoLynk's AI turns everyday urban movement into one smart, self-optimizing delivery network. Faster, cleaner shipping for businesses and effortless earnings for carriers." />
+    <meta name="twitter:title" content="GoLynk - Smart Delivery Network" />
+    <meta name="twitter:description" content="GoLynk's AI turns everyday urban movement into one smart, self-optimizing delivery network. Faster, cleaner shipping for businesses and effortless earnings for carriers." />
     <title>GoLynk - Smart Delivery Network</title>
     <meta
       name="description"
@@ -196,7 +215,7 @@
             <div class="flex items-center justify-between">
               <!-- Logo -->
               <a href="./">
-                <img src="./public/Logo.svg" alt="Logo" />
+                <img src="/Logo.svg" alt="Logo" />
               </a>
 
               <!-- Desktop Navigation -->
@@ -296,7 +315,7 @@
               </div>
 
               <!-- Mobile Menu Button -->
-              <button class="lg:hidden p-2">
+              <button id="mobile-menu-btn" class="lg:hidden p-2">
                 <svg
                   class="w-6 h-6 text-white"
                   fill="none"
@@ -314,6 +333,74 @@
             </div>
           </div>
         </nav>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+          <div class="mobile-menu-content">
+            <!-- Close Button -->
+            <button id="mobile-menu-close" class="mobile-menu-close">
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            <!-- Mobile Navigation Links -->
+            <nav class="mobile-nav-links">
+              <a
+                href="./shipper.html"
+                class="mobile-nav-link"
+                data-i18n="common.navigation.shippers"
+                >Shippers</a
+              >
+              <a
+                href="./carrier.html"
+                class="mobile-nav-link"
+                data-i18n="common.navigation.carriers"
+                >Carriers</a
+              >
+              <a
+                href="./index.html#technology"
+                class="mobile-nav-link"
+                data-i18n="common.navigation.glTech"
+                >GL Tech</a
+              >
+              <a
+                href="./index.html#environment"
+                class="mobile-nav-link"
+                data-i18n="common.navigation.environment"
+                >Environment</a
+              >
+              <a
+                href="./about.html"
+                class="mobile-nav-link"
+                data-i18n="common.navigation.about"
+                >About</a
+              >
+            </nav>
+
+            <!-- Mobile CTA Buttons -->
+            <div class="mobile-cta-buttons">
+              <a
+                href="./get-started.html"
+                class="w-full px-5 py-2.5 primary-btn block text-center"
+                data-i18n="common.cta.startNow"
+              >
+                Start Now
+              </a>
+            </div>
+          </div>
+        </div>
+
         <!-- Hero Section -->
         <section class="pt-32 pb-20 px-6 overflow-hidden text-center">
           <!-- Hero Content -->
@@ -3245,12 +3332,10 @@
             </div>
 
             <!-- Early Access Form -->
-            <form
-              id="early-access-form"
-              action="/api/early-access"
-              method="POST"
-              class="space-y-5"
-            >
+            <form id="early-access-form" class="space-y-5">
+              <input type="hidden" name="role" value="shipper" />
+              <input type="hidden" name="source" value="shipper-page" />
+              <input type="hidden" name="hp" style="display: none" />
               <!-- Row 1: Name & Company -->
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
@@ -3858,7 +3943,7 @@
               <!-- Logo and Tagline -->
               <div class="flex flex-col sm:flex-row items-center gap-4">
                 <a href="./">
-                  <img src="./public/Logo.svg" alt="GoLynk" class="h-8" />
+                  <img src="/Logo.svg" alt="GoLynk" class="h-8" />
                 </a>
                 <p
                   class="text-text-secondary text-small"
@@ -3976,91 +4061,80 @@
         }
       });
 
-      // Early Access Form Handler
-      // Apps Script URL for form submissions
-      const SHIPPER_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
-
+      // Early Access Form Handler - same Apps Script endpoint as get-started page
       document.addEventListener("DOMContentLoaded", function () {
+        const SHIPPER_WEBAPP_URL =
+          "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
+
         const form = document.getElementById("early-access-form");
         const successState = document.getElementById("early-access-success");
+        const submitBtn = form
+          ? form.querySelector('button[type="submit"]')
+          : null;
 
         if (form && successState) {
           form.addEventListener("submit", async function (e) {
             e.preventDefault();
 
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+            // Validate required fields
+            const inputs = form.querySelectorAll(
+              "input[required], select[required], textarea[required]",
+            );
+            let isValid = true;
+            inputs.forEach((input) => {
+              if (!input.value.trim()) {
+                isValid = false;
+                input.classList.add("border-red-500");
+              } else {
+                input.classList.remove("border-red-500");
+              }
+            });
+
+            if (!isValid) return;
+
+            // Collect form data (matching get-started format)
+            const fd = new FormData(form);
+            const payload = Object.fromEntries(fd.entries());
+            payload.page = "shipper";
+            payload.submitted_at = new Date().toISOString();
+            payload.user_agent = navigator.userAgent;
+
+            let originalButtonText = "Submit";
+            if (submitBtn) {
+              originalButtonText = submitBtn.textContent;
+              submitBtn.disabled = true;
+              submitBtn.textContent = "Submitting...";
+            }
 
             try {
-              // Add metadata
-              data.form_type = "shipper-early-access";
-              data.page = "shipper";
-              data.submitted_at = new Date().toISOString();
-              data.user_agent = navigator.userAgent;
+              const body = new URLSearchParams(payload);
+              body.set("_page", "shipper");
+              body.set("_submitted_at", new Date().toISOString());
+              body.set("_user_agent", navigator.userAgent);
 
-              const response = await fetch(SHIPPER_APPS_SCRIPT_URL, {
+              await fetch(SHIPPER_WEBAPP_URL, {
                 method: "POST",
                 mode: "no-cors",
-                body: JSON.stringify(data),
+                body: body,
               });
 
               // Show success state
               form.classList.add("hidden");
               successState.classList.remove("hidden");
-
-              // Scroll to success message
               successState.scrollIntoView({
                 behavior: "smooth",
                 block: "center",
               });
             } catch (error) {
-              console.error("[SHIPPER EARLY ACCESS] Submission error:", error);
-              // Show success state anyway for demo
-              form.classList.add("hidden");
-              successState.classList.remove("hidden");
-              successState.scrollIntoView({
-                behavior: "smooth",
-                block: "center",
-              });
+              console.error("[SHIPPER FORM] Submission error:", error);
+              if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalButtonText;
+              }
             }
           });
         }
       });
-
-      // Newsletter form handler
-      (() => {
-        const NEWSLETTER_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
-        
-        const form = document.getElementById("footer-newsletter-form");
-        if (form) {
-          form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            
-            const email = form.querySelector('input[type="email"]').value;
-            const page = "shipper";
-            
-            try {
-              await fetch(NEWSLETTER_APPS_SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                body: JSON.stringify({
-                  form_type: "newsletter",
-                  email: email,
-                  page: page,
-                  submitted_at: new Date().toISOString(),
-                  user_agent: navigator.userAgent
-                })
-              });
-              
-              form.reset();
-              alert("Thank you for subscribing!");
-            } catch (error) {
-              console.error("Newsletter submission error:", error);
-              alert("Subscription sent!");
-            }
-          });
-        }
-      })();
     </script>
   </body>
 </html>

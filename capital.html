@@ -2,8 +2,39 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./public/Logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="/Logo.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Open Graph / Social Preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="GoLynk" />
+    <meta property="og:image" content="https://golynk.de/og-golynk.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://golynk.de/og-golynk.jpg" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://golynk.de/capital" />
+    <meta name="theme-color" content="#6941c6" />
+    <meta property="og:url" content="https://golynk.de/capital" />
+    <meta
+      property="og:title"
+      content="GoLynk — Logistics Coordination Infrastructure"
+    />
+    <meta
+      property="og:description"
+      content="GoLynk transforms routes already in motion into structured logistics capacity — corridor-first, trust-built, density-driven."
+    />
+    <meta
+      name="twitter:title"
+      content="GoLynk — Logistics Coordination Infrastructure"
+    />
+    <meta
+      name="twitter:description"
+      content="GoLynk transforms routes already in motion into structured logistics capacity — corridor-first, trust-built, density-driven."
+    />
     <title data-i18n="capital.meta.title">Investor Pack | GoLynk</title>
     <meta
       name="description"
@@ -73,52 +104,17 @@
                 >
                   Start Now
                 </a>
-                <div class="relative inline-block">
-                  <select
-                    class="language-selector pl-8 pr-3 py-2 text-sm font-medium text-white bg-white/10 border border-white/20 rounded-md cursor-pointer hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all appearance-none"
-                  >
-                    <option value="en">English</option>
-                    <option value="de">Deutsch</option>
-                  </select>
-                  <svg
-                    class="absolute left-2 top-1/2 -translate-y-1/2 size-4 text-white pointer-events-none"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
+                <!-- Language Selector (Mobile) -->
+                <button class="language-toggle-mobile flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-white/10 border border-white/20 rounded-full hover:bg-white/20 transition-all" aria-label="Toggle language">
+                  <svg class="size-3.5 flex-shrink-0 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10"></circle>
-                    <path
-                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-                    ></path>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                     <path d="M2 12h20"></path>
                   </svg>
-                </div>
-              </div>
+                  <span>EN</span>
+                </button>
 
-              <div class="lg:hidden flex items-center gap-3">
-                <div class="relative inline-block">
-                  <select
-                    class="language-selector pl-8 pr-2 py-1.5 text-xs font-medium text-white bg-white/10 border border-white/20 rounded-md cursor-pointer hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all appearance-none"
-                  >
-                    <option value="en">EN</option>
-                    <option value="de">DE</option>
-                  </select>
-                  <svg
-                    class="absolute left-1.5 top-1/2 -translate-y-1/2 size-3 text-white pointer-events-none"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path
-                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-                    ></path>
-                    <path d="M2 12h20"></path>
-                  </svg>
-                </div>
-                <button id="mobile-menu-button" class="p-2">
+                <button id="mobile-menu-btn" class="p-2">
                   <svg
                     class="w-6 h-6 text-white"
                     fill="none"
@@ -214,7 +210,9 @@
                 >
               </a>
               <a
-                href="mailto:invest@golynk.com?subject=Strategic%20Discussion"
+                href="https://calendly.com/ibrahimismail2300"
+                target="_blank"
+                rel="noopener noreferrer"
                 class="px-6 py-3 border text-text-primary hover:text-primary transition-all inline-flex items-center justify-center rounded-md"
                 style="
                   border-color: var(--color-border-default);
@@ -1025,7 +1023,7 @@
             >
               <div class="flex flex-col sm:flex-row items-center gap-4">
                 <a href="./">
-                  <img src="./public/Logo.svg" alt="GoLynk" class="h-8" />
+                  <img src="/Logo.svg" alt="GoLynk" class="h-8" />
                 </a>
                 <p class="text-text-secondary text-small">
                   Orchestrating existing journeys into faster, greener
@@ -1110,9 +1108,6 @@
         });
       });
 
-      // Apps Script URL for form submissions
-      const CAPITAL_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
-
       // Form submission
       document
         .getElementById("capital-request-form")
@@ -1126,73 +1121,11 @@
           const email = document.getElementById("email").value;
           const note = document.getElementById("note").value;
 
-          const payload = {
-            form_type: "capital-request",
-            page: "capital",
-            full_name: fullName,
-            organization: organization,
-            role: role,
-            focus_area: focusArea,
-            email: email,
-            additional_notes: note,
-            submitted_at: new Date().toISOString(),
-            user_agent: navigator.userAgent
-          };
+          const body = `Full Name: ${fullName}\nOrganization/Fund: ${organization}\nRole: ${role || "Not provided"}\nFocus Area: ${focusArea}\nEmail: ${email}\nAdditional Notes: ${note || "None"}`;
+          const mailtoLink = `mailto:invest@golynk.com?subject=Investor%20Pack%20Request%20-%20${encodeURIComponent(fullName)}&body=${encodeURIComponent(body)}`;
 
-          // Submit to Apps Script
-          fetch(CAPITAL_APPS_SCRIPT_URL, {
-            method: "POST",
-            mode: "no-cors",
-            body: JSON.stringify(payload),
-          })
-          .then(() => {
-            // Show success message
-            alert("Thank you for your inquiry! We'll respond within 24-48 hours.");
-            document.getElementById("capital-request-form").reset();
-          })
-          .catch((error) => {
-            console.error("Form submission error:", error);
-            // Fallback to email
-            const body = `Full Name: ${fullName}\nOrganization/Fund: ${organization}\nRole: ${role || "Not provided"}\nFocus Area: ${focusArea}\nEmail: ${email}\nAdditional Notes: ${note || "None"}`;
-            const mailtoLink = `mailto:invest@golynk.com?subject=Investor%20Pack%20Request%20-%20${encodeURIComponent(fullName)}&body=${encodeURIComponent(body)}`;
-            window.location.href = mailtoLink;
-          });
+          window.location.href = mailtoLink;
         });
-
-        // Newsletter form handler
-        (() => {
-          const NEWSLETTER_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
-          
-          const form = document.getElementById("footer-newsletter-form");
-          if (form) {
-            form.addEventListener("submit", async (e) => {
-              e.preventDefault();
-              
-              const email = form.querySelector('input[type="email"]').value;
-              const page = "capital";
-              
-              try {
-                await fetch(NEWSLETTER_APPS_SCRIPT_URL, {
-                  method: "POST",
-                  mode: "no-cors",
-                  body: JSON.stringify({
-                    form_type: "newsletter",
-                    email: email,
-                    page: page,
-                    submitted_at: new Date().toISOString(),
-                    user_agent: navigator.userAgent
-                  })
-                });
-                
-                form.reset();
-                alert("Thank you for subscribing!");
-              } catch (error) {
-                console.error("Newsletter submission error:", error);
-                alert("Subscription sent!");
-              }
-            });
-          }
-        })();
     </script>
   </body>
 </html>

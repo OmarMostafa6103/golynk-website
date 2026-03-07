@@ -2,11 +2,30 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="../public/Logo.svg" />
+        <link rel="icon" type="image/svg+xml" href="/Logo.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
+    <!-- Open Graph / Social Preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="GoLynk" />
+    <meta property="og:image" content="https://golynk.de/og-golynk.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://golynk.de/og-golynk.jpg" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://golynk.de/careers/apply" />
+    <meta name="theme-color" content="#6941c6" />
+    <meta property="og:url" content="https://golynk.de/careers/apply" />
+    <meta property="og:title" content="GoLynk — Logistics Coordination Infrastructure" />
+    <meta property="og:description" content="GoLynk transforms routes already in motion into structured logistics capacity — corridor-first, trust-built, density-driven." />
+    <meta name="twitter:title" content="GoLynk — Logistics Coordination Infrastructure" />
+    <meta name="twitter:description" content="GoLynk transforms routes already in motion into structured logistics capacity — corridor-first, trust-built, density-driven." />
     <title data-i18n="apply.meta.title">Apply for a Role at GoLynk</title>
     <meta
       name="description"
@@ -33,7 +52,7 @@
         <div class="flex items-center justify-between">
           <!-- Logo -->
           <a href="../index.html">
-            <img src="../public/Logo.svg" alt="Logo" />
+            <img src="./Logo.svg" alt="Logo" />
           </a>
 
           <!-- Desktop Navigation -->
@@ -100,25 +119,17 @@
           <!-- Mobile: Language Selector + Menu Button -->
           <div class="lg:hidden flex items-center gap-3">
             <!-- Language Selector (Mobile) -->
-            <select
-              class="language-selector px-2 py-1.5 text-xs font-medium text-white bg-white/10 border border-white/20 rounded-md cursor-pointer hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
-            >
-              <option
-                value="en"
-                class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
-              >
-                EN
-              </option>
-              <option
-                value="de"
-                class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
-              >
-                DE
-              </option>
-            </select>
+            <button class="language-toggle-mobile flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-white/10 border border-white/20 rounded-full hover:bg-white/20 transition-all" aria-label="Toggle language">
+              <svg class="size-3.5 flex-shrink-0 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                <path d="M2 12h20"></path>
+              </svg>
+              <span>EN</span>
+            </button>
 
             <!-- Mobile Menu Button -->
-            <button class="p-2">
+            <button id="mobile-menu-btn" class="p-2">
               <svg
                 class="w-6 h-6 text-white"
                 fill="none"
@@ -728,7 +739,7 @@
             <!-- Logo and Tagline -->
             <div class="flex flex-col sm:flex-row items-center gap-4">
               <a href="../index.html">
-                <img src="../public/Logo.svg" alt="GoLynk" class="h-8" />
+                <img src="./Logo.svg" alt="GoLynk" class="h-8" />
               </a>
               <p
                 class="text-text-secondary text-small"
@@ -867,41 +878,6 @@
           jobTitleElement.textContent = jobTitle;
         }
       }
-
-      // Newsletter form handler
-      (() => {
-        const NEWSLETTER_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx4DcGu_z-fVAEmTLzUEWj6v8oahhoV1SNskeVwgIlHRTjmDzR4E591_0oHZtQsnrbA/exec";
-        
-        const form = document.getElementById("footer-newsletter-form");
-        if (form) {
-          form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            
-            const email = form.querySelector('input[type="email"]').value;
-            const page = "apply";
-            
-            try {
-              await fetch(NEWSLETTER_APPS_SCRIPT_URL, {
-                method: "POST",
-                mode: "no-cors",
-                body: JSON.stringify({
-                  form_type: "newsletter",
-                  email: email,
-                  page: page,
-                  submitted_at: new Date().toISOString(),
-                  user_agent: navigator.userAgent
-                })
-              });
-              
-              form.reset();
-              alert("Thank you for subscribing!");
-            } catch (error) {
-              console.error("Newsletter submission error:", error);
-              alert("Subscription sent!");
-            }
-          });
-        }
-      })();
     </script>
   </body>
 </html>

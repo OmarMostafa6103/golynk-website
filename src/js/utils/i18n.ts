@@ -623,6 +623,14 @@ function updateLanguageSelectors(): void {
       selector.value = pageLanguage;
     }
   });
+
+  // Update toggle buttons
+  document
+    .querySelectorAll<HTMLElement>(".language-toggle-mobile")
+    .forEach((btn) => {
+      const span = btn.querySelector("span");
+      if (span) span.textContent = pageLanguage.toUpperCase();
+    });
 }
 
 /**
@@ -643,6 +651,24 @@ function attachLanguageSelectorListeners(): void {
 
     newSelector.value = pageLanguage;
   });
+
+  // Attach toggle listeners for mobile pill buttons
+  document
+    .querySelectorAll<HTMLElement>(".language-toggle-mobile")
+    .forEach((btn) => {
+      const newBtn = btn.cloneNode(true) as HTMLElement;
+      btn.parentNode?.replaceChild(newBtn, btn);
+
+      // Set initial label
+      const span = newBtn.querySelector("span");
+      if (span) span.textContent = pageLanguage.toUpperCase();
+
+      newBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const next: LocaleCode = pageLanguage === "en" ? "de" : "en";
+        changeLanguage(next);
+      });
+    });
 }
 
 function initLanguageSelectors(): void {

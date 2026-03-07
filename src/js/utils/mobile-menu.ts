@@ -91,7 +91,7 @@
  */
 export const initMobileMenu = (): void => {
   // Find mobile menu elements
-  const menuBtn = document.querySelector(".lg\\:hidden");
+  const menuBtn = document.getElementById("mobile-menu-btn");
   const overlay = document.getElementById("mobile-menu-overlay");
   const closeBtn = document.getElementById("mobile-menu-close");
 

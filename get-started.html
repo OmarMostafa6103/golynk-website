@@ -2,8 +2,27 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./public/Logo.svg" />
+        <link rel="icon" type="image/svg+xml" href="/Logo.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Open Graph / Social Preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="GoLynk" />
+    <meta property="og:image" content="https://golynk.de/og-golynk.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://golynk.de/og-golynk.jpg" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://golynk.de/get-started" />
+    <meta name="theme-color" content="#6941c6" />
+    <meta property="og:url" content="https://golynk.de/get-started" />
+    <meta property="og:title" content="Get Started with GoLynk - Choose Your Role" />
+    <meta property="og:description" content="Join GoLynk as a shipper, carrier, fleet operator, or microhub owner. Choose your role and start your onboarding journey." />
+    <meta name="twitter:title" content="Get Started with GoLynk - Choose Your Role" />
+    <meta name="twitter:description" content="Join GoLynk as a shipper, carrier, fleet operator, or microhub owner. Choose your role and start your onboarding journey." />
     <title>Get Started with GoLynk - Choose Your Role</title>
     <meta
       name="description"
@@ -175,7 +194,7 @@
           <div class="flex items-center justify-between">
             <!-- Logo -->
             <a href="./">
-              <img src="./public/Logo.svg" alt="GoLynk" class="h-8" />
+              <img src="/Logo.svg" alt="GoLynk" class="h-8" />
             </a>
 
             <!-- Desktop Navigation -->
@@ -254,30 +273,18 @@
             <!-- Mobile: Language Selector + Menu Button -->
             <div class="lg:hidden flex items-center gap-3">
               <!-- Language Selector (Mobile) -->
-              <div class="relative inline-block">
-                <select
-                  class="language-selector pl-8 pr-2 py-1.5 text-xs font-medium text-text-primary bg-gray-50 border border-gray-200 rounded-md cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all appearance-none"
-                >
-                  <option value="en">EN</option>
-                  <option value="de">DE</option>
-                </select>
-                <svg
-                  class="absolute left-1.5 top-1/2 -translate-y-1/2 size-3 text-text-primary pointer-events-none"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
+              <button class="language-toggle-mobile flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-text-primary bg-gray-50 border border-gray-200 rounded-full hover:bg-gray-100 transition-all" aria-label="Toggle language">
+                <svg class="size-3.5 flex-shrink-0 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <circle cx="12" cy="12" r="10"></circle>
-                  <path
-                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-                  ></path>
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                   <path d="M2 12h20"></path>
                 </svg>
-              </div>
+                <span>EN</span>
+              </button>
 
               <!-- Mobile Menu Button -->
               <button
+                id="mobile-menu-btn"
                 class="p-2 text-text-primary hover:text-primary transition-colors"
               >
                 <svg
@@ -2269,7 +2276,7 @@
               <!-- Logo and Tagline -->
               <div class="flex items-center gap-4">
                 <a href="./">
-                  <img src="./public/Logo.svg" alt="GoLynk" class="h-8" />
+                  <img src="/Logo.svg" alt="GoLynk" class="h-8" />
                 </a>
                 <span
                   class="text-sm text-text-secondary"
