@@ -33,8 +33,8 @@
     <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    <script type="module" crossorigin src="/assets/main-BoemApxH.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-CVvUeuv1.css">
+    <script type="module" crossorigin src="/assets/main-Bkr2BHzH.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-uY7OPuBz.css">
   </head>
   <body>
     <!-- SVG Icon Sprite -->
@@ -1785,27 +1785,48 @@
           const nextBtn = document.getElementById("carousel-next");
 
           if (carousel && prevBtn && nextBtn) {
-            const cardWidth = 400; // Approximate card width
-            const scrollAmount = cardWidth + 24; // card width + gap
+            const cards = Array.from(
+              carousel.querySelectorAll(".tech-pill-card"),
+            );
             let autoRotateInterval;
+            let currentIndex = 0;
+            let scrollTicking = false;
+
+            if (cards.length === 0) return;
+
+            function scrollToIndex(index, behavior = "smooth") {
+              const bounded = Math.max(0, Math.min(index, cards.length - 1));
+              currentIndex = bounded;
+              cards[bounded].scrollIntoView({
+                behavior,
+                inline: "center",
+                block: "nearest",
+              });
+              updateButtons();
+            }
+
+            function findClosestIndex() {
+              const viewportCenter = carousel.scrollLeft + carousel.clientWidth / 2;
+              let closest = 0;
+              let minDistance = Number.POSITIVE_INFINITY;
+
+              cards.forEach((card, index) => {
+                const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+                const distance = Math.abs(cardCenter - viewportCenter);
+                if (distance < minDistance) {
+                  minDistance = distance;
+                  closest = index;
+                }
+              });
+
+              return closest;
+            }
 
             function autoRotate() {
               autoRotateInterval = setInterval(() => {
-                carousel.scrollBy({
-                  left: scrollAmount,
-                  behavior: "smooth",
-                });
-
-                // Loop back to start if at the end
-                if (
-                  carousel.scrollLeft >=
-                  carousel.scrollWidth - carousel.clientWidth - 10
-                ) {
-                  setTimeout(() => {
-                    carousel.scrollLeft = 0;
-                  }, 500);
-                }
-              }, 4000); // Rotate every 4 seconds
+                const nextIndex = (currentIndex + 1) % cards.length;
+                scrollToIndex(nextIndex);
+              }, 4000);
             }
 
             function stopAutoRotate() {
@@ -1817,43 +1838,46 @@
               autoRotate();
             }
 
+            function updateButtons() {
+              prevBtn.style.opacity = currentIndex > 0 ? "1" : "0.5";
+              prevBtn.style.pointerEvents = currentIndex > 0 ? "auto" : "none";
+
+              nextBtn.style.opacity =
+                currentIndex < cards.length - 1 ? "1" : "0.5";
+              nextBtn.style.pointerEvents =
+                currentIndex < cards.length - 1 ? "auto" : "none";
+            }
+
             prevBtn.addEventListener("click", function () {
               resumeAutoRotate();
-              carousel.scrollBy({
-                left: -scrollAmount,
-                behavior: "smooth",
-              });
+              scrollToIndex(currentIndex - 1);
             });
 
             nextBtn.addEventListener("click", function () {
               resumeAutoRotate();
-              carousel.scrollBy({
-                left: scrollAmount,
-                behavior: "smooth",
-              });
+              scrollToIndex(currentIndex + 1);
             });
 
             // Pause auto-rotate on manual scroll/interaction
             carousel.addEventListener("mouseenter", stopAutoRotate);
-            carousel.addEventListener("mouseleave", autoRotate);
+            carousel.addEventListener("mouseleave", resumeAutoRotate);
 
-            // Show/hide buttons based on scroll position
-            function updateButtons() {
-              prevBtn.style.opacity = carousel.scrollLeft > 0 ? "1" : "0.5";
-              prevBtn.style.pointerEvents =
-                carousel.scrollLeft > 0 ? "auto" : "none";
+            carousel.addEventListener("scroll", function () {
+              if (scrollTicking) return;
+              scrollTicking = true;
+              requestAnimationFrame(() => {
+                currentIndex = findClosestIndex();
+                updateButtons();
+                scrollTicking = false;
+              });
+            });
 
-              const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-              nextBtn.style.opacity =
-                carousel.scrollLeft < maxScroll - 10 ? "1" : "0.5";
-              nextBtn.style.pointerEvents =
-                carousel.scrollLeft < maxScroll - 10 ? "auto" : "none";
-            }
+            window.addEventListener("resize", function () {
+              scrollToIndex(currentIndex, "auto");
+            });
 
-            carousel.addEventListener("scroll", updateButtons);
-            updateButtons();
-
-            // Start auto-rotation
+            // Initial alignment and rotation
+            scrollToIndex(0, "auto");
             autoRotate();
           }
         });
@@ -1887,7 +1911,7 @@
 
           <!-- Two-Card Comparison -->
           <div
-            class="grid md:grid-cols-2 gap-8 max-w-9/10 md:max-w-4/5 xl:max-w-5xl mx-auto"
+            class="grid md:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 max-w-full sm:max-w-9/10 md:max-w-4/5 lg:max-w-5xl mx-auto px-4 sm:px-6 lg:px-0"
             data-animate="fade-up"
             data-duration="800"
             data-delay="200"
@@ -1898,10 +1922,10 @@
             >
               <!-- Card Header -->
               <div
-                class="bg-gradient-to-r from-slate-200 to-slate-100 px-8 py-6 border-b border-border-default/20"
+                class="bg-gradient-to-r from-slate-200 to-slate-100 px-4 sm:px-6 lg:px-8 py-5 sm:py-6 border-b border-border-default/20"
               >
                 <h3
-                  class="h3 text-text-primary font-semibold"
+                  class="text-lg sm:text-xl lg:text-2xl text-text-primary font-semibold"
                   data-i18n="shipper.comparison.traditional.heading"
                 >
                   Traditional Model
@@ -1909,12 +1933,12 @@
               </div>
 
               <!-- Card Body -->
-              <div class="p-8 space-y-6">
+              <div class="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
                 <!-- Speed -->
-                <div class="space-y-3">
+                <div class="space-y-2 sm:space-y-3">
                   <div class="flex items-center gap-3">
                     <div
-                      class="size-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0"
+                      class="size-7 sm:size-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0"
                     >
                       <svg
                         class="size-5 text-slate-600"
@@ -1931,13 +1955,13 @@
                       </svg>
                     </div>
                     <span
-                      class="body-semibold text-text-primary"
+                      class="text-sm sm:text-base font-semibold text-text-primary"
                       data-i18n="shipper.comparison.labels.speed"
                       >Speed</span
                     >
                   </div>
                   <p
-                    class="text-text-secondary body ml-11"
+                    class="text-text-secondary text-sm sm:text-base ml-10 sm:ml-11"
                     data-i18n="shipper.comparison.traditional.speed"
                   >
                     Standard next‑day or slower
@@ -1945,13 +1969,13 @@
                 </div>
 
                 <!-- Cost -->
-                <div class="space-y-3">
+                <div class="space-y-2 sm:space-y-3">
                   <div class="flex items-center gap-3">
                     <div
-                      class="size-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0"
+                      class="size-7 sm:size-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0"
                     >
                       <svg
-                        class="size-5 text-slate-600"
+                        class="size-4 sm:size-5 text-slate-600"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -1965,13 +1989,13 @@
                       </svg>
                     </div>
                     <span
-                      class="body-semibold text-text-primary"
+                      class="text-sm sm:text-base font-semibold text-text-primary"
                       data-i18n="shipper.comparison.labels.cost"
                       >Cost</span
                     >
                   </div>
                   <p
-                    class="text-text-secondary body ml-11"
+                    class="text-text-secondary text-sm sm:text-base ml-10 sm:ml-11"
                     data-i18n="shipper.comparison.traditional.cost"
                   >
                     Rigid, fixed‑rate stops
@@ -1979,13 +2003,13 @@
                 </div>
 
                 <!-- Shipment Types -->
-                <div class="space-y-3">
+                <div class="space-y-2 sm:space-y-3">
                   <div class="flex items-center gap-3">
                     <div
-                      class="size-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0"
+                      class="size-7 sm:size-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0"
                     >
                       <svg
-                        class="size-5 text-slate-600"
+                        class="size-4 sm:size-5 text-slate-600"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -1999,13 +2023,13 @@
                       </svg>
                     </div>
                     <span
-                      class="body-semibold text-text-primary"
+                      class="text-sm sm:text-base font-semibold text-text-primary"
                       data-i18n="shipper.comparison.labels.shipmentTypes"
                       >Shipment Types</span
                     >
                   </div>
                   <p
-                    class="text-text-secondary body ml-11"
+                    class="text-text-secondary text-sm sm:text-base ml-10 sm:ml-11"
                     data-i18n="shipper.comparison.traditional.shipmentTypes"
                   >
                     Built for either parcels or full trucks, gaps for mixed
@@ -2014,13 +2038,13 @@
                 </div>
 
                 <!-- Tracking & Experience -->
-                <div class="space-y-3">
+                <div class="space-y-2 sm:space-y-3">
                   <div class="flex items-center gap-3">
                     <div
-                      class="size-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0"
+                      class="size-7 sm:size-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0"
                     >
                       <svg
-                        class="size-5 text-slate-600"
+                        class="size-4 sm:size-5 text-slate-600"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -2034,13 +2058,13 @@
                       </svg>
                     </div>
                     <span
-                      class="body-semibold text-text-primary"
+                      class="text-sm sm:text-base font-semibold text-text-primary"
                       data-i18n="shipper.comparison.labels.tracking"
                       >Tracking & Experience</span
                     >
                   </div>
                   <p
-                    class="text-text-secondary body ml-11"
+                    class="text-text-secondary text-sm sm:text-base ml-10 sm:ml-11"
                     data-i18n="shipper.comparison.traditional.tracking"
                   >
                     Generic "out for delivery", hard to follow
@@ -2048,13 +2072,13 @@
                 </div>
 
                 <!-- Sustainability -->
-                <div class="space-y-3">
+                <div class="space-y-2 sm:space-y-3">
                   <div class="flex items-center gap-3">
                     <div
-                      class="size-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0"
+                      class="size-7 sm:size-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0"
                     >
                       <svg
-                        class="size-5 text-slate-600"
+                        class="size-4 sm:size-5 text-slate-600"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -2068,13 +2092,13 @@
                       </svg>
                     </div>
                     <span
-                      class="body-semibold text-text-primary"
+                      class="text-sm sm:text-base font-semibold text-text-primary"
                       data-i18n="shipper.comparison.labels.sustainability"
                       >Sustainability</span
                     >
                   </div>
                   <p
-                    class="text-text-secondary body ml-11"
+                    class="text-text-secondary text-sm sm:text-base ml-10 sm:ml-11"
                     data-i18n="shipper.comparison.traditional.sustainability"
                   >
                     CO₂ impact rarely measured or managed
@@ -2089,10 +2113,10 @@
             >
               <!-- Card Header -->
               <div
-                class="bg-gradient-to-r from-primary to-primary/90 px-8 py-6 border-b border-primary/20"
+                class="bg-gradient-to-r from-primary to-primary/90 px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 border-b border-primary/20"
               >
                 <h3
-                  class="h3 text-white font-semibold"
+                  class="text-lg sm:text-xl lg:text-2xl text-white font-semibold leading-tight"
                   data-i18n="shipper.comparison.golynk.heading"
                 >
                   GoLynk Model
@@ -2100,15 +2124,15 @@
               </div>
 
               <!-- Card Body -->
-              <div class="p-8 space-y-6">
+              <div class="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-5 lg:space-y-6">
                 <!-- Speed -->
-                <div class="space-y-3">
+                <div class="space-y-2 sm:space-y-3">
                   <div class="flex items-center gap-3">
                     <div
-                      class="size-8 rounded-lg bg-primary/15 flex items-center justify-center shrink-0"
+                      class="size-7 sm:size-8 rounded-lg bg-primary/15 flex items-center justify-center shrink-0"
                     >
                       <svg
-                        class="size-5 text-primary"
+                        class="size-4 sm:size-5 text-primary"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -2121,14 +2145,14 @@
                         />
                       </svg>
                     </div>
-                    <span class="body-semibold text-text-primary">Speed</span>
+                    <span class="text-sm sm:text-base font-semibold text-text-primary">Speed</span>
                   </div>
-                  <div class="flex items-start gap-2 ml-11">
-                    <span class="text-primary font-bold text-lg leading-none"
+                  <div class="flex items-start gap-2 ml-10 sm:ml-11">
+                    <span class="text-primary font-bold text-base sm:text-lg leading-none shrink-0 mt-0.5"
                       >✓</span
                     >
                     <p
-                      class="text-text-secondary body"
+                      class="text-text-secondary text-sm sm:text-base"
                       data-i18n="shipper.comparison.golynk.speed"
                     >
                       Same‑day, on‑route by design
@@ -2137,13 +2161,13 @@
                 </div>
 
                 <!-- Cost -->
-                <div class="space-y-3">
+                <div class="space-y-2 sm:space-y-3">
                   <div class="flex items-center gap-3">
                     <div
-                      class="size-8 rounded-lg bg-primary/15 flex items-center justify-center shrink-0"
+                      class="size-7 sm:size-8 rounded-lg bg-primary/15 flex items-center justify-center shrink-0"
                     >
                       <svg
-                        class="size-5 text-primary"
+                        class="size-4 sm:size-5 text-primary"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -2156,14 +2180,14 @@
                         />
                       </svg>
                     </div>
-                    <span class="body-semibold text-text-primary">Cost</span>
+                    <span class="text-sm sm:text-base font-semibold text-text-primary">Cost</span>
                   </div>
-                  <div class="flex items-start gap-2 ml-11">
-                    <span class="text-primary font-bold text-lg leading-none"
+                  <div class="flex items-start gap-2 ml-10 sm:ml-11">
+                    <span class="text-primary font-bold text-base sm:text-lg leading-none shrink-0 mt-0.5"
                       >✓</span
                     >
                     <p
-                      class="text-text-secondary body"
+                      class="text-text-secondary text-sm sm:text-base"
                       data-i18n="shipper.comparison.golynk.cost"
                     >
                       Dynamic pricing based on real routes and capacity
@@ -2172,13 +2196,13 @@
                 </div>
 
                 <!-- Shipment Types -->
-                <div class="space-y-3">
+                <div class="space-y-2 sm:space-y-3">
                   <div class="flex items-center gap-3">
                     <div
-                      class="size-8 rounded-lg bg-primary/15 flex items-center justify-center shrink-0"
+                      class="size-7 sm:size-8 rounded-lg bg-primary/15 flex items-center justify-center shrink-0"
                     >
                       <svg
-                        class="size-5 text-primary"
+                        class="size-4 sm:size-5 text-primary"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -2191,16 +2215,16 @@
                         />
                       </svg>
                     </div>
-                    <span class="body-semibold text-text-primary"
+                    <span class="text-sm sm:text-base font-semibold text-text-primary"
                       >Shipment Types</span
                     >
                   </div>
-                  <div class="flex items-start gap-2 ml-11">
-                    <span class="text-primary font-bold text-lg leading-none"
+                  <div class="flex items-start gap-2 ml-10 sm:ml-11">
+                    <span class="text-primary font-bold text-base sm:text-lg leading-none shrink-0 mt-0.5"
                       >✓</span
                     >
                     <p
-                      class="text-text-secondary body"
+                      class="text-text-secondary text-sm sm:text-base"
                       data-i18n="shipper.comparison.golynk.shipmentTypes"
                     >
                       One layer for parcels, pallets, and mixed flows on
@@ -2210,13 +2234,13 @@
                 </div>
 
                 <!-- Tracking & Experience -->
-                <div class="space-y-3">
+                <div class="space-y-2 sm:space-y-3">
                   <div class="flex items-center gap-3">
                     <div
-                      class="size-8 rounded-lg bg-primary/15 flex items-center justify-center shrink-0"
+                      class="size-7 sm:size-8 rounded-lg bg-primary/15 flex items-center justify-center shrink-0"
                     >
                       <svg
-                        class="size-5 text-primary"
+                        class="size-4 sm:size-5 text-primary"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -2229,16 +2253,16 @@
                         />
                       </svg>
                     </div>
-                    <span class="body-semibold text-text-primary"
+                    <span class="text-sm sm:text-base font-semibold text-text-primary"
                       >Tracking & Experience</span
                     >
                   </div>
-                  <div class="flex items-start gap-2 ml-11">
-                    <span class="text-primary font-bold text-lg leading-none"
+                  <div class="flex items-start gap-2 ml-10 sm:ml-11">
+                    <span class="text-primary font-bold text-base sm:text-lg leading-none shrink-0 mt-0.5"
                       >✓</span
                     >
                     <p
-                      class="text-text-secondary body"
+                      class="text-text-secondary text-sm sm:text-base"
                       data-i18n="shipper.comparison.golynk.tracking"
                     >
                       Leg‑by‑leg updates and clear ETAs customers can actually
@@ -2248,13 +2272,13 @@
                 </div>
 
                 <!-- Sustainability -->
-                <div class="space-y-3">
+                <div class="space-y-2 sm:space-y-3">
                   <div class="flex items-center gap-3">
                     <div
-                      class="size-8 rounded-lg bg-primary/15 flex items-center justify-center shrink-0"
+                      class="size-7 sm:size-8 rounded-lg bg-primary/15 flex items-center justify-center shrink-0"
                     >
                       <svg
-                        class="size-5 text-primary"
+                        class="size-4 sm:size-5 text-primary"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -2267,16 +2291,16 @@
                         />
                       </svg>
                     </div>
-                    <span class="body-semibold text-text-primary"
+                    <span class="text-sm sm:text-base font-semibold text-text-primary"
                       >Sustainability</span
                     >
                   </div>
-                  <div class="flex items-start gap-2 ml-11">
-                    <span class="text-primary font-bold text-lg leading-none"
+                  <div class="flex items-start gap-2 ml-10 sm:ml-11">
+                    <span class="text-primary font-bold text-base sm:text-lg leading-none shrink-0 mt-0.5"
                       >✓</span
                     >
                     <p
-                      class="text-text-secondary body"
+                      class="text-text-secondary text-sm sm:text-base"
                       data-i18n="shipper.comparison.golynk.sustainability"
                     >
                       Per‑shipment CO₂ impact visible and reduced vs traditional
@@ -2751,7 +2775,7 @@
 
           <!-- Technology Pillars Carousel -->
           <div
-            class="space-y-6 max-w-9/10 md:max-w-4/5 xl:max-w-5xl mx-auto"
+            class="space-y-5 max-w-full md:max-w-[94%] xl:max-w-6xl mx-auto px-2 sm:px-3 lg:px-0"
             data-duration="800"
             data-animate="fade-up"
             data-delay="200"
@@ -2759,156 +2783,156 @@
             <!-- Carousel Container -->
             <div class="relative">
               <!-- Carousel Wrapper -->
-              <div class="overflow-x-auto scroll-smooth" id="tech-carousel">
-                <div class="flex gap-6" style="width: fit-content">
+              <div class="overflow-x-auto scroll-smooth snap-x snap-mandatory" id="tech-carousel">
+                <div class="flex w-full gap-2 sm:gap-3 lg:gap-4">
                   <!-- Pillar 1: Orchestration Graph -->
                   <div
-                    class="bg-bg-secondary rounded-lg overflow-hidden flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(50%-12px)]"
+                    class="tech-pill-card snap-center bg-bg-secondary rounded-lg overflow-hidden flex-shrink-0 basis-full min-[900px]:basis-[48%] 2xl:basis-[31%]"
                   >
-                    <div class="grid grid-cols-2 gap-0 h-full">
-                      <!-- Text Content -->
-                      <div class="p-8 space-y-4">
-                        <div
-                          class="size-12 rounded-lg bg-primary-lightest flex items-center justify-center"
-                        >
-                          <svg class="size-6 text-primary">
-                            <use href="#icon-ai-brain"></use>
-                          </svg>
-                        </div>
-                        <h3
-                          class="h3 text-text-primary font-semibold"
-                          data-i18n="shipper.technology.pillars.graph.title"
-                        >
-                          Orchestration Graph
-                        </h3>
-                        <p
-                          class="text-text-secondary body"
-                          data-i18n="shipper.technology.pillars.graph.text"
-                        >
-                          Routes modeled as one movement graph.
-                        </p>
-                      </div>
-                      <!-- Image -->
-                      <div class="overflow-hidden">
+                    <div class="flex flex-col sm:flex-row h-full min-h-auto sm:min-h-64 lg:min-h-80">
+                      <!-- Image First on Mobile -->
+                      <div class="overflow-hidden w-full sm:w-1/2 h-48 sm:h-auto">
                         <img
                           src="/assets/Orchestration%20Graph-BlFl2RBv.png"
                           alt="Orchestration Graph"
                           class="w-full h-full object-cover"
                         />
                       </div>
+                      <!-- Text Content -->
+                      <div class="p-3 sm:p-4 lg:p-5 space-y-2 sm:space-y-3 flex flex-col justify-center w-full sm:w-1/2">
+                        <div
+                          class="size-9 sm:size-10 lg:size-12 rounded-lg bg-primary-lightest flex items-center justify-center"
+                        >
+                          <svg class="size-5 sm:size-5 lg:size-6 text-primary">
+                            <use href="#icon-ai-brain"></use>
+                          </svg>
+                        </div>
+                        <h3
+                          class="text-base sm:text-lg lg:text-xl text-text-primary font-semibold leading-tight"
+                          data-i18n="shipper.technology.pillars.graph.title"
+                        >
+                          Orchestration Graph
+                        </h3>
+                        <p
+                          class="text-text-secondary text-sm sm:text-base leading-relaxed"
+                          data-i18n="shipper.technology.pillars.graph.text"
+                        >
+                          Routes modeled as one movement graph.
+                        </p>
+                      </div>
                     </div>
                   </div>
 
                   <!-- Pillar 2: Matching Engine -->
                   <div
-                    class="bg-bg-secondary rounded-lg overflow-hidden flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(50%-12px)]"
+                    class="tech-pill-card snap-center bg-bg-secondary rounded-lg overflow-hidden flex-shrink-0 basis-full min-[900px]:basis-[48%] 2xl:basis-[31%]"
                   >
-                    <div class="grid grid-cols-2 gap-0 h-full">
-                      <!-- Text Content -->
-                      <div class="p-8 space-y-4">
-                        <div
-                          class="size-12 rounded-lg bg-primary-lightest flex items-center justify-center"
-                        >
-                          <svg class="size-6 text-primary">
-                            <use href="#icon-road-wayside"></use>
-                          </svg>
-                        </div>
-                        <h3
-                          class="h3 text-text-primary font-semibold"
-                          data-i18n="shipper.technology.pillars.matching.title"
-                        >
-                          Matching Engine
-                        </h3>
-                        <p
-                          class="text-text-secondary body"
-                          data-i18n="shipper.technology.pillars.matching.text"
-                        >
-                          Scores legs and chains 2–3 hops.
-                        </p>
-                      </div>
-                      <!-- Image -->
-                      <div class="overflow-hidden">
+                    <div class="flex flex-col sm:flex-row h-full min-h-auto sm:min-h-64 lg:min-h-80">
+                      <!-- Image First on Mobile -->
+                      <div class="overflow-hidden w-full sm:w-1/2 h-48 sm:h-auto">
                         <img
                           src="/assets/matching%20engine-BiAZx9F0.png"
                           alt="Matching Engine"
                           class="w-full h-full object-cover"
                         />
                       </div>
+                      <!-- Text Content -->
+                      <div class="p-3 sm:p-4 lg:p-5 space-y-2 sm:space-y-3 flex flex-col justify-center w-full sm:w-1/2">
+                        <div
+                          class="size-9 sm:size-10 lg:size-12 rounded-lg bg-primary-lightest flex items-center justify-center"
+                        >
+                          <svg class="size-5 sm:size-5 lg:size-6 text-primary">
+                            <use href="#icon-road-wayside"></use>
+                          </svg>
+                        </div>
+                        <h3
+                          class="text-base sm:text-lg lg:text-xl text-text-primary font-semibold leading-tight"
+                          data-i18n="shipper.technology.pillars.matching.title"
+                        >
+                          Matching Engine
+                        </h3>
+                        <p
+                          class="text-text-secondary text-sm sm:text-base leading-relaxed"
+                          data-i18n="shipper.technology.pillars.matching.text"
+                        >
+                          Scores legs and chains 2–3 hops.
+                        </p>
+                      </div>
                     </div>
                   </div>
 
                   <!-- Pillar 3: API‑First Integration -->
                   <div
-                    class="bg-bg-secondary rounded-lg overflow-hidden flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(50%-12px)]"
+                    class="tech-pill-card snap-center bg-bg-secondary rounded-lg overflow-hidden flex-shrink-0 basis-full min-[900px]:basis-[48%] 2xl:basis-[31%]"
                   >
-                    <div class="grid grid-cols-2 gap-0 h-full">
-                      <!-- Text Content -->
-                      <div class="p-8 space-y-4">
-                        <div
-                          class="size-12 rounded-lg bg-primary-lightest flex items-center justify-center"
-                        >
-                          <svg class="size-6 text-primary">
-                            <use href="#icon-discount"></use>
-                          </svg>
-                        </div>
-                        <h3
-                          class="h3 text-text-primary font-semibold"
-                          data-i18n="shipper.technology.pillars.api.title"
-                        >
-                          API-First Integration
-                        </h3>
-                        <p
-                          class="text-text-secondary body"
-                          data-i18n="shipper.technology.pillars.api.text"
-                        >
-                          Plugs into TMS/WMS/ERP and dashboards.
-                        </p>
-                      </div>
-                      <!-- Image -->
-                      <div class="overflow-hidden">
+                    <div class="flex flex-col sm:flex-row h-full min-h-auto sm:min-h-64 lg:min-h-80">
+                      <!-- Image First on Mobile -->
+                      <div class="overflow-hidden w-full sm:w-1/2 h-48 sm:h-auto">
                         <img
                           src="/assets/api-BaiQxdzp.png"
                           alt="API Integration"
                           class="w-full h-full object-cover"
                         />
                       </div>
+                      <!-- Text Content -->
+                      <div class="p-3 sm:p-4 lg:p-5 space-y-2 sm:space-y-3 flex flex-col justify-center w-full sm:w-1/2">
+                        <div
+                          class="size-9 sm:size-10 lg:size-12 rounded-lg bg-primary-lightest flex items-center justify-center"
+                        >
+                          <svg class="size-5 sm:size-5 lg:size-6 text-primary">
+                            <use href="#icon-discount"></use>
+                          </svg>
+                        </div>
+                        <h3
+                          class="text-base sm:text-lg lg:text-xl text-text-primary font-semibold leading-tight"
+                          data-i18n="shipper.technology.pillars.api.title"
+                        >
+                          API-First Integration
+                        </h3>
+                        <p
+                          class="text-text-secondary text-sm sm:text-base leading-relaxed"
+                          data-i18n="shipper.technology.pillars.api.text"
+                        >
+                          Plugs into TMS/WMS/ERP and dashboards.
+                        </p>
+                      </div>
                     </div>
                   </div>
 
                   <!-- Pillar 4: Data‑Driven Improvement -->
                   <div
-                    class="bg-bg-secondary rounded-lg overflow-hidden flex-shrink-0 w-full sm:w-[calc(50%-12px)] lg:w-[calc(50%-12px)]"
+                    class="tech-pill-card snap-center bg-bg-secondary rounded-lg overflow-hidden flex-shrink-0 basis-full min-[900px]:basis-[48%] 2xl:basis-[31%]"
                   >
-                    <div class="grid grid-cols-2 gap-0 h-full">
-                      <!-- Text Content -->
-                      <div class="p-8 space-y-4">
-                        <div
-                          class="size-12 rounded-lg bg-primary-lightest flex items-center justify-center"
-                        >
-                          <svg class="size-6 text-primary">
-                            <use href="#icon-chimney"></use>
-                          </svg>
-                        </div>
-                        <h3
-                          class="h3 text-text-primary font-semibold"
-                          data-i18n="shipper.technology.pillars.data.title"
-                        >
-                          Data-Driven Improvement
-                        </h3>
-                        <p
-                          class="text-text-secondary body"
-                          data-i18n="shipper.technology.pillars.data.text"
-                        >
-                          Better ETAs and pricing as lanes scale.
-                        </p>
-                      </div>
-                      <!-- Image -->
-                      <div class="overflow-hidden">
+                    <div class="flex flex-col sm:flex-row h-full min-h-auto sm:min-h-64 lg:min-h-80">
+                      <!-- Image First on Mobile -->
+                      <div class="overflow-hidden w-full sm:w-1/2 h-48 sm:h-auto">
                         <img
                           src="/assets/data-DagEd0_Q.png"
                           alt="Data-Driven Improvement"
                           class="w-full h-full object-cover"
                         />
+                      </div>
+                      <!-- Text Content -->
+                      <div class="p-3 sm:p-4 lg:p-5 space-y-2 sm:space-y-3 flex flex-col justify-center w-full sm:w-1/2">
+                        <div
+                          class="size-9 sm:size-10 lg:size-12 rounded-lg bg-primary-lightest flex items-center justify-center"
+                        >
+                          <svg class="size-5 sm:size-5 lg:size-6 text-primary">
+                            <use href="#icon-chimney"></use>
+                          </svg>
+                        </div>
+                        <h3
+                          class="text-base sm:text-lg lg:text-xl text-text-primary font-semibold leading-tight"
+                          data-i18n="shipper.technology.pillars.data.title"
+                        >
+                          Data-Driven Improvement
+                        </h3>
+                        <p
+                          class="text-text-secondary text-sm sm:text-base leading-relaxed"
+                          data-i18n="shipper.technology.pillars.data.text"
+                        >
+                          Better ETAs and pricing as lanes scale.
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -2918,19 +2942,17 @@
               <!-- Carousel Navigation -->
               <button
                 id="carousel-prev"
-                class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 lg:-translate-x-16 z-10 p-2 rounded-full bg-primary text-white hover:bg-primary-dark transition-colors hidden lg:flex items-center justify-center"
-                style="width: 44px; height: 44px"
+                class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-10 sm:-translate-x-12 lg:-translate-x-16 z-10 p-2 rounded-full bg-primary text-white hover:bg-primary-dark transition-colors hidden lg:flex items-center justify-center min-w-11 min-h-11 lg:min-w-12 lg:min-h-12"
               >
-                <svg class="size-6">
+                <svg class="size-5 lg:size-6">
                   <use href="#icon-chevron-left"></use>
                 </svg>
               </button>
               <button
                 id="carousel-next"
-                class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 lg:translate-x-16 z-10 p-2 rounded-full bg-primary text-white hover:bg-primary-dark transition-colors hidden lg:flex items-center justify-center"
-                style="width: 44px; height: 44px"
+                class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-10 sm:translate-x-12 lg:translate-x-16 z-10 p-2 rounded-full bg-primary text-white hover:bg-primary-dark transition-colors hidden lg:flex items-center justify-center min-w-11 min-h-11 lg:min-w-12 lg:min-h-12"
               >
-                <svg class="size-6">
+                <svg class="size-5 lg:size-6">
                   <use href="#icon-chevron-right"></use>
                 </svg>
               </button>
