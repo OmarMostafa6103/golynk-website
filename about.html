@@ -154,6 +154,161 @@
         animation: carousel-slide 15s ease-in-out infinite;
       }
 
+      .vision-progress .vision-progress-line {
+        stroke-dasharray: 740;
+        stroke-dashoffset: 740;
+        animation: vision-line-draw 2.2s ease-out forwards;
+      }
+
+      .vision-progress .vision-progress-node {
+        opacity: 0;
+        transform-origin: center;
+        animation: vision-node-reveal 650ms ease-out forwards;
+      }
+
+      .vision-progress .vision-progress-label {
+        opacity: 0;
+        transform: translateY(5px);
+        animation: vision-label-reveal 700ms ease-out forwards;
+      }
+
+      .strategy-progress {
+        --strategy-cycle: 12s;
+      }
+
+      .strategy-progress .strategy-progress-line {
+        stroke: #cbd5e1;
+      }
+
+      .strategy-progress .strategy-progress-node {
+        stroke: #94a3b8;
+        stroke-width: 1.7;
+        transform-box: fill-box;
+        transform-origin: center;
+      }
+
+      .strategy-progress .strategy-progress-label {
+        fill: #64748b;
+        transform-box: fill-box;
+        transform-origin: center;
+        animation: strategy-label-focus var(--strategy-cycle) ease-in-out infinite;
+      }
+
+      .strategy-progress .strategy-progress-indicator {
+        animation: strategy-indicator-move var(--strategy-cycle) cubic-bezier(0.33, 0.01, 0.2, 0.99) infinite;
+      }
+
+      .strategy-progress .strategy-step-1 {
+        animation-delay: 0s;
+      }
+
+      .strategy-progress .strategy-step-2 {
+        animation-delay: 2s;
+      }
+
+      .strategy-progress .strategy-step-3 {
+        animation-delay: 4s;
+      }
+
+      .strategy-progress .strategy-step-4 {
+        animation-delay: 6s;
+      }
+
+      @keyframes vision-line-draw {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+
+      @keyframes vision-node-reveal {
+        0% {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        70% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes vision-label-reveal {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes strategy-label-focus {
+        0%,
+        12% {
+          fill: #020617;
+          opacity: 1;
+          transform: scale(1.16);
+          letter-spacing: 0.01em;
+        }
+        20%,
+        100% {
+          fill: #64748b;
+          opacity: 0.95;
+          transform: scale(1);
+          letter-spacing: 0;
+        }
+      }
+
+      @keyframes strategy-indicator-move {
+        0%,
+        20% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+        25%,
+        45% {
+          transform: translateX(270px);
+          opacity: 1;
+        }
+        50%,
+        70% {
+          transform: translateX(540px);
+          opacity: 1;
+        }
+        75%,
+        94% {
+          transform: translateX(820px);
+          opacity: 1;
+        }
+        97% {
+          transform: translateX(820px);
+          opacity: 0;
+        }
+        99% {
+          transform: translateX(0);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .vision-progress .vision-progress-line,
+        .vision-progress .vision-progress-node,
+        .vision-progress .vision-progress-label,
+        .strategy-progress .strategy-progress-line,
+        .strategy-progress .strategy-progress-node,
+        .strategy-progress .strategy-progress-label,
+        .strategy-progress .strategy-progress-indicator {
+          animation: none;
+          opacity: 1;
+          transform: none;
+          stroke-dashoffset: 0;
+        }
+      }
+
       @keyframes carousel-slide {
         0%,
         100% {
@@ -295,8 +450,8 @@
         }
       }
     </style>
-    <script type="module" crossorigin src="/assets/main-CH1qdbHp.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-B4MoD6Xu.css">
+    <script type="module" crossorigin src="/assets/main-BoemApxH.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-CVvUeuv1.css">
   </head>
   <body>
     <main
@@ -407,32 +562,17 @@
             <!-- Mobile: Language Selector + Menu Button -->
             <div class="lg:hidden flex items-center gap-3">
               <!-- Language Selector (Mobile) -->
-              <div class="relative inline-block">
-                <select
-                  class="language-selector pl-8 pr-2 py-1.5 text-xs font-medium text-white bg-white/10 border border-white/20 rounded-md cursor-pointer hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all appearance-none"
-                >
-                  <option
-                    value="en"
-                    class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
-                  >
-                    EN
-                  </option>
-                  <option
-                    value="de"
-                    class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
-                  >
-                    DE
-                  </option>
-                </select>
-                <svg class="absolute left-1.5 top-1/2 -translate-y-1/2 size-3 text-white pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <button class="language-toggle-mobile flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-white/10 border border-white/20 rounded-full hover:bg-white/20 transition-all" aria-label="Toggle language">
+                <svg class="size-3.5 flex-shrink-0 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <circle cx="12" cy="12" r="10"></circle>
                   <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                   <path d="M2 12h20"></path>
                 </svg>
-              </div>
+                <span>EN</span>
+              </button>
 
               <!-- Mobile Menu Button -->
-              <button id="mobile-menu-button" class="p-2">
+              <button id="mobile-menu-btn" class="p-2">
                 <svg
                   class="w-6 h-6 text-white"
                   fill="none"
@@ -770,7 +910,7 @@
             </div>
 
             <div class="space-y-4">
-              <div class="card-light rounded-lg overflow-hidden p-5 bg-white">
+              <div class="rounded-lg overflow-hidden">
                 <img
                   src="/assets/netwrk-BlBsonYj.png"
                   alt="Carbon and Network Efficiency"
@@ -794,7 +934,7 @@
         <div class="max-w-hero mx-auto">
           <div class="grid md:grid-cols-2 gap-12 items-start">
             <div class="space-y-4">
-              <div class="card-light rounded-lg overflow-hidden p-6 bg-white">
+              <div class="rounded-lg overflow-hidden">
                 <img
                   src="/assets/intelli-BFQ9BWHq.png"
                   alt="Intelligence as Infrastructure"
@@ -920,11 +1060,12 @@
               <div class="hidden md:block">
                 <svg
                   viewBox="0 0 960 90"
-                  class="w-full h-auto"
+                  class="w-full h-auto vision-progress"
                   role="img"
                   aria-label="Structured expansion progression across four connected nodes"
                 >
                   <line
+                    class="vision-progress-line"
                     x1="110"
                     y1="32"
                     x2="850"
@@ -932,11 +1073,41 @@
                     stroke="#CBD5E1"
                     stroke-width="1.5"
                   />
-                  <circle cx="110" cy="32" r="5" fill="#3B82F6" />
-                  <circle cx="357" cy="32" r="5" fill="#3B82F6" />
-                  <circle cx="603" cy="32" r="5" fill="#3B82F6" />
-                  <circle cx="850" cy="32" r="5" fill="#3B82F6" />
+                  <circle
+                    class="vision-progress-node"
+                    style="animation-delay: 0.45s"
+                    cx="110"
+                    cy="32"
+                    r="5"
+                    fill="#3B82F6"
+                  />
+                  <circle
+                    class="vision-progress-node"
+                    style="animation-delay: 0.75s"
+                    cx="357"
+                    cy="32"
+                    r="5"
+                    fill="#3B82F6"
+                  />
+                  <circle
+                    class="vision-progress-node"
+                    style="animation-delay: 1.05s"
+                    cx="603"
+                    cy="32"
+                    r="5"
+                    fill="#3B82F6"
+                  />
+                  <circle
+                    class="vision-progress-node"
+                    style="animation-delay: 1.35s"
+                    cx="850"
+                    cy="32"
+                    r="5"
+                    fill="#3B82F6"
+                  />
                   <text
+                    class="vision-progress-label"
+                    style="animation-delay: 1.1s"
                     x="110"
                     y="72"
                     text-anchor="middle"
@@ -948,6 +1119,8 @@
                     Germany → Validated Corridors
                   </text>
                   <text
+                    class="vision-progress-label"
+                    style="animation-delay: 1.35s"
                     x="357"
                     y="72"
                     text-anchor="middle"
@@ -959,6 +1132,8 @@
                     Corridors → National Density
                   </text>
                   <text
+                    class="vision-progress-label"
+                    style="animation-delay: 1.6s"
                     x="603"
                     y="72"
                     text-anchor="middle"
@@ -970,6 +1145,8 @@
                     National Density → Cross-border Integration
                   </text>
                   <text
+                    class="vision-progress-label"
+                    style="animation-delay: 1.85s"
                     x="850"
                     y="72"
                     text-anchor="middle"
@@ -1977,6 +2154,7 @@
             <div class="flex justify-center py-8">
               <svg
                 viewBox="0 0 940 160"
+                class="strategy-progress"
                 style="
                   max-width: 100%;
                   height: auto;
@@ -1986,6 +2164,7 @@
               >
                 <!-- Connection line -->
                 <line
+                  class="strategy-progress-line"
                   x1="60"
                   y1="80"
                   x2="880"
@@ -1996,14 +2175,16 @@
 
                 <!-- Node 1: Validated Corridor -->
                 <circle
+                  class="strategy-progress-node strategy-step-1"
                   cx="60"
                   cy="80"
                   r="10"
                   fill="none"
-                  stroke="#3B82F6"
-                  stroke-width="2"
+                  stroke="#94A3B8"
+                  stroke-width="1.7"
                 />
                 <text
+                  class="strategy-progress-label strategy-step-1"
                   x="60"
                   y="125"
                   text-anchor="middle"
@@ -2017,14 +2198,16 @@
 
                 <!-- Node 2: National Density -->
                 <circle
+                  class="strategy-progress-node strategy-step-2"
                   cx="330"
                   cy="80"
                   r="10"
                   fill="none"
-                  stroke="#CBD5E1"
-                  stroke-width="1.5"
+                  stroke="#94A3B8"
+                  stroke-width="1.7"
                 />
                 <text
+                  class="strategy-progress-label strategy-step-2"
                   x="330"
                   y="125"
                   text-anchor="middle"
@@ -2038,14 +2221,16 @@
 
                 <!-- Node 3: Cross-Border Integration -->
                 <circle
+                  class="strategy-progress-node strategy-step-3"
                   cx="600"
                   cy="80"
                   r="10"
                   fill="none"
-                  stroke="#CBD5E1"
-                  stroke-width="1.5"
+                  stroke="#94A3B8"
+                  stroke-width="1.7"
                 />
                 <text
+                  class="strategy-progress-label strategy-step-3"
                   x="600"
                   y="125"
                   text-anchor="middle"
@@ -2059,14 +2244,16 @@
 
                 <!-- Node 4: European Layer -->
                 <circle
+                  class="strategy-progress-node strategy-step-4"
                   cx="880"
                   cy="80"
                   r="10"
                   fill="none"
-                  stroke="#CBD5E1"
-                  stroke-width="1.5"
+                  stroke="#94A3B8"
+                  stroke-width="1.7"
                 />
                 <text
+                  class="strategy-progress-label strategy-step-4"
                   x="880"
                   y="125"
                   text-anchor="middle"
@@ -2077,6 +2264,14 @@
                 >
                   European Layer
                 </text>
+
+                <circle
+                  class="strategy-progress-indicator"
+                  cx="60"
+                  cy="80"
+                  r="5"
+                  fill="#0F172A"
+                />
               </svg>
             </div>
 
@@ -2105,7 +2300,9 @@
                   >Request Executive Overview</a
                 >
                 <a
-                  href="mailto:invest@golynk.com?subject=Schedule%20Strategic%20Discussion"
+                  href="https://calendly.com/ibrahimismail2300"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   class="button-secondary-light"
                   data-i18n="about.strategy.conversations.ctaSecondary"
                   >Schedule Strategic Discussion</a

@@ -428,8 +428,8 @@
         transform: translateY(0);
       }
     </style>
-    <script type="module" crossorigin src="/assets/main-CH1qdbHp.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-B4MoD6Xu.css">
+    <script type="module" crossorigin src="/assets/main-BoemApxH.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-CVvUeuv1.css">
   </head>
   <body>
     <main
@@ -510,74 +510,17 @@
                   Start Now
                 </a>
 
-                <div class="relative inline-block">
-                  <select
-                    class="language-selector pl-8 pr-3 py-2 text-sm font-medium text-white bg-white/10 border border-white/20 rounded-md cursor-pointer hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all appearance-none"
-                  >
-                    <option
-                      value="en"
-                      class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
-                    >
-                      English
-                    </option>
-                    <option
-                      value="de"
-                      class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
-                    >
-                      Deutsch
-                    </option>
-                  </select>
-                  <svg
-                    class="absolute left-2 top-1/2 -translate-y-1/2 size-4 text-white pointer-events-none"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
+                <!-- Language Selector (Mobile) -->
+                <button class="language-toggle-mobile flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-white bg-white/10 border border-white/20 rounded-full hover:bg-white/20 transition-all" aria-label="Toggle language">
+                  <svg class="size-3.5 flex-shrink-0 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10"></circle>
-                    <path
-                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-                    ></path>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                     <path d="M2 12h20"></path>
                   </svg>
-                </div>
-              </div>
+                  <span>EN</span>
+                </button>
 
-              <!-- Mobile: Language Selector + Menu Button -->
-              <div class="lg:hidden flex items-center gap-3">
-                <div class="relative inline-block">
-                  <select
-                    class="language-selector pl-8 pr-2 py-1.5 text-xs font-medium text-white bg-white/10 border border-white/20 rounded-md cursor-pointer hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all appearance-none"
-                  >
-                    <option
-                      value="en"
-                      class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
-                    >
-                      EN
-                    </option>
-                    <option
-                      value="de"
-                      class="peer-checked:bg-primary-dark text-text-on-dark bg-primary"
-                    >
-                      DE
-                    </option>
-                  </select>
-                  <svg
-                    class="absolute left-1.5 top-1/2 -translate-y-1/2 size-3 text-white pointer-events-none"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <path
-                      d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
-                    ></path>
-                    <path d="M2 12h20"></path>
-                  </svg>
-                </div>
-
-                <button id="mobile-menu-button" class="p-2">
+                <button id="mobile-menu-btn" class="p-2">
                   <svg
                     class="w-6 h-6 text-white"
                     fill="none"
