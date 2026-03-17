@@ -1797,10 +1797,16 @@
             function scrollToIndex(index, behavior = "smooth") {
               const bounded = Math.max(0, Math.min(index, cards.length - 1));
               currentIndex = bounded;
-              cards[bounded].scrollIntoView({
+              const card = cards[bounded];
+              const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+              const targetLeft = cardCenter - carousel.clientWidth / 2;
+              const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+              const clampedLeft = Math.max(0, Math.min(targetLeft, maxScroll));
+
+              // Horizontal-only scroll to avoid any vertical page jump.
+              carousel.scrollTo({
+                left: clampedLeft,
                 behavior,
-                inline: "center",
-                block: "nearest",
               });
               updateButtons();
             }
