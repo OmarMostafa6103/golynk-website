@@ -38,7 +38,7 @@ import tailwindcss from "@tailwindcss/vite";
 import path from "path";
 
 export default defineConfig({
-  base: "/golynk-website/",
+  base: "/",
   plugins: [tailwindcss()],
   resolve: {
     alias: {
@@ -69,6 +69,8 @@ export default defineConfig({
         corridor: path.resolve(__dirname, "corridor.html"),
         capital: path.resolve(__dirname, "capital.html"),
         privacy: path.resolve(__dirname, "privacy.html"),
+        pricing: path.resolve(__dirname, "pricing.html"),
+        apiDocs: path.resolve(__dirname, "api-docs.html"),
         careersJobs: path.resolve(__dirname, "careers/jobs.html"),
         careersApply: path.resolve(__dirname, "careers/apply.html"),
       },

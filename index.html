@@ -1696,7 +1696,7 @@
                 <div class="route-line"></div>
 
                 <!-- Steps -->
-                <div class="timeline-step">
+                <div class="timeline-step active">
                   <div class="step-node"></div>
                   <div class="step-info">
                     <div
@@ -1712,7 +1712,7 @@
                       Warehouse
                     </div>
                   </div>
-                  <div class="step-badge">
+                  <div class="step-badge active">
                     <span
                       class="badge-text"
                       data-i18n="home.enterprise.orchestration.timeline.0.badge"
@@ -1771,7 +1771,7 @@
                   </div>
                 </div>
 
-                <div class="timeline-step active">
+                <div class="timeline-step">
                   <div class="step-node"></div>
                   <div class="step-info">
                     <div
@@ -1787,7 +1787,7 @@
                       Active leg
                     </div>
                   </div>
-                  <div class="step-badge active">
+                  <div class="step-badge">
                     <span
                       class="badge-text"
                       data-i18n="home.enterprise.orchestration.timeline.3.badge"
@@ -1897,6 +1897,46 @@
           </p>
         </div>
       </section>
+
+      <script>
+        (function () {
+          const panels = document.querySelectorAll(".orchestration-panel");
+
+          panels.forEach((panel) => {
+            const timeline = panel.querySelector(".journey-timeline");
+            const steps = Array.from(panel.querySelectorAll(".timeline-step"));
+            let activeIndex = 0;
+
+            if (!timeline || steps.length === 0) return;
+
+            const updateProgressLine = (index) => {
+              const maxIndex = Math.max(steps.length - 1, 1);
+              const progress = (index / maxIndex) * 100;
+              timeline.style.setProperty("--active-progress", `${progress}%`);
+            };
+
+            const activateStep = (index) => {
+              steps.forEach((step, i) => {
+                const isActive = i === index;
+                const badge = step.querySelector(".step-badge");
+                step.classList.toggle("active", isActive);
+                if (badge) {
+                  badge.classList.toggle("active", isActive);
+                }
+              });
+
+              updateProgressLine(index);
+            };
+
+            activateStep(activeIndex);
+
+            setInterval(() => {
+              activeIndex = (activeIndex + 1) % steps.length;
+              activateStep(activeIndex);
+            }, 3400);
+          });
+        })();
+      </script>
 
       <style>
         .access-carousel-container {
