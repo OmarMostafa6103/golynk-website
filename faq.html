@@ -44,13 +44,19 @@
           fill="currentColor"
         />
       </symbol>
+      <symbol id="icon-chevron-down" viewBox="0 0 640 640">
+        <path d="M300.3 440.8C312.9 451 331.4 450.3 343.1 438.6L471.1 310.6C480.3 301.4 483 287.7 478 275.7C473 263.7 461.4 256 448.5 256L192.5 256C179.6 256 167.9 263.8 162.9 275.8C157.9 287.8 160.7 301.5 169.9 310.6L297.9 438.6L300.3 440.8z" fill="currentColor"/>
+      </symbol>
+      <symbol id="icon-chevron-right" viewBox="0 0 640 640">
+        <path d="M300.3 440.8C312.9 451 331.4 450.3 343.1 438.6L471.1 310.6C480.3 301.4 483 287.7 478 275.7C473 263.7 461.4 256 448.5 256L192.5 256C179.6 256 167.9 263.8 162.9 275.8C157.9 287.8 160.7 301.5 169.9 310.6L297.9 438.6L300.3 440.8z" fill="currentColor" style="transform: rotate(-90deg); transform-origin: center;"/>
+      </symbol>
     </svg>
     <meta
       name="description"
       content="Find detailed answers about GoLynk – how it works for shippers, carriers, microhubs, and partners. Learn about safety, payouts, carbon tracking, and ESG reporting."
     />
-    <script type="module" crossorigin src="/assets/main-7M0vfFMW.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-DNIOsnAp.css">
+    <script type="module" crossorigin src="/assets/main-DFdjekZu.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-Kf7rhp4b.css">
   </head>
   <body>
     <main
@@ -275,16 +281,26 @@
       </div>
 
       <!-- FAQ Content -->
-      <section class="py-20 md:py-28">
-        <div class="max-w-9/10 md:max-w-4/5 xl:max-w-5xl mx-auto px-6 md:px-8">
+      <section class="py-16 md:py-20 lg:py-28">
+        <div class="mx-auto ">
           <!-- For Shippers & Businesses -->
           <div class="mb-20 md:mb-28">
-            <h2
-              class="text-3xl md:text-4xl font-bold text-text-primary mb-10 md:mb-12"
-              data-i18n="faq.businesses.heading"
+            <button
+              class="faq-section-toggle w-full flex items-center justify-between text-left py-3 md:py-4 px-0 hover:opacity-70 transition-opacity group"
+              aria-expanded="false"
+              aria-controls="section-businesses"
             >
-              Businesses & Shippers
-            </h2>
+              <h2
+                class="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary flex-1 pr-4"
+                data-i18n="faq.businesses.heading"
+              >
+                Businesses & Shippers
+              </h2>
+              <svg class="faq-section-icon size-6 sm:size-7 md:size-8 shrink-0 flex-shrink-0 transition-transform" aria-hidden="true" style="transform: rotate(0deg);">
+                <use href="#icon-chevron-down"></use>
+              </svg>
+            </button>
+            <div class="faq-section-content overflow-hidden transition-all duration-300" id="section-businesses" style="max-height: 0; overflow: hidden;">
               <div class="faq-item border-b border-border-default pb-4">
                 <button
                   class="faq-question w-full flex items-center justify-between text-left py-4 group"
@@ -915,16 +931,27 @@
                 </div>
               </div>
             </div>
+            </div>
           </div>
 
           <!-- For Carriers & Travel Participants -->
           <div class="mb-20 md:mb-28">
-            <h2
-              class="text-3xl md:text-4xl font-bold text-text-primary mb-10 md:mb-12"
-              data-i18n="faq.carriers.heading"
+            <button
+              class="faq-section-toggle w-full flex items-center justify-between text-left py-3 md:py-4 px-0 hover:opacity-70 transition-opacity group"
+              aria-expanded="false"
+              aria-controls="section-carriers"
             >
-              Travel Participants & Carriers
-            </h2>
+              <h2
+                class="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary flex-1 pr-4"
+                data-i18n="faq.carriers.heading"
+              >
+                Travel Participants & Carriers
+              </h2>
+              <svg class="faq-section-icon size-6 sm:size-7 md:size-8 shrink-0 flex-shrink-0 transition-transform" aria-hidden="true" style="transform: rotate(0deg);">
+                <use href="#icon-chevron-down"></use>
+              </svg>
+            </button>
+            <div class="faq-section-content overflow-hidden transition-all duration-300" id="section-carriers" style="max-height: 0; overflow: hidden;">
             <div class="space-y-4" id="faq-travel">
               <div class="faq-item border-b border-border-default pb-4">
                 <button
@@ -1352,16 +1379,27 @@
                 </div>
               </div>
             </div>
+            </div>
           </div>
 
           <!-- Environmental Impact & Science -->
           <div class="mb-20 md:mb-28">
-            <h2
-              class="text-3xl md:text-4xl font-bold text-text-primary mb-10 md:mb-12"
-              data-i18n="faq.environment.heading"
+            <button
+              class="faq-section-toggle w-full flex items-center justify-between text-left py-3 md:py-4 px-0 hover:opacity-70 transition-opacity group"
+              aria-expanded="false"
+              aria-controls="section-environment"
             >
-              Carbon & ESG / Environment
-            </h2>
+              <h2
+                class="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary flex-1 pr-4"
+                data-i18n="faq.environment.heading"
+              >
+                Carbon & ESG / Environment
+              </h2>
+              <svg class="faq-section-icon size-6 sm:size-7 md:size-8 shrink-0 flex-shrink-0 transition-transform" aria-hidden="true" style="transform: rotate(0deg);">
+                <use href="#icon-chevron-down"></use>
+              </svg>
+            </button>
+            <div class="faq-section-content overflow-hidden transition-all duration-300" id="section-environment" style="max-height: 0; overflow: hidden;">
             <div class="space-y-4" id="faq-environmental">
               <div class="faq-item border-b border-border-default pb-4">
                 <button
@@ -1460,16 +1498,27 @@
                 </div>
               </div>
             </div>
+            </div>
           </div>
 
           <!-- Trust, Security & Compliance -->
           <div class="mb-20 md:mb-28">
-            <h2
-              class="text-3xl md:text-4xl font-bold text-text-primary mb-10 md:mb-12"
-              data-i18n="faq.security.heading"
+            <button
+              class="faq-section-toggle w-full flex items-center justify-between text-left py-3 md:py-4 px-0 hover:opacity-70 transition-opacity group"
+              aria-expanded="false"
+              aria-controls="section-security"
             >
-              Trust, Security & Compliance
-            </h2>
+              <h2
+                class="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary flex-1 pr-4"
+                data-i18n="faq.security.heading"
+              >
+                Trust, Security & Compliance
+              </h2>
+              <svg class="faq-section-icon size-6 sm:size-7 md:size-8 shrink-0 flex-shrink-0 transition-transform" aria-hidden="true" style="transform: rotate(0deg);">
+                <use href="#icon-chevron-down"></use>
+              </svg>
+            </button>
+            <div class="faq-section-content overflow-hidden transition-all duration-300" id="section-security" style="max-height: 0; overflow: hidden;">
             <div class="space-y-4" id="faq-security">
               <div class="faq-item border-b border-border-default pb-4">
                 <button
@@ -1600,16 +1649,27 @@
                 </div>
               </div>
             </div>
+            </div>
           </div>
 
           <!-- Community & Feedback -->
-          <div>
-            <h2
-              class="text-3xl md:text-4xl font-bold text-text-primary mb-10 md:mb-12"
-              data-i18n="faq.community.heading"
+          <div class="mb-20 md:mb-28">
+            <button
+              class="faq-section-toggle w-full flex items-center justify-between text-left py-3 md:py-4 px-0 hover:opacity-70 transition-opacity group"
+              aria-expanded="false"
+              aria-controls="section-community"
             >
-              Community & Feedback
-            </h2>
+              <h2
+                class="text-2xl sm:text-3xl md:text-4xl font-bold text-text-primary flex-1 pr-4"
+                data-i18n="faq.community.heading"
+              >
+                Community & Feedback
+              </h2>
+              <svg class="faq-section-icon size-6 sm:size-7 md:size-8 shrink-0 flex-shrink-0 transition-transform" aria-hidden="true" style="transform: rotate(0deg);">
+                <use href="#icon-chevron-down"></use>
+              </svg>
+            </button>
+            <div class="faq-section-content overflow-hidden transition-all duration-300" id="section-community" style="max-height: 0; overflow: hidden;">
             <div class="space-y-4" id="faq-community">
               <div class="faq-item border-b border-border-default pb-4">
                 <button
@@ -1709,6 +1769,7 @@
                 </div>
               </div>
             </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1753,6 +1814,30 @@
               this.setAttribute("aria-expanded", "true");
               answer.style.overflow = "visible";
               answer.style.maxHeight = answer.scrollHeight + "px";
+            }
+          });
+        });
+
+        // Handle section toggle
+        const sectionToggles = document.querySelectorAll(".faq-section-toggle");
+
+        sectionToggles.forEach((toggle) => {
+          toggle.addEventListener("click", function () {
+            const sectionId = this.getAttribute("aria-controls");
+            const section = document.getElementById(sectionId);
+            const icon = this.querySelector(".faq-section-icon");
+            const isExpanded = this.getAttribute("aria-expanded") === "true";
+
+            if (isExpanded) {
+              this.setAttribute("aria-expanded", "false");
+              section.style.maxHeight = "0";
+              section.style.overflow = "hidden";
+              icon.style.transform = "rotate(0deg)";
+            } else {
+              this.setAttribute("aria-expanded", "true");
+              section.style.maxHeight = section.scrollHeight + "px";
+              section.style.overflow = "visible";
+              icon.style.transform = "rotate(-90deg)";
             }
           });
         });
