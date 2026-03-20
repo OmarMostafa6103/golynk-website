@@ -201,6 +201,13 @@
         margin-top: 23px;
       }
 
+      .step-connector-vertical {
+        width: 2px;
+        height: 24px;
+        background: var(--border-color);
+        margin: 8px 0;
+      }
+
       /* Highlight columns */
       .highlight-col {
         text-align: center;
@@ -314,8 +321,8 @@
         width: 100%;
       }
     </style>
-    <script type="module" crossorigin src="/assets/main-DFdjekZu.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/main-Kf7rhp4b.css">
+    <script type="module" crossorigin src="/assets/main-DmZLYD4P.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main-CDPtlHVf.css">
   </head>
   <body>
     <main
@@ -738,10 +745,10 @@
 
           <!-- Horizontal progression -->
           <div
-            class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-0"
+            class="flex flex-col sm:flex-row items-center sm:items-center justify-center gap-6 sm:gap-0"
           >
             <!-- Step 1 -->
-            <div class="step-node flex-1">
+            <div class="step-node flex-1 w-full sm:w-auto">
               <div
                 class="node-circle"
                 data-i18n="investor.networkCompounding.steps.step1.number"
@@ -755,10 +762,11 @@
                 Corridor Validation
               </div>
             </div>
+            <div class="step-connector-vertical sm:hidden"></div>
             <div class="step-connector hidden sm:block"></div>
 
             <!-- Step 2 -->
-            <div class="step-node flex-1">
+            <div class="step-node flex-1 w-full sm:w-auto">
               <div
                 class="node-circle"
                 data-i18n="investor.networkCompounding.steps.step2.number"
@@ -772,10 +780,11 @@
                 Density Consolidation
               </div>
             </div>
+            <div class="step-connector-vertical sm:hidden"></div>
             <div class="step-connector hidden sm:block"></div>
 
             <!-- Step 3 -->
-            <div class="step-node flex-1">
+            <div class="step-node flex-1 w-full sm:w-auto">
               <div
                 class="node-circle"
                 data-i18n="investor.networkCompounding.steps.step3.number"
@@ -789,10 +798,11 @@
                 Adjacency Expansion
               </div>
             </div>
+            <div class="step-connector-vertical sm:hidden"></div>
             <div class="step-connector hidden sm:block"></div>
 
             <!-- Step 4 -->
-            <div class="step-node flex-1">
+            <div class="step-node flex-1 w-full sm:w-auto">
               <div
                 class="node-circle"
                 data-i18n="investor.networkCompounding.steps.step4.number"
